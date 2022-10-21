@@ -1,20 +1,9 @@
-import React, { FC } from "react";
-import { Routes, Route, Outlet } from "react-router-dom";
+import React from "react";
+import { Routes, Route } from "react-router-dom";
 import { AuthPage } from "../../pages/auth-page";
-import { Header } from "../components/header";
-import { Aside } from "../components/aside";
+import { MainPage } from "../../pages/main-page";
+import { Layout } from "../layout";
 
-const Layout = () => {
-  return (
-    <>
-      <Header />
-      <div style={{ display: "flex" }}>
-        <Aside />
-        <Outlet />
-      </div>
-    </>
-  );
-};
 const NotFound = () => {
   return <div>Page not found</div>;
 };
@@ -22,6 +11,7 @@ export const AppRouter = () => {
   return (
     <Routes>
       <Route path={"/"} element={<Layout />}>
+        <Route index element={<MainPage />} />
         <Route path={"test"} element={<div>Test content</div>} />
       </Route>
       <Route path={"auth"} element={<AuthPage />} />
