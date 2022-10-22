@@ -12,6 +12,8 @@ export enum ColorsDark {
   widgetBackGround = "#23262d",
   activeNavLinkBackground = "#30333c",
   widgetBorderColor = "#272a31",
+  authTitleText = "#f7b03e",
+  authInputLabel = "#f1f3f6",
 }
 export enum ColorsLight {
   backGround = "#f1f3f6",
@@ -25,6 +27,8 @@ export enum ColorsLight {
   widgetBackGround = "#ffffff",
   activeNavLinkBackground = "#eeeeee",
   widgetBorderColor = "#e4e5e7",
+  authTitleText = "#f7b03e",
+  authInputLabel = "#444444",
 }
 
 export const color = (theme: Theme) => {

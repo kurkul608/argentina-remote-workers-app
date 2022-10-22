@@ -11,10 +11,12 @@ export const Wrapper = styled.div`
 `;
 
 export const Title = styled.h1`
-  color: ${(props) => color(props.theme.mainTheme).dateText};
+  font-size: 2.2rem;
+  color: ${(props) => color(props.theme.mainTheme).authTitleText};
 `;
 
 export const UnderTitle = styled.p`
+  font-size: 1.5rem;
   color: ${(props) => color(props.theme.mainTheme).regularTabText};
 `;
 export const FormWrapper = styled.div`
@@ -24,7 +26,8 @@ export const StyledForm = styled.form``;
 
 export const Label = styled.label`
   display: block;
-  color: ${(props) => color(props.theme.mainTheme).regularTabText};
+  font-size: 1.5rem;
+  color: ${(props) => color(props.theme.mainTheme).authInputLabel};
   margin-bottom: 5px;
 `;
 
