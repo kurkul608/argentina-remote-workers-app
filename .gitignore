@@ -1,3 +1,9 @@
-admin-app/dist
-admin-app/node_modules
-.idea
+dist
+node_modules
+*.idea
+*.env
+*~
+.directory
+.DS_Store
+.AppleDouble
+.LSOverride
