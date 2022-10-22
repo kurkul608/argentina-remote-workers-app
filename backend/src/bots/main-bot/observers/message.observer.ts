@@ -1,6 +1,7 @@
 import TelegramBot from "node-telegram-bot-api";
 import { isPrivateOrChannel } from "../../../services/bots-services/chat-type-checker-service";
 import Chat from "../../../models/chat/chat.model";
+import { sendMessageService } from "../services/send-message.service";
 
 export const messageObserver = (bot: TelegramBot) => {
   const botName = process.env.BOT_NAME;
@@ -14,7 +15,7 @@ export const messageObserver = (bot: TelegramBot) => {
         );
 
         if (isItsMe && !isPrivateOrChannel(msg.chat.type)) {
-          await bot.sendMessage(chatId, "Здарова удаленщики");
+          await sendMessageService(bot, chatId, "Здарова удаленщики");
           const chat = await new Chat(msg.chat);
           await chat.save();
           return true;
@@ -24,12 +25,13 @@ export const messageObserver = (bot: TelegramBot) => {
         );
         if (newUser && !isPrivateOrChannel(msg.chat.type)) {
           await bot.banChatMember(chatId, newUser.id.toString());
-          return bot.sendMessage(chatId, "Ботам здесь не рады");
+          return sendMessageService(bot, chatId, "Ботам здесь не рады");
         }
       }
     }
     if (isPrivateOrChannel(msg.chat.type)) {
-      return bot.sendMessage(
+      return sendMessageService(
+        bot,
         chatId,
         "Привет, я работаю только в группах, а не в личных сообщениях"
       );
