@@ -2,6 +2,9 @@ import { createGlobalStyle } from "styled-components";
 import { color } from "./constants/colors";
 
 export default createGlobalStyle`
+     html {
+      font-size: 10px;
+     }
      body {
       background-color: ${(props) => color(props.theme.mainTheme).backGround};
      }
