@@ -31,16 +31,6 @@ export const Label = styled.label`
   margin-bottom: 5px;
 `;
 
-export const Submit = styled.button`
-  display: block;
-  padding: 15px;
-  width: 100%;
-  color: ${(props) => color(props.theme.mainTheme).widgetMainText};
-  background: ${(props) => color(props.theme.mainTheme).backGround};
-  border-radius: 10px;
-  border: none;
-`;
-
 export const ButtonWrapper = styled.div`
   margin-top: 50px;
   display: flex;

@@ -1,17 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import { AuthFormInput } from "./components/auth-form-input";
 import {
   ButtonWrapper,
   FormWrapper,
   Label,
   StyledForm,
-  Submit,
   UnderTitle,
   Wrapper,
 } from "./styled";
 import { Title } from "./styled";
+import { AuthFormSubmit } from "./components/auth-form-submit";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { authAsync, IUserLogin } from "./redux/auth-form.slice";
+import { Navigate } from "react-router";
 
 export const AuthForm = () => {
+  const { token } = useAppSelector((state) => state.auth);
+  const dispatch = useAppDispatch();
+  const isAuth = !!token;
+  const [loginInput, setLoginInput] = useState("");
+
+  if (isAuth) {
+    return <Navigate to={"/"}></Navigate>;
+  }
+  const onSubmit = async (values: IUserLogin) => {
+    const result = await dispatch(authAsync(values));
+    if (result.payload) {
+      console.log(result.payload);
+    }
+  };
+
+  console.log(token);
   return (
     <>
       <Wrapper>
@@ -20,9 +39,11 @@ export const AuthForm = () => {
         <FormWrapper>
           <StyledForm name={"auth"}>
             <Label form={"auth"}>username</Label>
-            <AuthFormInput></AuthFormInput>
+            <AuthFormInput onChange={setLoginInput}></AuthFormInput>
             <ButtonWrapper>
-              <Submit type={"submit"}>Submit</Submit>
+              <AuthFormSubmit
+                onSubmit={() => onSubmit({ username: loginInput })}
+              ></AuthFormSubmit>
             </ButtonWrapper>
           </StyledForm>
         </FormWrapper>

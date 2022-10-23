@@ -1,9 +1,19 @@
 import React from "react";
 import { AuthInput } from "./styled";
-export const AuthFormInput = () => {
+
+interface IAuthFormProps {
+  onChange: any;
+}
+
+export const AuthFormInput = ({ onChange }: IAuthFormProps) => {
   return (
     <>
-      <AuthInput placeholder={"Enter your username"}></AuthInput>
+      <AuthInput
+        onChange={(e) => {
+          onChange(e.target.value);
+        }}
+        placeholder={"Enter your username"}
+      ></AuthInput>
     </>
   );
 };
