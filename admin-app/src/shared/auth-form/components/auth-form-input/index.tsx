@@ -24,10 +24,10 @@ export const AuthFormInput = ({ onChange }: IAuthFormProps) => {
           id={"login"}
           autoComplete={"off"}
         />
-        {value.length === 0 ? (
-          <Placeholder htmlFor={"login"}>username</Placeholder>
-        ) : (
+        {value.length ? (
           <PlaceholderFilled>username</PlaceholderFilled>
+        ) : (
+          <Placeholder htmlFor={"login"}>username</Placeholder>
         )}
       </AuthInputWrapper>
     </>
