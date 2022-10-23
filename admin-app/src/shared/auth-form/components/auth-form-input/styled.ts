@@ -14,9 +14,6 @@ export const AuthInput = styled.input`
   padding: 10px 0;
   width: 100%;
   border: none;
-  &qwe {
-    margin-top: 10px;
-  }
 `;
 
 export const Placeholder = styled.label`
@@ -32,8 +29,8 @@ export const Placeholder = styled.label`
   ${AuthInputWrapper}:focus-within & {
     top: -23px;
     left: 0;
-    transition: all 0.3s;
     color: ${(props) => color(props.theme.mainTheme).authInputFilled};
+    transition: all 0.3s;
   }
 `;
 
