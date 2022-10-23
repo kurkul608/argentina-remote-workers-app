@@ -33,10 +33,7 @@ export const Placeholder = styled.div`
   }
 `;
 
-export const PlaceholderFilled = styled.div`
-  position: absolute;
-  font-size: 1.5rem;
+export const PlaceholderFilled = styled(Placeholder)`
   top: -23px;
   left: 0;
-  color: ${(props) => color(props.theme.mainTheme).authInputLabel};
 `;
