@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { AuthFormInput } from "./components/auth-form-input";
+import { AuthFormInput } from "../components/form-input";
 import {
   ButtonWrapper,
   FormWrapper,
@@ -8,7 +8,7 @@ import {
   Wrapper,
 } from "./styled";
 import { Title } from "./styled";
-import { AuthFormSubmit } from "./components/auth-form-submit";
+import { AuthFormSubmit } from "../components/form-submit";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { authAsync, IUserLogin } from "./redux/auth-form.slice";
 import { Navigate } from "react-router";
