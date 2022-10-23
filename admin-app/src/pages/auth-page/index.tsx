@@ -1,10 +1,10 @@
 import React from "react";
-import {AuthForm} from "../../shared/auth-form";
+import { AuthForm } from "../../shared/auth-form";
 
 export const AuthPage = () => {
-    return (
-        <>
-          <AuthForm></AuthForm>
-        </>
-    )
-}
+  return (
+    <>
+      <AuthForm></AuthForm>
+    </>
+  );
+};
