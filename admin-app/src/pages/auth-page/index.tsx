@@ -4,7 +4,7 @@ import { AuthForm } from "../../shared/auth-form";
 export const AuthPage = () => {
   return (
     <>
-      <AuthForm></AuthForm>
+      <AuthForm />
     </>
   );
 };
