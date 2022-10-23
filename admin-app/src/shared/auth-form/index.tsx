@@ -3,7 +3,6 @@ import { AuthFormInput } from "./components/auth-form-input";
 import {
   ButtonWrapper,
   FormWrapper,
-  Label,
   StyledForm,
   UnderTitle,
   Wrapper,
@@ -38,7 +37,6 @@ export const AuthForm = () => {
         <UnderTitle>Welcome, we missed you</UnderTitle>
         <FormWrapper>
           <StyledForm name={"auth"}>
-            <Label form={"auth"}>username</Label>
             <AuthFormInput onChange={setLoginInput}></AuthFormInput>
             <ButtonWrapper>
               <AuthFormSubmit

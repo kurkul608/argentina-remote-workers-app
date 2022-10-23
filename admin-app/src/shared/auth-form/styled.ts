@@ -20,16 +20,9 @@ export const UnderTitle = styled.p`
   color: ${(props) => color(props.theme.mainTheme).regularTabText};
 `;
 export const FormWrapper = styled.div`
-  margin: 25px 0;
+  margin-top: 50px;
 `;
 export const StyledForm = styled.form``;
-
-export const Label = styled.label`
-  display: block;
-  font-size: 1.5rem;
-  color: ${(props) => color(props.theme.mainTheme).authInputLabel};
-  margin-bottom: 5px;
-`;
 
 export const ButtonWrapper = styled.div`
   margin-top: 50px;
