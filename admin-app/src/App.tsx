@@ -14,7 +14,6 @@ const lightTheme: DefaultTheme = {
 export const App = () => {
   const [theme, setTheme] = useState<DefaultTheme>(lightTheme);
   useEffect(() => {
-    console.log(window.matchMedia("(prefers-color-scheme: dark)").matches);
     if (!window.matchMedia) {
       setTheme(lightTheme);
     } else {
