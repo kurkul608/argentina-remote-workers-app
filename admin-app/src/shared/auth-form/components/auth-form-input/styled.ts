@@ -25,19 +25,20 @@ export const Placeholder = styled.label`
   top: 8px;
   left: 11px;
   transition: all 0.3s;
-  color: gray;
+  color: ${(props) => color(props.theme.mainTheme).authInputLabel};
   user-select: none;
   z-index: 0;
+
   ${AuthInputWrapper}:focus-within & {
     top: -23px;
     left: 0;
     transition: all 0.3s;
-    color: ${(props) => color(props.theme.mainTheme).authInputLabel};
+    color: ${(props) => color(props.theme.mainTheme).authInputFilled};
   }
 `;
 
 export const PlaceholderFilled = styled(Placeholder)`
   top: -23px;
   left: 0;
-  color: white;
+  color: ${(props) => color(props.theme.mainTheme).authInputFilled};
 `;
