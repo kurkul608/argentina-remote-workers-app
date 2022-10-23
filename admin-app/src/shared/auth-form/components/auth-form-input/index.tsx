@@ -21,9 +21,11 @@ export const AuthFormInput = ({ onChange }: IAuthFormProps) => {
             setValue(e.target.value);
             onChange(e.target.value);
           }}
+          id={"login"}
+          autoComplete={"off"}
         ></AuthInput>
         {value.length === 0 ? (
-          <Placeholder>username</Placeholder>
+          <Placeholder htmlFor={"login"}>username</Placeholder>
         ) : (
           <PlaceholderFilled>username</PlaceholderFilled>
         )}

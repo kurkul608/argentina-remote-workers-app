@@ -19,21 +19,25 @@ export const AuthInput = styled.input`
   }
 `;
 
-export const Placeholder = styled.div`
+export const Placeholder = styled.label`
   position: absolute;
   font-size: 1.5rem;
   top: 8px;
-  color: ${(props) => color(props.theme.mainTheme).authInputLabel};
   left: 11px;
   transition: all 0.3s;
+  color: gray;
+  user-select: none;
+  z-index: 0;
   ${AuthInputWrapper}:focus-within & {
     top: -23px;
     left: 0;
     transition: all 0.3s;
+    color: ${(props) => color(props.theme.mainTheme).authInputLabel};
   }
 `;
 
 export const PlaceholderFilled = styled(Placeholder)`
   top: -23px;
   left: 0;
+  color: white;
 `;
