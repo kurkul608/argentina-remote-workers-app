@@ -21,7 +21,7 @@ export const StyledHeaderLogoBlock = styled.div`
   height: 100%;
   width: 240px;
   flex: 0 0 auto;
-  background-color: ${(props) => color(props.theme.mainTheme).dateText};
+  background-color: ${(props) => color(props.theme.mainTheme).baseText};
   a {
     display: flex;
     justify-content: center;
@@ -48,7 +48,7 @@ export const StyledHeaderDateBlock = styled.div`
   gap: 15px;
 
   time {
-    color: ${(props) => color(props.theme.mainTheme).dateText};
+    color: ${(props) => color(props.theme.mainTheme).baseText};
     font-size: 15px;
   }
 `;
@@ -74,7 +74,7 @@ export const StyledHeaderNameBlock = styled.div`
 
   p {
     font-size: 13px;
-    color: ${(props) => color(props.theme.mainTheme).dateText};
+    color: ${(props) => color(props.theme.mainTheme).baseText};
   }
 
   span {

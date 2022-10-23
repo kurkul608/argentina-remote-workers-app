@@ -12,7 +12,7 @@ export const Wrapper = styled.div`
 
 export const Title = styled.h1`
   font-size: 2.2rem;
-  color: ${(props) => color(props.theme.mainTheme).authTitleText};
+  color: ${(props) => color(props.theme.mainTheme).baseText};
 `;
 
 export const UnderTitle = styled.p`
