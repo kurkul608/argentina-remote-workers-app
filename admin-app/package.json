@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "build": "webpack --config webpack.config.js",
-    "dev": "webpack serve --open",
+    "dev": "webpack serve --env NODE_ENB=develop --open",
     "tscheck": "tsc"
   },
   "devDependencies": {

@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { authRequest } from "../../../services/api-service";
+import { authRequest } from "../services/data";
 
 export interface IAuth {
   token: string;
@@ -38,7 +38,6 @@ const AuthSlice = createSlice({
       state.status = "rejected";
     });
     builder.addCase(authAsync.fulfilled, (state, action) => {
-      // @ts-ignore
       state.token = action.payload.login.token;
       state.status = "fulfilled";
     });

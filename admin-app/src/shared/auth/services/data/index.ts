@@ -1,4 +1,4 @@
-import { IUserLogin } from "../../shared/auth-form/redux/auth-form.slice";
+import { IUserLogin } from "../../redux/auth.slice";
 
 export function authRequest({ username }: IUserLogin) {
   return new Promise(function (resolve) {
@@ -8,7 +8,7 @@ export function authRequest({ username }: IUserLogin) {
   }).then((res) => {
     return {
       login: {
-        token: res,
+        token: res as string,
       },
     };
   });
