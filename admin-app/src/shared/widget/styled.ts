@@ -10,9 +10,3 @@ export const WidgetName = styled.h4`
   font-size: 14px;
   color: ${(props) => color(props.theme.mainTheme).widgetTitleText};
 `;
-export const WidgetUL = styled.ul`
-  li {
-    font-size: 12px;
-    color: ${(props) => color(props.theme.mainTheme).widgetMainText};
-  }
-`;
