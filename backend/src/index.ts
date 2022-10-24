@@ -3,9 +3,30 @@ import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import { mainBotStart } from "./bots/main-bot";
-import { router } from "./routes/v1";
+import { router } from "./db/routes/v1";
+import swaggerUi from "swagger-ui-express";
+import swaggerJsdoc from "swagger-jsdoc";
 
-dotenv.config();
+const options = {
+  definition: {
+    openapi: "3.0.0",
+    info: {
+      title: "Argentina remote app api doc",
+      version: "1.0.0",
+    },
+    servers: [
+      {
+        url: "localhost:5050",
+      },
+    ],
+  },
+  apis: [
+    "./src/db/routes/v1/chatRoute/*.ts",
+    "./src/db/routes/v1/message/*.ts",
+  ],
+};
+
+const openapiSpecification = swaggerJsdoc(options);
 
 const app: Express = express();
 const port = process.env.PORT;
@@ -15,11 +36,17 @@ app.use(bodyParser.json());
 app.use("/v1", router);
 
 const start = async () => {
+  dotenv.config();
   try {
     if (process.env.MONGO_URI) {
       await mongoose.connect(process.env.MONGO_URI);
 
       mainBotStart();
+
+      if (process.env.DEVELOP) {
+        app.use("/api-docs", swaggerUi.serve);
+        app.get("/api-docs", swaggerUi.setup(openapiSpecification));
+      }
 
       app.listen(port, () => {
         console.log(
