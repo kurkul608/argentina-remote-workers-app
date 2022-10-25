@@ -3,7 +3,7 @@ import { WidgetName, WidgetWrapper } from "./styled";
 
 interface IOwnProps {
   name: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 export const Widget = ({ name, children }: IOwnProps) => {
   return (

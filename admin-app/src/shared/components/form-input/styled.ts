@@ -1,14 +1,14 @@
 import styled from "styled-components";
 import { color } from "../../../constants/colors";
 
-export const AuthInputWrapper = styled.div`
+export const InputWrapper = styled.div`
   position: relative;
   padding: 0 10px;
   border: 1px #f7b03e solid;
   background: ${(props) => color(props.theme.mainTheme).backGround};
   border-radius: 5px;
 `;
-export const AuthInput = styled.input`
+export const StyledInput = styled.input`
   color: ${(props) => color(props.theme.mainTheme).widgetMainText};
   background: ${(props) => color(props.theme.mainTheme).backGround};
   padding: 10px 0;
@@ -26,7 +26,7 @@ export const Placeholder = styled.label`
   user-select: none;
   z-index: 0;
 
-  ${AuthInputWrapper}:focus-within & {
+  ${InputWrapper}:focus-within & {
     top: -23px;
     left: 0;
     color: ${(props) => color(props.theme.mainTheme).authInputFilled};

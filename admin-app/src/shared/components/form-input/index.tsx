@@ -1,35 +1,44 @@
-import React, { useState } from "react";
+import React from "react";
 import {
-  AuthInput,
-  AuthInputWrapper,
+  StyledInput,
+  InputWrapper,
   Placeholder,
   PlaceholderFilled,
 } from "./styled";
 
 interface IAuthFormProps {
-  onChange: any;
+  onChange(e: React.ChangeEvent<HTMLInputElement>): void;
+  value?: string;
+  id?: string;
+  name: string;
+  type?: string;
+  placeHolderText?: string;
 }
 
-export const AuthFormInput = ({ onChange }: IAuthFormProps) => {
-  const [value, setValue] = useState("");
-
+export const Input = ({
+  onChange,
+  value,
+  id,
+  type,
+  name,
+  placeHolderText,
+}: IAuthFormProps) => {
   return (
     <>
-      <AuthInputWrapper>
-        <AuthInput
-          onChange={(e) => {
-            setValue(e.target.value);
-            onChange(e.target.value);
-          }}
-          id={"login"}
+      <InputWrapper>
+        <StyledInput
+          onChange={onChange}
+          id={id}
+          name={name}
           autoComplete={"off"}
+          type={type || "text"}
         />
-        {value.length ? (
-          <PlaceholderFilled>username</PlaceholderFilled>
+        {value && value.length ? (
+          <PlaceholderFilled>{placeHolderText || ""}</PlaceholderFilled>
         ) : (
-          <Placeholder htmlFor={"login"}>username</Placeholder>
+          <Placeholder htmlFor={id}>{placeHolderText || ""}</Placeholder>
         )}
-      </AuthInputWrapper>
+      </InputWrapper>
     </>
   );
 };

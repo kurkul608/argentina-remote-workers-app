@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { AuthFormInput } from "../../../components/form-input";
+import { Input } from "../../../components/form-input";
 import {
   ButtonWrapper,
   FormWrapper,
@@ -8,7 +8,7 @@ import {
   Wrapper,
 } from "./styled";
 import { Title } from "./styled";
-import { AuthFormSubmit } from "../../../components/form-submit";
+import { Button } from "../../../components/form-button";
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import { authAsync, IUserLogin } from "../../redux/auth.slice";
 import { Navigate } from "react-router";
@@ -29,7 +29,8 @@ export const AuthForm = () => {
     }
   };
 
-  console.log(token);
+  const handleLogin = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setLoginInput(e.target.value);
   return (
     <>
       <Wrapper>
@@ -37,11 +38,17 @@ export const AuthForm = () => {
         <UnderTitle>Welcome, we missed you</UnderTitle>
         <FormWrapper>
           <StyledForm name={"auth"}>
-            <AuthFormInput onChange={setLoginInput}></AuthFormInput>
+            <Input
+              onChange={handleLogin}
+              value={loginInput}
+              id={"login"}
+              name={"login"}
+            />
             <ButtonWrapper>
-              <AuthFormSubmit
+              <Button
                 onSubmit={() => onSubmit({ username: loginInput })}
-              ></AuthFormSubmit>
+                label={"Submit"}
+              ></Button>
             </ButtonWrapper>
           </StyledForm>
         </FormWrapper>
