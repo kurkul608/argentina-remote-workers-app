@@ -1,22 +1,22 @@
 import React, { useState } from "react";
 import {
-  AuthInput,
-  AuthInputWrapper,
+  Input,
+  FormInputWrapper,
   Placeholder,
   PlaceholderFilled,
 } from "./styled";
 
-interface IAuthFormProps {
+interface IFormInputProps {
   onChange: any;
 }
 
-export const AuthFormInput = ({ onChange }: IAuthFormProps) => {
+export const FormInput = ({ onChange }: IFormInputProps) => {
   const [value, setValue] = useState("");
 
   return (
     <>
-      <AuthInputWrapper>
-        <AuthInput
+      <FormInputWrapper>
+        <Input
           onChange={(e) => {
             setValue(e.target.value);
             onChange(e.target.value);
@@ -29,7 +29,7 @@ export const AuthFormInput = ({ onChange }: IAuthFormProps) => {
         ) : (
           <Placeholder htmlFor={"login"}>username</Placeholder>
         )}
-      </AuthInputWrapper>
+      </FormInputWrapper>
     </>
   );
 };

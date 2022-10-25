@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { AuthFormInput } from "../../../components/form-input";
+import { FormInput } from "../../../components/form-input";
 import {
   ButtonWrapper,
   FormWrapper,
@@ -8,7 +8,7 @@ import {
   Wrapper,
 } from "./styled";
 import { Title } from "./styled";
-import { AuthFormSubmit } from "../../../components/form-submit";
+import { ButtonSubmit } from "../../../components/form-submit";
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import { authAsync, IUserLogin } from "../../redux/auth.slice";
 import { Navigate } from "react-router";
@@ -28,8 +28,6 @@ export const AuthForm = () => {
       console.log(result.payload);
     }
   };
-
-  console.log(token);
   return (
     <>
       <Wrapper>
@@ -37,11 +35,11 @@ export const AuthForm = () => {
         <UnderTitle>Welcome, we missed you</UnderTitle>
         <FormWrapper>
           <StyledForm name={"auth"}>
-            <AuthFormInput onChange={setLoginInput}></AuthFormInput>
+            <FormInput onChange={setLoginInput}></FormInput>
             <ButtonWrapper>
-              <AuthFormSubmit
+              <ButtonSubmit
                 onSubmit={() => onSubmit({ username: loginInput })}
-              ></AuthFormSubmit>
+              ></ButtonSubmit>
             </ButtonWrapper>
           </StyledForm>
         </FormWrapper>

@@ -5,7 +5,7 @@ interface ISubmit {
   onSubmit: any;
 }
 
-export const AuthFormSubmit = ({ onSubmit }: ISubmit) => {
+export const ButtonSubmit = ({ onSubmit }: ISubmit) => {
   return (
     <>
       <Submit
