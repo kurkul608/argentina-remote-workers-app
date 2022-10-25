@@ -18,7 +18,7 @@ export const AuthForm = () => {
   const { token } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
   const isAuth = !!token;
-  const { values, handleChange, handleSubmit } = useFormik({
+  const { values, handleChange, handleSubmit, errors } = useFormik({
     initialValues: {
       username: "",
     },
@@ -28,10 +28,18 @@ export const AuthForm = () => {
         console.log(result.payload);
       }
     },
+    validate: (values) => {
+      if (!values.username) {
+        errors.username = "Enter your telegram username";
+      } else if (!/[A-z_1-9]*/g.test(values.username)) {
+        errors.username = "Remove incorrect symbols like @!#$%";
+      }
+    },
   });
   if (isAuth) {
     return <Navigate to={"/"}></Navigate>;
   }
+  console.log(values.username);
   return (
     <>
       <Wrapper>
@@ -45,6 +53,7 @@ export const AuthForm = () => {
               id={"username"}
               name={"username"}
               placeHolderText={"username"}
+              errors={errors.username}
             />
             <ButtonWrapper></ButtonWrapper>
             <Button label={"Submit"} type={"submit"}></Button>

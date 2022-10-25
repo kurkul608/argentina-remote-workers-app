@@ -1,6 +1,15 @@
 import styled from "styled-components";
 import { color } from "../../../constants/colors";
 
+export const GlobalWrapper = styled.div`
+  .invalid {
+    border: 1px ${(props) => color(props.theme.mainTheme).inputErrorColor} solid;
+  }
+  .invalid-text {
+    color: ${(props) => color(props.theme.mainTheme).inputErrorColor};
+  }
+`;
+
 export const InputWrapper = styled.div`
   position: relative;
   padding: 0 10px;
@@ -38,4 +47,10 @@ export const PlaceholderFilled = styled(Placeholder)`
   top: -23px;
   left: 0;
   color: ${(props) => color(props.theme.mainTheme).authInputFilled};
+`;
+
+export const Error = styled.p`
+  margin-top: 10px;
+  font-size: 1.4rem;
+  color: ${(props) => color(props.theme.mainTheme).widgetMainText};
 `;

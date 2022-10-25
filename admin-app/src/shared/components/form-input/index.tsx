@@ -4,6 +4,8 @@ import {
   InputWrapper,
   Placeholder,
   PlaceholderFilled,
+  Error,
+  GlobalWrapper,
 } from "./styled";
 
 interface IAuthFormProps {
@@ -13,6 +15,7 @@ interface IAuthFormProps {
   name: string;
   type?: string;
   placeHolderText?: string;
+  errors?: any;
 }
 
 export const Input = ({
@@ -22,23 +25,33 @@ export const Input = ({
   type,
   name,
   placeHolderText,
+  errors,
 }: IAuthFormProps) => {
+  console.log(value);
+  console.log(errors);
   return (
     <>
-      <InputWrapper>
-        <StyledInput
-          onChange={onChange}
-          id={id}
-          name={name}
-          autoComplete={"off"}
-          type={type || "text"}
-        />
-        {value && value.length ? (
-          <PlaceholderFilled>{placeHolderText || ""}</PlaceholderFilled>
-        ) : (
-          <Placeholder htmlFor={id}>{placeHolderText || ""}</Placeholder>
-        )}
-      </InputWrapper>
+      <GlobalWrapper>
+        <InputWrapper className={errors ? "invalid" : ""}>
+          <StyledInput
+            onChange={onChange}
+            id={id}
+            name={name}
+            autoComplete={"off"}
+            type={type || "text"}
+          />
+          {value && value.length ? (
+            <PlaceholderFilled className={errors ? "invalid-text" : ""}>
+              {placeHolderText || ""}
+            </PlaceholderFilled>
+          ) : (
+            <Placeholder className={errors ? "invalid-text" : ""} htmlFor={id}>
+              {placeHolderText || ""}
+            </Placeholder>
+          )}
+        </InputWrapper>
+        {errors ? <Error className={"invalid-text"}>{errors}</Error> : null}
+      </GlobalWrapper>
     </>
   );
 };
