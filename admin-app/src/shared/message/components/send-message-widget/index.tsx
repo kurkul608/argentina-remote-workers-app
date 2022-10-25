@@ -4,7 +4,6 @@ import { SendMessageWrapper } from "./styled";
 import { useFormik } from "formik";
 import { Input } from "../../../components/form-input";
 import { Button } from "../../../components/form-button";
-import { useAppDispatch } from "../../../../redux/hooks";
 import { sendMessage } from "../../services/data";
 
 export const SendMessageWidget = () => {
@@ -17,7 +16,7 @@ export const SendMessageWidget = () => {
       await sendMessage({
         message: values.message,
         pin_message: values.pin,
-        chat_id: -1001727082695,
+        chat_id: -586327836,
       });
     },
   });

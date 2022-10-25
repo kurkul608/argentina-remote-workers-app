@@ -7,3 +7,7 @@ export const ChatListUL = styled.ul`
     color: ${(props) => color(props.theme.mainTheme).widgetMainText};
   }
 `;
+
+export const ChatListWrapper = styled.div`
+  padding: 25px;
+`;
