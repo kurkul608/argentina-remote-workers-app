@@ -6,6 +6,7 @@ import { mainBotStart } from "./bots/main-bot";
 import { router } from "./db/routes/v1";
 import swaggerUi from "swagger-ui-express";
 import swaggerJsdoc from "swagger-jsdoc";
+import cors from "cors";
 
 const options = {
   definition: {
@@ -31,6 +32,7 @@ const openapiSpecification = swaggerJsdoc(options);
 const app: Express = express();
 const port = process.env.PORT;
 
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use("/v1", router);
