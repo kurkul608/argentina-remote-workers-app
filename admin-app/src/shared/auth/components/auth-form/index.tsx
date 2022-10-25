@@ -35,10 +35,15 @@ export const AuthForm = () => {
         <UnderTitle>Welcome, we missed you</UnderTitle>
         <FormWrapper>
           <StyledForm name={"auth"}>
-            <FormInput onChange={setLoginInput}></FormInput>
+            <FormInput
+              onChange={setLoginInput}
+              placeholder={"username"}
+              id={"auth"}
+            ></FormInput>
             <ButtonWrapper>
               <ButtonSubmit
                 onSubmit={() => onSubmit({ username: loginInput })}
+                buttonText={"Submit"}
               ></ButtonSubmit>
             </ButtonWrapper>
           </StyledForm>

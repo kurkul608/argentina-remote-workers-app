@@ -8,9 +8,11 @@ import {
 
 interface IFormInputProps {
   onChange: any;
+  placeholder: string;
+  id: string;
 }
 
-export const FormInput = ({ onChange }: IFormInputProps) => {
+export const FormInput = ({ onChange, placeholder, id }: IFormInputProps) => {
   const [value, setValue] = useState("");
 
   return (
@@ -21,13 +23,13 @@ export const FormInput = ({ onChange }: IFormInputProps) => {
             setValue(e.target.value);
             onChange(e.target.value);
           }}
-          id={"login"}
+          id={id}
           autoComplete={"off"}
         />
         {value.length ? (
-          <PlaceholderFilled>username</PlaceholderFilled>
+          <PlaceholderFilled>{placeholder}</PlaceholderFilled>
         ) : (
-          <Placeholder htmlFor={"login"}>username</Placeholder>
+          <Placeholder htmlFor={id}>{placeholder}</Placeholder>
         )}
       </FormInputWrapper>
     </>
