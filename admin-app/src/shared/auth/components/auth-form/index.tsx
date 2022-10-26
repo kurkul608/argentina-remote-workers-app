@@ -14,7 +14,6 @@ import { authAsync, IUserLogin } from "../../redux/auth.slice";
 import { Navigate } from "react-router";
 import { FormikErrors, useFormik } from "formik";
 import { object, string } from "yup";
-// import * as Yup from "yup";
 
 export const AuthForm = () => {
   const { token } = useAppSelector((state) => state.auth);
