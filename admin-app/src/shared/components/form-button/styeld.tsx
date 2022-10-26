@@ -15,4 +15,7 @@ export const Submit = styled.button`
     transition: background-color 0.5s;
     cursor: pointer;
   }
+  &:disabled {
+    background-color: red;
+  }
 `;

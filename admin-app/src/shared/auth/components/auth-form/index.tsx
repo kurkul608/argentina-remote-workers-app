@@ -18,7 +18,7 @@ export const AuthForm = () => {
   const { token } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
   const isAuth = !!token;
-  const { values, handleChange, handleSubmit, errors, touched } = useFormik({
+  const { values, handleChange, handleSubmit, errors } = useFormik({
     initialValues: {
       username: "",
     },
@@ -39,18 +39,14 @@ export const AuthForm = () => {
       ) {
         errors.username = `Remove incorrect symbols like @!#$%`;
       } else {
-        errors.username = undefined;
+        delete errors.username;
       }
     },
-    validateOnChange: true,
-    validateOnBlur: true,
   });
   if (isAuth) {
     return <Navigate to={"/"}></Navigate>;
   }
 
-  console.log(values.username);
-  console.log(touched.username);
   return (
     <>
       <Wrapper>
@@ -67,7 +63,11 @@ export const AuthForm = () => {
               errors={errors.username}
             />
             <ButtonWrapper></ButtonWrapper>
-            <Button label={"Submit"} type={"submit"}></Button>
+            <Button
+              label={"Submit"}
+              type={"submit"}
+              disabled={!!errors.username}
+            ></Button>
           </StyledForm>
         </FormWrapper>
       </Wrapper>
