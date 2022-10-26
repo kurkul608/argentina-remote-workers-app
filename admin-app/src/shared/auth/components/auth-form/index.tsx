@@ -41,14 +41,11 @@ export const AuthForm = () => {
     },
     validationSchema: userSchema,
     validate: (values: IUserLogin): FormikErrors<IUserLogin> => {
-      if (!values.username) {
-        errors.username = "Enter your telegram username";
-      }
-
       if (
         !/^(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/gm.test(
           values.username
-        )
+        ) &&
+        values.username.length
       ) {
         errors.username = `Remove incorrect symbols like @!#$%`;
       } else {
