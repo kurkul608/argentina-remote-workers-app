@@ -41,7 +41,9 @@ messageRouter.route("/").post(async (req, res) => {
         mainBot,
         chat_id,
         tgMessage.message_id
-      );
+      ).catch((error) => {
+        console.log(error, "Ты больше не админ паблика со школьницами");
+      });
       if (pinResult) {
         const chat = await findOneChatByParams({ id: tgMessage.chat.id });
         if (chat) {
