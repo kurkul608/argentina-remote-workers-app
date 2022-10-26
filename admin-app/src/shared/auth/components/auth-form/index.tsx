@@ -21,12 +21,7 @@ export const AuthForm = () => {
   const isAuth = !!token;
 
   const userSchema = object({
-    username: string()
-      .required()
-      .lowercase()
-      .min(2)
-      .max(20)
-      .matches(/^(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])/g),
+    username: string().required().lowercase().min(2).max(20),
   });
 
   const { values, handleChange, handleSubmit, errors } = useFormik({
