@@ -42,7 +42,7 @@ export const DropdownList = ({ tableItems }: IDropdownList) => {
       <DropdownWrapper onClick={() => setIsOpen(!isOpen)}>
         <OuterWrapper className={isOpen ? "active" : ""}>
           <Dropdown>{list.length ? list[0].title : ""}</Dropdown>
-          <Icon className={isOpen ? "opened" : ""}>
+          <Icon className={isOpen ? "" : "closed"}>
             <svg
               width="15"
               height="15"

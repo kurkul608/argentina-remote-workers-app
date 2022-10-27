@@ -8,7 +8,7 @@ export const DropdownWrapper = styled.div`
   color: white;
   font-size: 1.5rem;
   cursor: pointer;
-  .opened {
+  .closed {
     transform: rotateX(180deg);
   }
   .active {
