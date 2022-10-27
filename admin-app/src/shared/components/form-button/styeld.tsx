@@ -16,6 +16,7 @@ export const Submit = styled.button`
     cursor: pointer;
   }
   &:disabled {
-    background-color: red;
+    background-color: ${(props) =>
+      color(props.theme.mainTheme).inputErrorColor};
   }
 `;

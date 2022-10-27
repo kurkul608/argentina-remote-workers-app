@@ -12,16 +12,25 @@ import { Button } from "../../../components/form-button";
 import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import { authAsync, IUserLogin } from "../../redux/auth.slice";
 import { Navigate } from "react-router";
-import { FormikErrors, useFormik } from "formik";
-import { object, string } from "yup";
+import { useFormik } from "formik";
+import * as yup from "yup";
 
 export const AuthForm = () => {
   const { token } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
   const isAuth = !!token;
 
-  const userSchema = object({
-    username: string().required().lowercase().min(2).max(20),
+  const userSchema = yup.object({
+    username: yup
+      .string()
+      .required()
+      .lowercase()
+      .min(2)
+      .max(20)
+      .matches(
+        /^(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/,
+        "Remove incorrect symbols like @!#$%"
+      ),
   });
 
   const { values, handleChange, handleSubmit, errors } = useFormik({
@@ -35,20 +44,7 @@ export const AuthForm = () => {
       }
     },
     validationSchema: userSchema,
-    validate: (values: IUserLogin): FormikErrors<IUserLogin> => {
-      if (
-        !/^(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/gm.test(
-          values.username
-        ) &&
-        values.username.length
-      ) {
-        errors.username = `Remove incorrect symbols like @!#$%`;
-      } else {
-        delete errors.username;
-      }
-      return errors;
-    },
-    validateOnChange: false,
+    validateOnChange: true,
   });
   if (isAuth) {
     return <Navigate to={"/"}></Navigate>;
@@ -70,7 +66,11 @@ export const AuthForm = () => {
               errors={errors.username}
             />
             <ButtonWrapper></ButtonWrapper>
-            <Button label={"Submit"} type={"submit"}></Button>
+            <Button
+              label={"Submit"}
+              type={"submit"}
+              isDisabled={!!Object.keys(errors).length}
+            ></Button>
           </StyledForm>
         </FormWrapper>
       </Wrapper>
