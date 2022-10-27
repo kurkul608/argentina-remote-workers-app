@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { color } from "../../../constants/colors";
 
-export const GlobalWrapper = styled.div`
+export const OuterWrapper = styled.div`
   .invalid {
     border: 1px ${(props) => color(props.theme.mainTheme).inputErrorColor} solid;
   }

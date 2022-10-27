@@ -5,7 +5,7 @@ import {
   Placeholder,
   PlaceholderFilled,
   Error,
-  GlobalWrapper,
+  OuterWrapper,
 } from "./styled";
 
 interface IAuthFormProps {
@@ -31,7 +31,7 @@ export const Input = ({
   console.log(errors);
   return (
     <>
-      <GlobalWrapper>
+      <OuterWrapper>
         <InputWrapper className={errors ? "invalid" : ""}>
           <StyledInput
             onChange={onChange}
@@ -51,7 +51,7 @@ export const Input = ({
           )}
         </InputWrapper>
         {errors ? <Error className={"invalid-text"}>{errors}</Error> : null}
-      </GlobalWrapper>
+      </OuterWrapper>
     </>
   );
 };
