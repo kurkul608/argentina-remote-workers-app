@@ -16,25 +16,6 @@ export const ChatListWidget = () => {
   const chatList = useAppSelector((state) => state.chats.list);
   const dispatch = useAppDispatch();
 
-  const item = [
-    {
-      id: 1,
-      title: "Гейпорно",
-    },
-    {
-      id: 2,
-      title: "Я люблю большие члены",
-    },
-    {
-      id: 3,
-      title: "Школа #31",
-    },
-    {
-      id: 4,
-      title: "Дора",
-    },
-  ];
-
   useEffect(() => {
     getChatsList().then((data) => console.log(data));
     dispatch(getAllChats());
@@ -44,7 +25,7 @@ export const ChatListWidget = () => {
       <ChatListWrapper>
         <Widget name={"Chat list widget"}>
           <ChatListUL>
-            {item.map((chat) => (
+            {chatList.map((chat) => (
               <li key={`widget-chat-list--${chat.id}`}>
                 <Chat>
                   <ChatPhotoWrapper>
