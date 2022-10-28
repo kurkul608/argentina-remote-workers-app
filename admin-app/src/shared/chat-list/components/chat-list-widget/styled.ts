@@ -14,7 +14,8 @@ export const ChatListUL = styled.ul`
     padding: 5px;
     color: ${(props) => color(props.theme.mainTheme).widgetMainText};
     &:hover {
-      background-color: #545454;
+      background-color: ${(props) =>
+        color(props.theme.mainTheme).chatHoverBackgroundColor};
     }
   }
 `;
@@ -23,26 +24,28 @@ export const Chat = styled.div`
   display: flex;
   align-items: center;
   gap: 15px;
+  user-select: none;
 `;
 export const ChatTitle = styled.h3`
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  font-weight: 400;
 `;
 export const ChatPhoto = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: center;
-  color: black;
-  text-align: center;
   width: 50px;
   height: 50px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   border-radius: 100px;
-  background-color: silver;
-  border: 1px black solid;
+  background: ${(props) =>
+    color(props.theme.mainTheme).chatPhotoBackgroundColor};
+  color: ${(props) => color(props.theme.mainTheme).chatPhotoText};
+  font-weight: 600;
 `;
 
 export const ChatPhotoWrapper = styled.div`
   position: relative;
-  //border: 1px solid red;
 `;
