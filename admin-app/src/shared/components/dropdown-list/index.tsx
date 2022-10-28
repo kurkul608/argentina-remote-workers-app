@@ -7,41 +7,28 @@ import {
   Table,
   TableItem,
 } from "./styled";
-import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
-import {
-  addActiveChat,
-  removeActiveChat,
-} from "../../chat-list/redux/active-chats.slice";
-import { IChatInterface } from "../../../interfaces/chat.interface";
+
+import { FormCheckboxInput } from "../form-checkbox-input";
 
 interface IDropdownList {
-  onAdd: any;
-  onRemove: any;
-  tableItems: any[];
+  list: any[];
+  handleChange: (e?: React.FormEvent<HTMLFormElement> | undefined) => void;
+  nameList: string;
 }
-export const DropdownList = ({ tableItems }: IDropdownList) => {
+export const DropdownList = ({
+  list,
+  handleChange,
+  nameList,
+}: IDropdownList) => {
   const [isOpen, setIsOpen] = useState(false);
-  const dispatch = useAppDispatch();
-  const { list } = useAppSelector((state) => state.activeChats);
-  function itemOnClick(e: any, item: IChatInterface) {
+  function onClick(e: any) {
     e.stopPropagation();
-    if (list) {
-      console.log(list);
-      // @ts-ignore
-      if (list.find((chat, i) => chat[i].id === item.id)) {
-        dispatch(removeActiveChat(item));
-      }
-    }
-    dispatch(addActiveChat(item));
   }
-  console.log(list, "test");
-
-  console.log(tableItems);
   return (
     <>
       <DropdownWrapper onClick={() => setIsOpen(!isOpen)}>
         <OuterWrapper className={isOpen ? "active" : ""}>
-          <Dropdown>{list.length ? list[0].title : ""}</Dropdown>
+          <Dropdown>{"test"}</Dropdown>
           <Icon className={isOpen ? "" : "closed"}>
             <svg
               width="15"
@@ -56,15 +43,14 @@ export const DropdownList = ({ tableItems }: IDropdownList) => {
         </OuterWrapper>
         {isOpen ? (
           <Table>
-            {tableItems.map((item) => {
+            {list.map((item) => {
               return (
-                <TableItem
-                  key={`chat-${item._id}`}
-                  onClick={(e) => {
-                    itemOnClick(e, item);
-                  }}
-                >
-                  {item.title}
+                <TableItem onClick={(e) => onClick(e)} key={`chat-${item._id}`}>
+                  <FormCheckboxInput
+                    title={item.title}
+                    name={nameList}
+                    handleChange={handleChange}
+                  ></FormCheckboxInput>
                 </TableItem>
               );
             })}
