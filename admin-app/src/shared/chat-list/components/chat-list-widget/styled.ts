@@ -15,8 +15,7 @@ export const ChatListUL = styled.ul`
     color: ${(props) => color(props.theme.mainTheme).widgetMainText};
 
     &:hover {
-      background-color: ${(props) =>
-        color(props.theme.mainTheme).chatHoverBackgroundColor};
+      background-color: ${(props) => color(props.theme.mainTheme).chatHoverBackgroundColor};
     }
   }
 `;
