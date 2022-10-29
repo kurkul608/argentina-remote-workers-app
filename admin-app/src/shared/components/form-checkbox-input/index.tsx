@@ -1,5 +1,5 @@
 import React from "react";
-import { Input, InputWrapper, Title, Label } from "./styled";
+import { Input, InputWrapper, Title, Label, CheckBox } from "./styled";
 
 export interface IFormCheckboxInput {
   title: string;
@@ -14,6 +14,7 @@ export const FormCheckboxInput = ({
 }: IFormCheckboxInput) => {
   return (
     <InputWrapper>
+      <Label htmlFor={title}>
       <Input
         type={"checkbox"}
         name={name}
@@ -21,7 +22,7 @@ export const FormCheckboxInput = ({
         value={title}
         onChange={handleChange}
       ></Input>
-      <Label htmlFor={title}>
+        <CheckBox />
         <Title>{title}</Title>
       </Label>
     </InputWrapper>

@@ -31,6 +31,7 @@ export const SendMessageWidget = () => {
           handleChange={handleChange}
           list={list}
           nameList={"selectedChats"}
+          values={values.selectedChats}
         ></DropdownList>
         <Input
           onChange={handleChange}

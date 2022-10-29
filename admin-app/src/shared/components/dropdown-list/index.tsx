@@ -14,11 +14,13 @@ interface IDropdownList {
   list: any[];
   handleChange: (e?: React.FormEvent<HTMLFormElement> | undefined) => void;
   nameList: string;
+  values: string[];
 }
 export const DropdownList = ({
   list,
   handleChange,
   nameList,
+  values,
 }: IDropdownList) => {
   const [isOpen, setIsOpen] = useState(false);
   function onClick(e: any) {
@@ -28,7 +30,9 @@ export const DropdownList = ({
     <>
       <DropdownWrapper onClick={() => setIsOpen(!isOpen)}>
         <OuterWrapper className={isOpen ? "active" : ""}>
-          <Dropdown>{"test"}</Dropdown>
+          <Dropdown>
+            {values.length ? values.join(", ") : "Select chat"}
+          </Dropdown>
           <Icon className={isOpen ? "" : "closed"}>
             <svg
               width="15"
