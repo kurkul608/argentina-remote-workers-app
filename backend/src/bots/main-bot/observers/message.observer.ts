@@ -7,7 +7,6 @@ export const messageObserver = (bot: TelegramBot) => {
   const botName = process.env.BOT_NAME;
 
   return bot.on("message", async (msg) => {
-    console.log(msg);
     const chatId = msg.chat.id;
     if (msg.new_chat_members) {
       if (msg.new_chat_members?.find((member) => member.is_bot)) {
