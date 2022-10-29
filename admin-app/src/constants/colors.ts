@@ -8,14 +8,13 @@ export enum ColorsDark {
   widgetTitleText = "#bdb7b9",
   widgetMainText = "#beb7b7",
   baseText = "#f7b03e",
-  logoText = "#ffffff",
+  baseWhiteText = "#ffffff",
   widgetBackGround = "#23262d",
   activeNavLinkBackground = "#30333c",
   widgetBorderColor = "#272a31",
   authInputLabel = "#7e7d7d",
   authInputFilled = "#ffffff",
   chatPhotoBackgroundColor = "#db863b",
-  chatPhotoText = "#ffffff",
   chatHoverBackgroundColor = "#545454",
 }
 
@@ -27,14 +26,13 @@ export enum ColorsLight {
   widgetTitleText = "#bdb7b9",
   widgetMainText = "#444444",
   baseText = "#f7b03e",
-  logoText = "#ffffff",
+  baseWhiteText = "#ffffff",
   widgetBackGround = "#ffffff",
   activeNavLinkBackground = "#eeeeee",
   widgetBorderColor = "#e4e5e7",
   authInputLabel = "#7e7d7d",
   authInputFilled = "#000000",
   chatPhotoBackgroundColor = "#db863b",
-  chatPhotoText = "#ffffff",
   chatHoverBackgroundColor = "#C8C8C8",
 }
 
