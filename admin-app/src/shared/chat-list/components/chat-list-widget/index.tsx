@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "../../../../redux/hooks";
 import { Widget } from "../../../widget";
-import { ChatListUL } from "./styled";
+import { ChatListWrapper } from "./styled";
 import { getChatsList } from "../../services/data";
 import { getAllChats } from "../../redux/chat-list.slice";
 
@@ -16,11 +16,7 @@ export const ChatListWidget = () => {
   return (
     <>
       <Widget name={"Chat list widget"}>
-        <ChatListUL>
-          {chatList.map((chat) => (
-            <li key={`widget-chat-list--${chat.id}`}>{chat.title}</li>
-          ))}
-        </ChatListUL>
+        <ChatListWrapper></ChatListWrapper>
       </Widget>
     </>
   );
