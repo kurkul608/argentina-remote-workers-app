@@ -2,17 +2,18 @@ import styled from "styled-components";
 import { color } from "../../../../constants/colors";
 
 export const ChatListWrapper = styled.div`
-  max-width: 280px;
-  width: 100%;
+  flex: 1 0 280px;
 `;
 
 export const ChatListUL = styled.ul`
   margin-top: 10px;
+
   li {
     margin-top: 10px;
     font-size: 1.4rem;
     padding: 5px;
     color: ${(props) => color(props.theme.mainTheme).widgetMainText};
+
     &:hover {
       background-color: ${(props) =>
         color(props.theme.mainTheme).chatHoverBackgroundColor};
@@ -42,7 +43,7 @@ export const ChatPhoto = styled.div`
   border-radius: 100px;
   background: ${(props) =>
     color(props.theme.mainTheme).chatPhotoBackgroundColor};
-  color: ${(props) => color(props.theme.mainTheme).chatPhotoText};
+  color: ${(props) => color(props.theme.mainTheme).baseWhiteText};
   font-weight: 600;
 `;
 
