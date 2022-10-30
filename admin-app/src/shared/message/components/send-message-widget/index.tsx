@@ -23,7 +23,6 @@ export const SendMessageWidget = () => {
     { title: "Zalupa", _id: 3 },
     { title: "Xer", _id: 4 },
   ];
-  console.log(values.selectedChats);
   return (
     <Widget name={"Send message widget"}>
       <SendMessageWrapper onSubmit={handleSubmit}>

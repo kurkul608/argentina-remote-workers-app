@@ -5,23 +5,25 @@ export interface IFormCheckboxInput {
   title: string;
   name: string;
   handleChange: any;
+  value: string;
 }
 
 export const FormCheckboxInput = ({
   title,
   name,
   handleChange,
+  value,
 }: IFormCheckboxInput) => {
   return (
     <InputWrapper>
       <Label htmlFor={title}>
-      <Input
-        type={"checkbox"}
-        name={name}
-        id={title}
-        value={title}
-        onChange={handleChange}
-      ></Input>
+        <Input
+          type={"checkbox"}
+          name={name}
+          id={title}
+          value={value}
+          onChange={handleChange}
+        />
         <CheckBox />
         <Title>{title}</Title>
       </Label>

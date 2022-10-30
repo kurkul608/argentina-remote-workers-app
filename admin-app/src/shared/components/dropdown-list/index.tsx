@@ -25,7 +25,10 @@ export const DropdownList = ({
   const [isOpen, setIsOpen] = useState(false);
   function onClick(e: any) {
     e.stopPropagation();
+    console.log(e.target);
   }
+  const [titles, setTitles] = useState([]);
+
   return (
     <>
       <DropdownWrapper onClick={() => setIsOpen(!isOpen)}>
@@ -52,6 +55,7 @@ export const DropdownList = ({
                 <TableItem onClick={(e) => onClick(e)} key={`chat-${item._id}`}>
                   <FormCheckboxInput
                     title={item.title}
+                    value={item._id}
                     name={nameList}
                     handleChange={handleChange}
                   ></FormCheckboxInput>
