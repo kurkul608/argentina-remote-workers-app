@@ -1,7 +1,7 @@
 import TelegramBot from "node-telegram-bot-api";
 import { isPrivateOrChannel } from "../../../services/bots-services/chat-type-checker-service";
-import Chat from "../../../models/chat/chat.model";
-import { sendMessageService } from "../services/send-message.service";
+import { sendMessageService } from "../../services/send-message.service";
+import { createNewChat, findOneChatByParams } from "../../../db/services/chat";
 
 export const messageObserver = (bot: TelegramBot) => {
   const botName = process.env.BOT_NAME;
@@ -16,8 +16,7 @@ export const messageObserver = (bot: TelegramBot) => {
 
         if (isItsMe && !isPrivateOrChannel(msg.chat.type)) {
           await sendMessageService(bot, chatId, "Здарова удаленщики");
-          const chat = await new Chat(msg.chat);
-          await chat.save();
+          await createNewChat(msg.chat);
           return true;
         }
         const newUser = msg.new_chat_members?.find(
@@ -41,7 +40,7 @@ export const messageObserver = (bot: TelegramBot) => {
       msg.left_chat_member?.is_bot &&
       msg.left_chat_member?.username === botName
     ) {
-      const chat = await Chat.findOne({ id: chatId });
+      const chat = await findOneChatByParams({ id: chatId });
       if (chat) {
         return chat.remove();
       }

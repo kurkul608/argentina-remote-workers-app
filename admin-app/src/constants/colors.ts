@@ -7,12 +7,16 @@ export enum ColorsDark {
   breadcrumbsTitleText = "#beb7b7",
   widgetTitleText = "#bdb7b9",
   widgetMainText = "#beb7b7",
-  dateText = "#f7b03e",
+  baseText = "#f7b03e",
   logoText = "#ffffff",
   widgetBackGround = "#23262d",
   activeNavLinkBackground = "#30333c",
   widgetBorderColor = "#272a31",
+  authInputLabel = "#7e7d7d",
+  authInputFilled = "#ffffff",
+  inputErrorColor = "#d32d41",
 }
+
 export enum ColorsLight {
   backGround = "#f1f3f6",
   activeTabText = "#f7b03e",
@@ -20,11 +24,14 @@ export enum ColorsLight {
   breadcrumbsTitleText = "#444444",
   widgetTitleText = "#bdb7b9",
   widgetMainText = "#444444",
-  dateText = "#f7b03e",
+  baseText = "#f7b03e",
   logoText = "#ffffff",
   widgetBackGround = "#ffffff",
   activeNavLinkBackground = "#eeeeee",
   widgetBorderColor = "#e4e5e7",
+  authInputLabel = "#7e7d7d",
+  authInputFilled = "#000000",
+  inputErrorColor = "#d32d41",
 }
 
 export const color = (theme: Theme) => {

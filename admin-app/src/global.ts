@@ -2,6 +2,15 @@ import { createGlobalStyle } from "styled-components";
 import { color } from "./constants/colors";
 
 export default createGlobalStyle`
+     html {
+      font-size: 10px;
+      @media (max-width: 768px){
+       font-size: 9px;
+      }
+      @media (max-width: 300px){
+       font-size: 8px;
+      }
+     }
      body {
       background-color: ${(props) => color(props.theme.mainTheme).backGround};
      }

@@ -1,29 +1,52 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
+import { IChatInterface } from "../../../interfaces/chat.interface";
+import { getChatsList } from "../services/data";
+import { ITableDataInterface } from "../../../interfaces/dto/table-data.interface";
 
 interface IChatsState {
-  list: number[];
+  list: IChatInterface[];
+  isLoading: boolean;
+  error: string;
 }
 
 const initialState: IChatsState = {
-  list: [1],
+  list: [],
+  isLoading: false,
+  error: "",
 };
 
+export const getAllChats = createAsyncThunk("chats/getAllChats", async () => {
+  return (await getChatsList()) as ITableDataInterface<IChatInterface>;
+});
 export const chatsSlice = createSlice({
   name: "chats",
   initialState,
   reducers: {
-    addChat: (state, action: PayloadAction<number>) => {
+    addChat: (state, action: PayloadAction<IChatInterface>) => {
       state.list.push(action.payload);
     },
-    addAllChats: (state, action: PayloadAction<Array<number>>) => {
-      state.list = action.payload;
-    },
-    removeChat: (state, action: PayloadAction<number>) => {
+    removeChat: (state, action: PayloadAction<IChatInterface>) => {
       state.list = state.list.filter((chat) => chat !== action.payload);
     },
   },
+  extraReducers: (builder) => {
+    builder
+      .addCase(getAllChats.fulfilled, (state, action) => {
+        state.list = state.list.concat(
+          (action.payload?.data as IChatInterface[]) || []
+        );
+        state.isLoading = false;
+      })
+      .addCase(getAllChats.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload as string;
+      })
+      .addCase(getAllChats.pending, (state) => {
+        state.isLoading = true;
+      });
+  },
 });
 
-export const { addChat, addAllChats, removeChat } = chatsSlice.actions;
+export const { addChat, removeChat } = chatsSlice.actions;
 
 export default chatsSlice.reducer;

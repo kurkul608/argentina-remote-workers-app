@@ -1,9 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import chatReducer from "../shared/chat-list/redux/chat-list.slice";
+import authReducer from "../shared/auth/redux/auth.slice";
+import activeChatsReducer from "../shared/chat-list/redux/active-chats.slice";
 
 export const store = configureStore({
   reducer: {
     chats: chatReducer,
+    auth: authReducer,
+    activeChats: activeChatsReducer,
   },
 });
 
