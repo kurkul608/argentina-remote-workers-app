@@ -17,7 +17,6 @@ export const SendMessageWidget = () => {
       pin: false,
     },
     onSubmit: async (values) => {
-      console.log(values);
       await sendMessage({
         message: values.message,
         pin_message: values.pin,
@@ -26,7 +25,6 @@ export const SendMessageWidget = () => {
     },
   });
 
-  console.log(list);
   return (
     <Widget name={"Send message widget"}>
       <SendMessageWrapper onSubmit={handleSubmit}>
