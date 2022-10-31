@@ -1,5 +1,5 @@
 export interface IMessageDtoInterface {
-  chat_id: number;
+  chat_ids: number[];
   message: string;
   pin_message: boolean;
 }

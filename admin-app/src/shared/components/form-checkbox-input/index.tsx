@@ -5,7 +5,7 @@ export interface IFormCheckboxInput {
   title: string;
   name: string;
   handleChange: any;
-  value: string;
+  value: any;
 }
 
 export const FormCheckboxInput = ({
