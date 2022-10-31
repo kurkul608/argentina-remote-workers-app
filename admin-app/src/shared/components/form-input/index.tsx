@@ -27,8 +27,6 @@ export const Input = ({
   placeHolderText,
   errors,
 }: IAuthFormProps) => {
-  console.log(value);
-  console.log(errors);
   return (
     <>
       <OuterWrapper>

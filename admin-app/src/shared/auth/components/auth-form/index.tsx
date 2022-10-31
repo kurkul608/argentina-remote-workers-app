@@ -39,9 +39,6 @@ export const AuthForm = () => {
     },
     onSubmit: async (values: IUserLogin) => {
       const result = await dispatch(authAsync(values));
-      if (result.payload) {
-        console.log(result.payload);
-      }
     },
     validationSchema: userSchema,
     validateOnChange: true,
