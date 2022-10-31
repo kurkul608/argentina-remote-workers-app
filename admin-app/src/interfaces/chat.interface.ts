@@ -3,3 +3,9 @@ export interface IChatInterface {
   title: "argentina remote app test environment";
   type: "supergroup";
 }
+
+export interface IChat {
+  id: number;
+  title: string;
+  type: string;
+}
