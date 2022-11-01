@@ -16,11 +16,11 @@ export const FormCheckboxInput = ({
 }: IFormCheckboxInput) => {
   return (
     <InputWrapper>
-      <Label htmlFor={title}>
+      <Label htmlFor={value}>
         <Input
           type={"checkbox"}
           name={name}
-          id={title}
+          id={value}
           value={value}
           onChange={handleChange}
         />

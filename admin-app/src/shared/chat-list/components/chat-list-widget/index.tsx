@@ -7,7 +7,7 @@ import { getAllChats } from "../../redux/chat-list.slice";
 export const ChatListWidget = () => {
   const chatList = useAppSelector((state) => state.chats.list);
   const dispatch = useAppDispatch();
-
+  console.log(chatList);
   useEffect(() => {
     dispatch(getAllChats());
   }, []);
