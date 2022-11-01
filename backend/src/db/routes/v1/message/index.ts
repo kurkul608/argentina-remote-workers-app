@@ -9,7 +9,7 @@ export const messageRouter = express.Router();
 
 /**
  * @swagger
- * /users:
+ * /message:
  *   post:
  *     summary: Send message by bot.
  *     requestBody:
@@ -20,9 +20,9 @@ export const messageRouter = express.Router();
  *             type: object
  *             properties:
  *               chat_ids:
- *                 type: Array<string>
+ *                 type: Array<string  | number>
  *                 description: Chat ids array.
- *                 example: [115]
+ *                 example: [115,  "11"]
  *               message:
  *                 type: string
  *                 description: Message text.
