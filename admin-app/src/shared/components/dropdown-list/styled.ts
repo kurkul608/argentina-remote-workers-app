@@ -9,10 +9,16 @@ export const DropdownWrapper = styled.div`
   font-size: 1.5rem;
   cursor: pointer;
   .closed {
-    transform: rotateX(180deg);
+    transition: all 0.2s ease-in-out;
+    transform: rotateZ(180deg) rotateY(180deg);
   }
   .active {
     cursor: default;
+  }
+  .hidden {
+    display: none;
+    opacity: 0;
+    transition: all 0.2s ease-in-out;
   }
 `;
 
@@ -32,12 +38,14 @@ export const Dropdown = styled.div`
 export const OuterWrapper = styled.div`
   display: flex;
   align-items: center;
+  transition: all 0.2s ease-in-out;
 `;
 export const Icon = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   margin-left: 10px;
+  transition: all 0.2s ease-in-out;
 `;
 
 export const Table = styled.ul`
@@ -50,16 +58,12 @@ export const Table = styled.ul`
   background-color: ${(props) => color(props.theme.mainTheme).widgetBackGround};
   z-index: 1;
   overflow: auto;
-
   &::-webkit-scrollbar {
     background-color: ${(props) =>
       color(props.theme.mainTheme).widgetBackGround};
     width: 5px;
   }
 
-  //&::-webkit-scrollbar-track {
-  //  background-color: red;
-  //}
   &::-webkit-scrollbar-thumb {
     background-color: #f7b03e;
   }
@@ -67,11 +71,10 @@ export const Table = styled.ul`
 
 export const TableItem = styled.li`
   width: 100%;
-  padding: 10px 20px;
   user-select: none;
   cursor: pointer;
-  //border: 1px #f7b03e solid;
   &:hover {
-    background-color: #f7b03e;
+    // * background-color: chatHoverBackgroundColor
+    background-color: #545454;
   }
 `;
