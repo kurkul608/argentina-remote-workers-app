@@ -1,27 +1,30 @@
 import React from "react";
-import { Input, InputWrapper, Title, Label } from "./styled";
+import { Input, InputWrapper, Title, Label, CheckBox } from "./styled";
 
 export interface IFormCheckboxInput {
   title: string;
   name: string;
   handleChange: any;
+  value: any;
 }
 
 export const FormCheckboxInput = ({
   title,
   name,
   handleChange,
+  value,
 }: IFormCheckboxInput) => {
   return (
     <InputWrapper>
-      <Input
-        type={"checkbox"}
-        name={name}
-        id={title}
-        value={title}
-        onChange={handleChange}
-      ></Input>
       <Label htmlFor={title}>
+        <Input
+          type={"checkbox"}
+          name={name}
+          id={title}
+          value={value}
+          onChange={handleChange}
+        />
+        <CheckBox />
         <Title>{title}</Title>
       </Label>
     </InputWrapper>
