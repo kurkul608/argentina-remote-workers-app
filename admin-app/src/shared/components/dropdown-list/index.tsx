@@ -15,7 +15,7 @@ interface IDropdownList {
   list: IMapped;
   handleChange: (e?: React.FormEvent<HTMLFormElement> | undefined) => void;
   nameList: string;
-  values: string[];
+  values: IMapped;
   placeHolder: string;
 }
 export const DropdownList = ({
@@ -30,14 +30,16 @@ export const DropdownList = ({
     e.stopPropagation();
   }
 
+  console.log(values, "initial Values");
   return (
     <>
       <DropdownWrapper onClick={() => setIsOpen(!isOpen)}>
         <OuterWrapper className={isOpen ? "active" : ""}>
           <Dropdown>
-            {values.length
-              ? values.map((item) => list[item].title).join(", ")
-              : placeHolder}
+            {/*{values.length*/}
+            {/*  ? values.map((item) => list[item].title).join(", ")*/}
+            {/*  : placeHolder}*/}
+            {placeHolder}
           </Dropdown>
           <Icon className={isOpen ? "" : "closed"}>
             <svg

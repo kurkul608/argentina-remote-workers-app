@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Widget } from "../../../widget";
 import { SendMessageWrapper } from "./styled";
 import { useFormik } from "formik";
@@ -18,6 +18,8 @@ export const SendMessageWidget = () => {
   });
   const { list } = useAppSelector((state) => state.chats);
   const mappedList = mapper(list);
+  console.log(mappedList, "list");
+  useEffect(() => {}, [mappedList]);
   const {
     handleSubmit,
     handleChange,
@@ -27,16 +29,18 @@ export const SendMessageWidget = () => {
     isSubmitting,
   } = useFormik({
     initialValues: {
-      selectedChats: [],
+      selectedChats: mappedList,
+
       message: "",
       pin: false,
     },
     validationSchema: validationSchema,
     onSubmit: async () => {
+      const ids = Object.values(values.selectedChats).map((item) => item.id);
       await sendMessage({
         message: values.message,
         pin_message: values.pin,
-        chat_ids: values.selectedChats,
+        chat_ids: ids,
       });
       resetForm({
         values: {
@@ -47,6 +51,7 @@ export const SendMessageWidget = () => {
       });
     },
     validateOnChange: false,
+    enableReinitialize: true,
   });
   console.log(isSubmitting);
   return (
