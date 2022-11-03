@@ -29,7 +29,7 @@ export const StyledHeaderLogoBlock = styled.div`
     height: 100%;
     width: 100%;
     font-size: 18px;
-    color: ${(props) => color(props.theme.mainTheme).logoText};
+    color: ${(props) => color(props.theme.mainTheme).baseWhiteText};
   }
 `;
 

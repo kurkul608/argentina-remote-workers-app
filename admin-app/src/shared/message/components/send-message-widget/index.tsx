@@ -53,7 +53,6 @@ export const SendMessageWidget = () => {
     validateOnChange: false,
     enableReinitialize: true,
   });
-  console.log(isSubmitting);
   return (
     <Widget name={"Send message widget"}>
       <SendMessageWrapper onSubmit={handleSubmit}>

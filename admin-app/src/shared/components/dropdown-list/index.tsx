@@ -30,7 +30,6 @@ export const DropdownList = ({
     e.stopPropagation();
   }
 
-  console.log(values, "initial Values");
   return (
     <>
       <DropdownWrapper onClick={() => setIsOpen(!isOpen)}>
