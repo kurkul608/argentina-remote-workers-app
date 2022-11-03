@@ -18,7 +18,7 @@ export const SendMessageWidget = () => {
   });
   const { list } = useAppSelector((state) => state.chats);
   const mappedList = mapper(list);
-  const { handleSubmit, handleChange, values } = useFormik({
+  const { handleSubmit, handleChange, values, resetForm, errors } = useFormik({
     initialValues: {
       selectedChats: [],
       message: "",
@@ -31,9 +31,16 @@ export const SendMessageWidget = () => {
         pin_message: values.pin,
         chat_ids: values.selectedChats,
       });
+      resetForm({
+        values: {
+          selectedChats: values.selectedChats,
+          message: "",
+          pin: false,
+        },
+      });
     },
   });
-
+  console.log(values);
   return (
     <Widget name={"Send message widget"}>
       <SendMessageWrapper onSubmit={handleSubmit}>
@@ -49,12 +56,14 @@ export const SendMessageWidget = () => {
           id={"message"}
           name={"message"}
           value={values.message}
+          errors={errors.message}
         />
         <Input
           type={"checkbox"}
           onChange={handleChange}
           id={"pin"}
           name={"pin"}
+          checked={values.pin}
         />
         <Button label={"Отправить"} type={"submit"} />
       </SendMessageWrapper>

@@ -16,6 +16,7 @@ interface IAuthFormProps {
   type?: string;
   placeHolderText?: string;
   errors?: any;
+  checked?: boolean;
 }
 
 export const Input = ({
@@ -26,6 +27,7 @@ export const Input = ({
   name,
   placeHolderText,
   errors,
+  checked,
 }: IAuthFormProps) => {
   return (
     <>
@@ -37,6 +39,8 @@ export const Input = ({
             name={name}
             autoComplete={"off"}
             type={type || "text"}
+            value={value}
+            checked={checked}
           />
           {value && value.length ? (
             <PlaceholderFilled className={errors ? "invalid-text" : ""}>
