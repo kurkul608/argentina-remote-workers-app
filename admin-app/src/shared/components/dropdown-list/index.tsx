@@ -35,11 +35,6 @@ export const DropdownList = ({
     e.stopPropagation();
   }
 
-  console.log(list);
-  console.log(
-    "val",
-    list.filter((x) => (selectedValues.includes(x.value) ? x.value : null))
-  );
   return (
     <>
       <DropdownWrapper onClick={() => setIsOpen(!isOpen)}>
