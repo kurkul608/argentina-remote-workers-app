@@ -29,6 +29,4 @@ export const Input = styled.input`
   }
 `;
 
-export const Title = styled.span`
-  z-index: 1;
-`;
+export const Title = styled.span``;
