@@ -21,7 +21,7 @@ const chatToOption = (chat: IChatInterface): IDropdownOption => ({
 
 export const SendMessageWidget = () => {
   const validationSchema = Yup.object().shape({
-    selectedChats: Yup.array().of(Yup.number()).required("select any chat"),
+    selectedChats: Yup.array().of(Yup.number()).min(1, "select any chat"),
     message: Yup.string().required(),
     pin: Yup.boolean(),
   });
@@ -67,6 +67,7 @@ export const SendMessageWidget = () => {
           nameList={"selectedChats"}
           selectedValues={values.selectedChats}
           placeHolder={"Select chat"}
+          errors={errors.selectedChats}
         />
         <Input
           onChange={handleChange}
