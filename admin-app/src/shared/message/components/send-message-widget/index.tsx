@@ -10,10 +10,6 @@ import { sendMessage } from "../../services/data";
 import * as Yup from "yup";
 import { mapper } from "../../services/helpers";
 
-export interface IMapped {
-  [id: number]: string;
-}
-
 export const SendMessageWidget = () => {
   const validationSchema = Yup.object().shape({
     selectedChats: Yup.array().of(Yup.number()).required("select any chat"),
@@ -43,10 +39,10 @@ export const SendMessageWidget = () => {
       <SendMessageWrapper onSubmit={handleSubmit}>
         <DropdownList
           handleChange={handleChange}
-          list={list}
+          list={mappedList}
           nameList={"selectedChats"}
           values={values.selectedChats}
-          placeHolder={mappedList}
+          placeHolder={"Select chat"}
         />
         <Input
           onChange={handleChange}
