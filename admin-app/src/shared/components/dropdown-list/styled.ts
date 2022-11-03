@@ -1,6 +1,10 @@
 import styled from "styled-components";
 import { color } from "../../../constants/colors";
-
+export const StyledWrapper = styled.div`
+  .invalid {
+    border: 1px ${(props) => color(props.theme.mainTheme).inputErrorColor} solid;
+  }
+`;
 export const DropdownWrapper = styled.div`
   position: relative;
   padding: 10px 20px;
@@ -74,7 +78,12 @@ export const TableItem = styled.li`
   user-select: none;
   cursor: pointer;
   &:hover {
-    // * background-color: chatHoverBackgroundColor
     background-color: #545454;
   }
+`;
+
+export const Error = styled.p`
+  margin-top: 10px;
+  font-size: 1.4rem;
+  color: ${(props) => color(props.theme.mainTheme).inputErrorColor};
 `;
