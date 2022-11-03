@@ -14,6 +14,10 @@ export const DropdownWrapper = styled.div`
   }
   .active {
     cursor: default;
+  }
+  .hidden {
+    display: none;
+    opacity: 0;
     transition: all 0.2s ease-in-out;
   }
 `;

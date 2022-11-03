@@ -5,24 +5,39 @@ import { useFormik } from "formik";
 import { Input } from "../../../components/form-input";
 import { Button } from "../../../components/form-button";
 import { DropdownList } from "../../../components/dropdown-list";
+import { useAppSelector } from "../../../../redux/hooks";
+import { sendMessage } from "../../services/data";
+import * as Yup from "yup";
+import { mapper } from "../../services/helpers";
+
+export interface IMapped {
+  [id: number]: string;
+}
 
 export const SendMessageWidget = () => {
+  const validationSchema = Yup.object().shape({
+    selectedChats: Yup.array().of(Yup.number()).required("select any chat"),
+    message: Yup.string().required(),
+    pin: Yup.boolean(),
+  });
+  const { list } = useAppSelector((state) => state.chats);
+  const mappedList = mapper(list);
   const { handleSubmit, handleChange, values } = useFormik({
     initialValues: {
       selectedChats: [],
       message: "",
       pin: false,
     },
-    onSubmit: async (values) => {
-      alert(JSON.stringify(values, null, 2));
+    validationSchema: validationSchema,
+    onSubmit: async () => {
+      await sendMessage({
+        message: values.message,
+        pin_message: values.pin,
+        chat_ids: values.selectedChats,
+      });
     },
   });
-  const list = [
-    { title: "Popit", _id: 1 },
-    { title: "Ochko", _id: 2 },
-    { title: "Zalupa", _id: 3 },
-    { title: "Xer", _id: 4 },
-  ];
+
   return (
     <Widget name={"Send message widget"}>
       <SendMessageWrapper onSubmit={handleSubmit}>
@@ -31,7 +46,8 @@ export const SendMessageWidget = () => {
           list={list}
           nameList={"selectedChats"}
           values={values.selectedChats}
-        ></DropdownList>
+          placeHolder={mappedList}
+        />
         <Input
           onChange={handleChange}
           id={"message"}
