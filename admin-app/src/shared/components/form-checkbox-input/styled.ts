@@ -16,7 +16,7 @@ export const CheckBox = styled.span`
   width: 20px;
   display: block;
   z-index: 1;
-  background-color: red;
+  border: 1px solid red;
 `;
 export const Input = styled.input`
   position: absolute;
@@ -25,7 +25,9 @@ export const Input = styled.input`
   z-index: 0;
 
   &:checked + ${CheckBox} {
+    border-color: green;
     background-color: green;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3e%3c/svg%3e");
   }
 `;
 
