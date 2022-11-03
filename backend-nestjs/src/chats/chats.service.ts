@@ -13,9 +13,15 @@ export class ChatsService {
   async create(createChatDto: CreateChatDto) {
     return this.chatModel.create(createChatDto);
   }
+
   async findById(id: number) {
     return this.chatModel.findOne({ id });
   }
+
+  async findAllByIds(ids: number[]) {
+    return this.chatModel.find().where('id').in(ids);
+  }
+
   async getAll() {
     const data = await this.chatModel.find();
     return {

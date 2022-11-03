@@ -1,9 +1,10 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { MessageService } from './message.service';
-import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { SendMessageDto } from './send-message.dto';
 
 @Controller('message')
+@ApiTags('message')
 export class MessageController {
   constructor(private readonly messageService: MessageService) {}
 
