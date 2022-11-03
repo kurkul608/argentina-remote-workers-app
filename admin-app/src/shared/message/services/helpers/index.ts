@@ -9,10 +9,16 @@ export interface IDropDownList {
   value: boolean;
 }
 export function mapper(list: IChatInterface[]) {
-  const mappedList: IMapped = {};
-  list.map(
-    (item) =>
-      (mappedList[item.id] = { title: item.title, id: item.id, value: false })
+  const mappedList: IMapped = list.reduce(
+    (acc, item) => ({
+      ...acc,
+      [item.id]: {
+        title: item.title,
+        id: item.id,
+        value: false,
+      },
+    }),
+    {} as IMapped
   );
   return mappedList;
 }

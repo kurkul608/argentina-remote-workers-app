@@ -9,20 +9,25 @@ import {
 } from "./styled";
 
 import { FormCheckboxInput } from "../form-checkbox-input";
-import { IMapped } from "../../message/services/helpers";
+
+export interface IDropdownOption {
+  key: string;
+  label: string;
+  value: string;
+}
 
 interface IDropdownList {
-  list: IMapped;
-  handleChange: (e?: React.FormEvent<HTMLFormElement> | undefined) => void;
+  list: IDropdownOption[];
+  handleChange: (e: React.ChangeEvent<any>) => void;
   nameList: string;
-  values: IMapped;
+  selectedValues: Array<number | string>;
   placeHolder: string;
 }
 export const DropdownList = ({
   list,
   handleChange,
   nameList,
-  values,
+  selectedValues,
   placeHolder,
 }: IDropdownList) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -53,21 +58,38 @@ export const DropdownList = ({
           </Icon>
         </OuterWrapper>
         <Table className={isOpen ? "" : "hidden"}>
-          {Object.keys(list).map((item) => {
+          {list.map((item) => {
             return (
-              <TableItem
-                onClick={(e) => onClick(e)}
-                key={`chat-${list[item].id}`}
-              >
+              <TableItem onClick={(e) => onClick(e)} key={item.key}>
                 <FormCheckboxInput
-                  title={list[item].title}
-                  value={list[item].id}
+                  title={item.label}
+                  value={item.value}
                   name={nameList}
                   handleChange={handleChange}
+                  isChecked={
+                    !!selectedValues.find(
+                      (value) => value.toString() === item.value.toString()
+                    )
+                  }
                 />
               </TableItem>
             );
           })}
+          {/*{Object.keys(list).map((item) => {*/}
+          {/*  return (*/}
+          {/*    <TableItem*/}
+          {/*      onClick={(e) => onClick(e)}*/}
+          {/*      key={`chat-${list[item].id}`}*/}
+          {/*    >*/}
+          {/*      <FormCheckboxInput*/}
+          {/*        title={list[item].title}*/}
+          {/*        value={list[item].id}*/}
+          {/*        name={nameList}*/}
+          {/*        handleChange={handleChange}*/}
+          {/*      />*/}
+          {/*    </TableItem>*/}
+          {/*  );*/}
+          {/*})}*/}
         </Table>
       </DropdownWrapper>
     </>

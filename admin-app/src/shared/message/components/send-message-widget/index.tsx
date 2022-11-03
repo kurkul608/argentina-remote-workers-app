@@ -1,14 +1,23 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Widget } from "../../../widget";
 import { SendMessageWrapper } from "./styled";
 import { useFormik } from "formik";
 import { Input } from "../../../components/form-input";
 import { Button } from "../../../components/form-button";
-import { DropdownList } from "../../../components/dropdown-list";
+import {
+  DropdownList,
+  IDropdownOption,
+} from "../../../components/dropdown-list";
 import { useAppSelector } from "../../../../redux/hooks";
 import { sendMessage } from "../../services/data";
 import * as Yup from "yup";
-import { mapper } from "../../services/helpers";
+import { IChatInterface } from "../../../../interfaces/chat.interface";
+
+const chatToOption = (chat: IChatInterface): IDropdownOption => ({
+  label: chat.title,
+  key: `dropdown-chat-option-${chat.id}`,
+  value: chat.id.toString(),
+});
 
 export const SendMessageWidget = () => {
   const validationSchema = Yup.object().shape({
@@ -17,9 +26,7 @@ export const SendMessageWidget = () => {
     pin: Yup.boolean(),
   });
   const { list } = useAppSelector((state) => state.chats);
-  const mappedList = mapper(list);
-  console.log(mappedList, "list");
-  useEffect(() => {}, [mappedList]);
+  // const mappedList = mapper(list);
   const {
     handleSubmit,
     handleChange,
@@ -29,18 +36,17 @@ export const SendMessageWidget = () => {
     isSubmitting,
   } = useFormik({
     initialValues: {
-      selectedChats: mappedList,
+      selectedChats: [],
 
       message: "",
       pin: false,
     },
     validationSchema: validationSchema,
     onSubmit: async () => {
-      const ids = Object.values(values.selectedChats).map((item) => item.id);
       await sendMessage({
         message: values.message,
         pin_message: values.pin,
-        chat_ids: ids,
+        chat_ids: values.selectedChats,
       });
       resetForm({
         values: {
@@ -53,14 +59,15 @@ export const SendMessageWidget = () => {
     validateOnChange: false,
     enableReinitialize: true,
   });
+  console.log("values", values);
   return (
     <Widget name={"Send message widget"}>
       <SendMessageWrapper onSubmit={handleSubmit}>
         <DropdownList
           handleChange={handleChange}
-          list={mappedList}
+          list={list.map(chatToOption)}
           nameList={"selectedChats"}
-          values={values.selectedChats}
+          selectedValues={values.selectedChats}
           placeHolder={"Select chat"}
         />
         <Input
