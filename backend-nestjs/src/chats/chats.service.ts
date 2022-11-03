@@ -17,6 +17,10 @@ export class ChatsService {
     return this.chatModel.findOne({ id });
   }
   async getAll() {
-    return this.chatModel.find();
+    const data = await this.chatModel.find();
+    return {
+      total: data.length,
+      data,
+    };
   }
 }

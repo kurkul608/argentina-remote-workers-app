@@ -8,7 +8,8 @@ export class MessageService {
 
   async sendMessages({ pin_message, message, chat_ids }: SendMessageDto) {
     for (const chatId of chat_ids) {
-      return await this.botService.sendMessage(chatId, message, pin_message);
+      await this.botService.sendMessage(chatId, message, pin_message);
     }
+    return true;
   }
 }

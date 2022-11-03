@@ -17,7 +17,6 @@ export const ChatListWidget = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    getChatsList().then((data) => console.log(data));
     dispatch(getAllChats());
   }, []);
   return (

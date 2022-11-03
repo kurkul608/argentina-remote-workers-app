@@ -32,6 +32,7 @@ export const chatsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getAllChats.fulfilled, (state, action) => {
+        console.log(action);
         state.list = state.list.concat(
           (action.payload?.data as IChatInterface[]) || []
         );
