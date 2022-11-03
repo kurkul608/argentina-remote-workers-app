@@ -5,25 +5,45 @@ import { useFormik } from "formik";
 import { Input } from "../../../components/form-input";
 import { Button } from "../../../components/form-button";
 import { DropdownList } from "../../../components/dropdown-list";
+import { useAppSelector } from "../../../../redux/hooks";
+import { sendMessage } from "../../services/data";
+import { IChat } from "../../../../interfaces/chat.interface";
+import * as Yup from "yup";
+
+export interface IMapped {
+  [id: number]: string;
+}
 
 export const SendMessageWidget = () => {
-  const { handleSubmit, handleChange, values } = useFormik({
+  const validationSchema = Yup.object().shape({
+    selectedChats: Yup.array().of(Yup.number()).required("select any chat"),
+    message: Yup.string().required(),
+    pin: Yup.boolean(),
+  });
+  const { list } = useAppSelector((state) => state.chats);
+  const { handleSubmit, handleChange, values, errors } = useFormik({
     initialValues: {
       selectedChats: [],
       message: "",
       pin: false,
     },
-    onSubmit: async (values) => {
-      alert(JSON.stringify(values, null, 2));
+    validationSchema: validationSchema,
+    onSubmit: async () => {
+      await sendMessage({
+        message: values.message,
+        pin_message: values.pin,
+        chat_ids: values.selectedChats,
+      });
     },
   });
-  const list = [
-    { title: "Popit", _id: 1 },
-    { title: "Ochko", _id: 2 },
-    { title: "Zalupa", _id: 3 },
-    { title: "Xer", _id: 4 },
-  ];
-  console.log(values.selectedChats);
+
+  function mapper(list: IChat[]) {
+    const mappedList: IMapped = {};
+    list.map((item) => (mappedList[item.id] = item.title));
+    return mappedList;
+  }
+
+  const mappedList = mapper(list);
   return (
     <Widget name={"Send message widget"}>
       <SendMessageWrapper onSubmit={handleSubmit}>
@@ -31,7 +51,9 @@ export const SendMessageWidget = () => {
           handleChange={handleChange}
           list={list}
           nameList={"selectedChats"}
-        ></DropdownList>
+          values={values.selectedChats}
+          placeHolder={mappedList}
+        />
         <Input
           onChange={handleChange}
           id={"message"}

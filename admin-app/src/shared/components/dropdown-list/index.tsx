@@ -14,21 +14,30 @@ interface IDropdownList {
   list: any[];
   handleChange: (e?: React.FormEvent<HTMLFormElement> | undefined) => void;
   nameList: string;
+  values: string[];
+  placeHolder: any;
 }
 export const DropdownList = ({
   list,
   handleChange,
   nameList,
+  values,
+  placeHolder,
 }: IDropdownList) => {
   const [isOpen, setIsOpen] = useState(false);
   function onClick(e: any) {
     e.stopPropagation();
   }
+
   return (
     <>
       <DropdownWrapper onClick={() => setIsOpen(!isOpen)}>
         <OuterWrapper className={isOpen ? "active" : ""}>
-          <Dropdown>{"test"}</Dropdown>
+          <Dropdown>
+            {values.length
+              ? values.map((item) => placeHolder[item]).join(", ")
+              : "Select chat"}
+          </Dropdown>
           <Icon className={isOpen ? "" : "closed"}>
             <svg
               width="15"
@@ -41,21 +50,20 @@ export const DropdownList = ({
             </svg>
           </Icon>
         </OuterWrapper>
-        {isOpen ? (
-          <Table>
-            {list.map((item) => {
-              return (
-                <TableItem onClick={(e) => onClick(e)} key={`chat-${item._id}`}>
-                  <FormCheckboxInput
-                    title={item.title}
-                    name={nameList}
-                    handleChange={handleChange}
-                  ></FormCheckboxInput>
-                </TableItem>
-              );
-            })}
-          </Table>
-        ) : null}
+        <Table className={isOpen ? "" : "hidden"}>
+          {list.map((item) => {
+            return (
+              <TableItem onClick={(e) => onClick(e)} key={`chat-${item.id}`}>
+                <FormCheckboxInput
+                  title={item.title}
+                  value={item.id}
+                  name={nameList}
+                  handleChange={handleChange}
+                />
+              </TableItem>
+            );
+          })}
+        </Table>
       </DropdownWrapper>
     </>
   );

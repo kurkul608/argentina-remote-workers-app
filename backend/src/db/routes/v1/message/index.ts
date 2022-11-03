@@ -9,7 +9,7 @@ export const messageRouter = express.Router();
 
 /**
  * @swagger
- * /users:
+ * /message:
  *   post:
  *     summary: Send message by bot.
  *     requestBody:
@@ -19,10 +19,10 @@ export const messageRouter = express.Router();
  *           schema:
  *             type: object
  *             properties:
- *               chat_id:
- *                 type: string | number
- *                 description: Chat id.
- *                 example: 115
+ *               chat_ids:
+ *                 type: Array<string  | number>
+ *                 description: Chat ids array.
+ *                 example: [115,  "11"]
  *               message:
  *                 type: string
  *                 description: Message text.
@@ -33,22 +33,25 @@ export const messageRouter = express.Router();
  *                 example: true
  */
 messageRouter.route("/").post(async (req, res) => {
-  const { chat_id, message, pin_message } = req.body;
+  const { chat_ids, message, pin_message } = req.body;
   if (mainBot) {
-    const tgMessage = await sendMessageService(mainBot, chat_id, message);
-    if (pin_message) {
-      const pinResult = await pinMessageService(
-        mainBot,
-        chat_id,
-        tgMessage.message_id
-      );
-      if (pinResult) {
-        const chat = await findOneChatByParams({ id: tgMessage.chat.id });
-        if (chat) {
-          await addPinnedMessage({ ...tgMessage, chat: chat });
+    for (const chat_id of chat_ids) {
+      const tgMessage = await sendMessageService(mainBot, chat_id, message);
+      if (pin_message) {
+        const pinResult = await pinMessageService(
+          mainBot,
+          chat_id,
+          tgMessage.message_id
+        );
+        if (pinResult) {
+          const chat = await findOneChatByParams({ id: tgMessage.chat.id });
+          if (chat) {
+            await addPinnedMessage({ ...tgMessage, chat: chat });
+          }
         }
       }
     }
+
     res.send("success");
   } else {
     res.status(400).send("Bot is not ready");
