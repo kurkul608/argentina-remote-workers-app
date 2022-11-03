@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import {
   Dropdown,
   DropdownWrapper,
+  Error,
   Icon,
   OuterWrapper,
+  StyledWrapper,
   Table,
   TableItem,
 } from "./styled";
@@ -22,6 +24,7 @@ interface IDropdownList {
   nameList: string;
   selectedValues: Array<number | string>;
   placeHolder: string;
+  errors?: string | string[] | never[];
 }
 export const DropdownList = ({
   list,
@@ -29,6 +32,7 @@ export const DropdownList = ({
   nameList,
   selectedValues,
   placeHolder,
+  errors,
 }: IDropdownList) => {
   const [isOpen, setIsOpen] = useState(false);
   function onClick(e: React.MouseEvent<HTMLElement>) {
@@ -37,61 +41,54 @@ export const DropdownList = ({
 
   return (
     <>
-      <DropdownWrapper onClick={() => setIsOpen(!isOpen)}>
-        <OuterWrapper className={isOpen ? "active" : ""}>
-          <Dropdown>
-            {/*{values.length*/}
-            {/*  ? values.map((item) => list[item].title).join(", ")*/}
-            {/*  : placeHolder}*/}
-            {placeHolder}
-          </Dropdown>
-          <Icon className={isOpen ? "" : "closed"}>
-            <svg
-              width="15"
-              height="15"
-              viewBox="0 0 10 8"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path d="M5 0L9.33013 7.5H0.669873L5 0Z" fill="#F7B03E" />
-            </svg>
-          </Icon>
-        </OuterWrapper>
-        <Table className={isOpen ? "" : "hidden"}>
-          {list.map((item) => {
-            return (
-              <TableItem onClick={(e) => onClick(e)} key={item.key}>
-                <FormCheckboxInput
-                  title={item.label}
-                  value={item.value}
-                  name={nameList}
-                  handleChange={handleChange}
-                  isChecked={
-                    !!selectedValues.find(
-                      (value) => value.toString() === item.value.toString()
-                    )
-                  }
-                />
-              </TableItem>
-            );
-          })}
-          {/*{Object.keys(list).map((item) => {*/}
-          {/*  return (*/}
-          {/*    <TableItem*/}
-          {/*      onClick={(e) => onClick(e)}*/}
-          {/*      key={`chat-${list[item].id}`}*/}
-          {/*    >*/}
-          {/*      <FormCheckboxInput*/}
-          {/*        title={list[item].title}*/}
-          {/*        value={list[item].id}*/}
-          {/*        name={nameList}*/}
-          {/*        handleChange={handleChange}*/}
-          {/*      />*/}
-          {/*    </TableItem>*/}
-          {/*  );*/}
-          {/*})}*/}
-        </Table>
-      </DropdownWrapper>
+      <StyledWrapper>
+        <DropdownWrapper
+          onClick={() => setIsOpen(!isOpen)}
+          className={errors ? "invalid" : ""}
+        >
+          <OuterWrapper className={isOpen ? "active" : ""}>
+            <Dropdown>
+              {selectedValues.length
+                ? list
+                    .filter((x) => selectedValues.includes(x.value))
+                    .map((x) => x.label)
+                    .join(", ")
+                : placeHolder}
+            </Dropdown>
+            <Icon className={isOpen ? "" : "closed"}>
+              <svg
+                width="15"
+                height="15"
+                viewBox="0 0 10 8"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d="M5 0L9.33013 7.5H0.669873L5 0Z" fill="#F7B03E" />
+              </svg>
+            </Icon>
+          </OuterWrapper>
+          <Table className={isOpen ? "" : "hidden"}>
+            {list.map((item) => {
+              return (
+                <TableItem onClick={(e) => onClick(e)} key={item.key}>
+                  <FormCheckboxInput
+                    title={item.label}
+                    value={item.value}
+                    name={nameList}
+                    handleChange={handleChange}
+                    isChecked={
+                      !!selectedValues.find(
+                        (value) => value.toString() === item.value.toString()
+                      )
+                    }
+                  />
+                </TableItem>
+              );
+            })}
+          </Table>
+        </DropdownWrapper>
+        {errors ? <Error>{errors}</Error> : null}
+      </StyledWrapper>
     </>
   );
 };

@@ -15,7 +15,7 @@ interface IAuthFormProps {
   name: string;
   type?: string;
   placeHolderText?: string;
-  errors?: any;
+  errors?: string;
   checked?: boolean;
 }
 

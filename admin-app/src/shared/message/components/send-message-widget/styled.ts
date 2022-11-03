@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
 export const SendMessageWrapper = styled.form`
-  //display: flex;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 `;
