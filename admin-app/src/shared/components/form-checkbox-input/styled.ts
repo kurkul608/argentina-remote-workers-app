@@ -17,7 +17,7 @@ export const CheckBox = styled.span`
   width: 20px;
   display: block;
   z-index: 1;
-  border: ${(props) => color(props.theme.mainTheme).inputCheckedColor};};
+  border: 1px solid ${(props) => color(props.theme.mainTheme).inputUncheckedColor};};
 `;
 export const Input = styled.input`
   position: absolute;
