@@ -4,15 +4,20 @@ import { SendMessageWrapper } from "./styled";
 import { useFormik } from "formik";
 import { Input } from "../../../components/form-input";
 import { Button } from "../../../components/form-button";
-import { DropdownList } from "../../../components/dropdown-list";
+import {
+  DropdownList,
+  IDropdownOption,
+} from "../../../components/dropdown-list";
 import { useAppSelector } from "../../../../redux/hooks";
 import { sendMessage } from "../../services/data";
-import { IChat } from "../../../../interfaces/chat.interface";
 import * as Yup from "yup";
+import { IChatInterface } from "../../../../interfaces/chat.interface";
 
-export interface IMapped {
-  [id: number]: string;
-}
+const chatToOption = (chat: IChatInterface): IDropdownOption => ({
+  label: chat.title,
+  key: `dropdown-chat-option-${chat.id}`,
+  value: chat.id.toString(),
+});
 
 export const SendMessageWidget = () => {
   const validationSchema = Yup.object().shape({
@@ -21,9 +26,18 @@ export const SendMessageWidget = () => {
     pin: Yup.boolean(),
   });
   const { list } = useAppSelector((state) => state.chats);
-  const { handleSubmit, handleChange, values, errors } = useFormik({
+  // const mappedList = mapper(list);
+  const {
+    handleSubmit,
+    handleChange,
+    values,
+    resetForm,
+    errors,
+    isSubmitting,
+  } = useFormik({
     initialValues: {
       selectedChats: [],
+
       message: "",
       pin: false,
     },
@@ -34,39 +48,43 @@ export const SendMessageWidget = () => {
         pin_message: values.pin,
         chat_ids: values.selectedChats,
       });
+      resetForm({
+        values: {
+          selectedChats: values.selectedChats,
+          message: "",
+          pin: false,
+        },
+      });
     },
+    validateOnChange: false,
+    enableReinitialize: true,
   });
-
-  function mapper(list: IChat[]) {
-    const mappedList: IMapped = {};
-    list.map((item) => (mappedList[item.id] = item.title));
-    return mappedList;
-  }
-
-  const mappedList = mapper(list);
+  console.log("values", values);
   return (
     <Widget name={"Send message widget"}>
       <SendMessageWrapper onSubmit={handleSubmit}>
         <DropdownList
           handleChange={handleChange}
-          list={list}
+          list={list.map(chatToOption)}
           nameList={"selectedChats"}
-          values={values.selectedChats}
-          placeHolder={mappedList}
+          selectedValues={values.selectedChats}
+          placeHolder={"Select chat"}
         />
         <Input
           onChange={handleChange}
           id={"message"}
           name={"message"}
           value={values.message}
+          errors={errors.message}
         />
         <Input
           type={"checkbox"}
           onChange={handleChange}
           id={"pin"}
           name={"pin"}
+          checked={values.pin}
         />
-        <Button label={"Отправить"} type={"submit"} />
+        <Button isDisabled={isSubmitting} label={"Отправить"} type={"submit"} />
       </SendMessageWrapper>
     </Widget>
   );

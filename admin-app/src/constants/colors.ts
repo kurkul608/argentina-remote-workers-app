@@ -14,11 +14,10 @@ export enum ColorsDark {
   widgetBorderColor = "#272a31",
   authInputLabel = "#7e7d7d",
   authInputFilled = "#ffffff",
+  inputErrorColor = "#d32d41",
   chatPhotoBackgroundColor = "#db863b",
   chatHoverBackgroundColor = "#545454",
-  inputErrorColor = "#d32d41",
 }
-
 export enum ColorsLight {
   backGround = "#f1f3f6",
   activeTabText = "#f7b03e",

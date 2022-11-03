@@ -10,22 +10,28 @@ import {
 
 import { FormCheckboxInput } from "../form-checkbox-input";
 
+export interface IDropdownOption {
+  key: string;
+  label: string;
+  value: string;
+}
+
 interface IDropdownList {
-  list: any[];
-  handleChange: (e?: React.FormEvent<HTMLFormElement> | undefined) => void;
+  list: IDropdownOption[];
+  handleChange: (e: React.ChangeEvent<any>) => void;
   nameList: string;
-  values: string[];
-  placeHolder: any;
+  selectedValues: Array<number | string>;
+  placeHolder: string;
 }
 export const DropdownList = ({
   list,
   handleChange,
   nameList,
-  values,
+  selectedValues,
   placeHolder,
 }: IDropdownList) => {
   const [isOpen, setIsOpen] = useState(false);
-  function onClick(e: any) {
+  function onClick(e: React.MouseEvent<HTMLElement>) {
     e.stopPropagation();
   }
 
@@ -34,9 +40,10 @@ export const DropdownList = ({
       <DropdownWrapper onClick={() => setIsOpen(!isOpen)}>
         <OuterWrapper className={isOpen ? "active" : ""}>
           <Dropdown>
-            {values.length
-              ? values.map((item) => placeHolder[item]).join(", ")
-              : "Select chat"}
+            {/*{values.length*/}
+            {/*  ? values.map((item) => list[item].title).join(", ")*/}
+            {/*  : placeHolder}*/}
+            {placeHolder}
           </Dropdown>
           <Icon className={isOpen ? "" : "closed"}>
             <svg
@@ -53,16 +60,36 @@ export const DropdownList = ({
         <Table className={isOpen ? "" : "hidden"}>
           {list.map((item) => {
             return (
-              <TableItem onClick={(e) => onClick(e)} key={`chat-${item.id}`}>
+              <TableItem onClick={(e) => onClick(e)} key={item.key}>
                 <FormCheckboxInput
-                  title={item.title}
-                  value={item.id}
+                  title={item.label}
+                  value={item.value}
                   name={nameList}
                   handleChange={handleChange}
+                  isChecked={
+                    !!selectedValues.find(
+                      (value) => value.toString() === item.value.toString()
+                    )
+                  }
                 />
               </TableItem>
             );
           })}
+          {/*{Object.keys(list).map((item) => {*/}
+          {/*  return (*/}
+          {/*    <TableItem*/}
+          {/*      onClick={(e) => onClick(e)}*/}
+          {/*      key={`chat-${list[item].id}`}*/}
+          {/*    >*/}
+          {/*      <FormCheckboxInput*/}
+          {/*        title={list[item].title}*/}
+          {/*        value={list[item].id}*/}
+          {/*        name={nameList}*/}
+          {/*        handleChange={handleChange}*/}
+          {/*      />*/}
+          {/*    </TableItem>*/}
+          {/*  );*/}
+          {/*})}*/}
         </Table>
       </DropdownWrapper>
     </>
