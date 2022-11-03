@@ -24,7 +24,7 @@ interface IDropdownList {
   nameList: string;
   selectedValues: Array<number | string>;
   placeHolder: string;
-  errors: any;
+  errors: string;
 }
 export const DropdownList = ({
   list,
