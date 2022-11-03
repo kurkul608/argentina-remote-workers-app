@@ -35,15 +35,22 @@ export const DropdownList = ({
     e.stopPropagation();
   }
 
+  console.log(list);
+  console.log(
+    "val",
+    list.filter((x) => (selectedValues.includes(x.value) ? x.value : null))
+  );
   return (
     <>
       <DropdownWrapper onClick={() => setIsOpen(!isOpen)}>
         <OuterWrapper className={isOpen ? "active" : ""}>
           <Dropdown>
-            {/*{values.length*/}
-            {/*  ? values.map((item) => list[item].title).join(", ")*/}
-            {/*  : placeHolder}*/}
-            {placeHolder}
+            {selectedValues.length
+              ? list
+                  .filter((x) => selectedValues.includes(x.value))
+                  .map((x) => x.label)
+                  .join(", ")
+              : placeHolder}
           </Dropdown>
           <Icon className={isOpen ? "" : "closed"}>
             <svg
@@ -75,21 +82,6 @@ export const DropdownList = ({
               </TableItem>
             );
           })}
-          {/*{Object.keys(list).map((item) => {*/}
-          {/*  return (*/}
-          {/*    <TableItem*/}
-          {/*      onClick={(e) => onClick(e)}*/}
-          {/*      key={`chat-${list[item].id}`}*/}
-          {/*    >*/}
-          {/*      <FormCheckboxInput*/}
-          {/*        title={list[item].title}*/}
-          {/*        value={list[item].id}*/}
-          {/*        name={nameList}*/}
-          {/*        handleChange={handleChange}*/}
-          {/*      />*/}
-          {/*    </TableItem>*/}
-          {/*  );*/}
-          {/*})}*/}
         </Table>
       </DropdownWrapper>
     </>
