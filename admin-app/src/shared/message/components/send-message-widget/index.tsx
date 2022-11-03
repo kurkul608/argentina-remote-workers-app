@@ -26,7 +26,6 @@ export const SendMessageWidget = () => {
     pin: Yup.boolean(),
   });
   const { list } = useAppSelector((state) => state.chats);
-  // const mappedList = mapper(list);
   const {
     handleSubmit,
     handleChange,
@@ -59,7 +58,6 @@ export const SendMessageWidget = () => {
     validateOnChange: false,
     enableReinitialize: true,
   });
-  console.log("values", values);
   return (
     <Widget name={"Send message widget"}>
       <SendMessageWrapper onSubmit={handleSubmit}>
