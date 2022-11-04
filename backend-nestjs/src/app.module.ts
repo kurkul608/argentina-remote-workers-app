@@ -1,6 +1,4 @@
 import { CacheInterceptor, CacheModule, Module } from '@nestjs/common';
-// import * as redisStore from 'cache-manager-redis-store';
-import * as redisStore from 'cache-manager-redis-store';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
