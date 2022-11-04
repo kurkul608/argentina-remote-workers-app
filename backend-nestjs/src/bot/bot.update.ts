@@ -83,7 +83,7 @@ export class BotUpdate {
       return;
     }
   }
-  @On('text')
+  @On('message')
   async messageHandler(@Message('text') msg: string, @Ctx() ctx: Context) {
     if (isPrivate(ctx.chat.type)) {
       await ctx.reply(

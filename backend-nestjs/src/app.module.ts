@@ -1,4 +1,6 @@
-import { Module } from '@nestjs/common';
+import { CacheInterceptor, CacheModule, Module } from '@nestjs/common';
+// import * as redisStore from 'cache-manager-redis-store';
+import * as redisStore from 'cache-manager-redis-store';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
@@ -7,22 +9,41 @@ import { ChatsModule } from './chats/chats.module';
 import { MessageModule } from './message/message.module';
 import { BotModule } from './bot/bot.module';
 import { PaymentMethodModule } from './payment-method/payment-method.module';
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { RedisModule } from '@liaoliaots/nestjs-redis';
+import { RedisClientModule } from './redis-client/redis-client.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
     MongooseModule.forRoot(process.env.MONGO_URI),
+    RedisModule.forRoot({
+      config: {
+        host: 'localhost',
+        port: 6379,
+      },
+    }),
+    CacheModule.register(),
     // CacheModule.register({
     //   store: redisStore,
     //   host: 'localhost',
     //   port: 6379,
+    //   ttl: 2000,
+    //   isGlobal: true,
     // }),
     ChatsModule,
     MessageModule,
     BotModule,
     PaymentMethodModule,
+    RedisClientModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: CacheInterceptor,
+    },
+  ],
 })
 export class AppModule {}
