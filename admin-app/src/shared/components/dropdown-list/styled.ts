@@ -41,8 +41,8 @@ export const Dropdown = styled.div`
 
 export const OuterWrapper = styled.div`
   display: flex;
-  align-items: center;
   transition: all 0.2s ease-in-out;
+  justify-content: space-between;
 `;
 export const Icon = styled.div`
   display: flex;
