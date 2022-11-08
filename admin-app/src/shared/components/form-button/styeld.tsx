@@ -9,7 +9,6 @@ export const Submit = styled.button`
   border-radius: 10px;
   border: none;
   transition: background-color 0.5s;
-
   &:hover {
     background-color: #1e9530;
     transition: background-color 0.5s;
