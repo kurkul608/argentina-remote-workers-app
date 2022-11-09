@@ -3,11 +3,14 @@ import { Context, Telegraf } from 'telegraf';
 import { ChatsService } from '../chats/chats.service';
 import { isPrivate } from './bot.utils';
 import { CreateChatDto } from '../chats/create-chat.dto';
+import { forwardRef, Inject } from '@nestjs/common';
+import { BotService } from './bot.service';
 
 @Update()
 export class BotUpdate {
   constructor(
     @InjectBot() private readonly bot: Telegraf<Context>,
+    @Inject(forwardRef(() => ChatsService))
     private readonly chatsService: ChatsService,
   ) {}
 

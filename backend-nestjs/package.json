@@ -29,6 +29,7 @@
     "@nestjs/mongoose": "^9.2.1",
     "@nestjs/platform-express": "^7.6.13",
     "@nestjs/swagger": "^6.1.3",
+    "cache-manager": "^5.1.3",
     "mongoose": "^6.7.0",
     "nestjs-telegraf": "^2.6.2",
     "reflect-metadata": "^0.1.13",

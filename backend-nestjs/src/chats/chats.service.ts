@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Chat, ChatDocument } from './chats.schema';
 import { Model } from 'mongoose';
@@ -9,11 +9,16 @@ import { BotService } from '../bot/bot.service';
 export class ChatsService {
   constructor(
     @InjectModel(Chat.name) private readonly chatModel: Model<ChatDocument>,
+    @Inject(forwardRef(() => BotService))
     private readonly botService: BotService,
   ) {}
 
   async create(createChatDto: CreateChatDto) {
-    return this.chatModel.create(createChatDto);
+    const chatInfo = await this.botService.getChatInfoById(createChatDto.id);
+    return this.chatModel.create({
+      ...createChatDto,
+      ...chatInfo,
+    });
   }
   async findById(id: number) {
     return this.chatModel.findOne({ id });
@@ -27,6 +32,11 @@ export class ChatsService {
   }
 
   async getChatInfo(chatId: number) {
-    return this.botService.getChatInfoById(chatId);
+    const chatInfo = await this.botService.getChatInfoById(chatId);
+    const chatMembersCount = await this.botService.getChatMembersById(chatId);
+    return {
+      chatInfo,
+      chatMembersCount,
+    };
   }
 }

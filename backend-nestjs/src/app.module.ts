@@ -6,7 +6,6 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ChatsModule } from './chats/chats.module';
 import { MessageModule } from './message/message.module';
 import { BotModule } from './bot/bot.module';
-import { PaymentMethodModule } from './payment-method/payment-method.module';
 
 @Module({
   imports: [
@@ -16,7 +15,6 @@ import { PaymentMethodModule } from './payment-method/payment-method.module';
     ChatsModule,
     MessageModule,
     BotModule,
-    PaymentMethodModule,
   ],
   controllers: [AppController],
   providers: [AppService],

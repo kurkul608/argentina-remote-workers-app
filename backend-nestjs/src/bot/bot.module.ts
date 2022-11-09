@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { BotUpdate } from './bot.update';
 import { BotService } from './bot.service';
 import { TelegrafModule } from 'nestjs-telegraf';
@@ -15,7 +15,7 @@ const sessions = new LocalSession({ database: 'session_db.json' });
       middlewares: [sessions.middleware()],
       token: process.env.TELEGRAM_API_KEY,
     }),
-    ChatsModule,
+    forwardRef(() => ChatsModule),
   ],
   controllers: [],
   providers: [BotService, BotUpdate],
