@@ -47,7 +47,7 @@ export const ChatMode = styled.ul`
     content: "";
     position: absolute;
     width: 20px;
-    height: 50px;
+    height: 52px;
     background-color: #212227;
     top: 0;
     left: -20px;
@@ -56,7 +56,7 @@ export const ChatMode = styled.ul`
     content: "";
     position: absolute;
     width: 20px;
-    height: 50px;
+    height: 52px;
     background-color: #212227;
     top: 0;
     left: 100%;
