@@ -111,7 +111,7 @@ export const MessageWrapper = styled.div`
   white-space: pre-wrap;
   word-break: break-word;
   border-radius: 10px;
-  background-color: white;
+  background-color: #d9d9d9;
 `;
 
 export const MessageBot = styled.div`
