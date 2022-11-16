@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "../../../../redux/hooks";
 import { Widget } from "../../../widget";
 import {
@@ -9,23 +9,29 @@ import {
   ChatPhotoWrapper,
   ChatTitle,
 } from "./styled";
-import { getChatsList } from "../../services/data";
 import { getAllChats } from "../../redux/chat-list.slice";
+import { useNavigate } from "react-router";
+import { IChatInterface } from "../../../../interfaces/chat.interface";
 
 export const ChatListWidget = () => {
-  const chatList = useAppSelector((state) => state.chats.list);
+  const { list } = useAppSelector((state) => state.chats);
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(getAllChats());
   }, []);
+  const navigate = useNavigate();
+  const handleOnClick = useCallback(
+    (chat: IChatInterface) => navigate(`/chat/${chat.id}`, { replace: true }),
+    [navigate]
+  );
   return (
     <>
       <ChatListWrapper>
         <Widget name={"Chat list widget"}>
           <ChatListUL>
-            {chatList.map((chat) => (
+            {list.map((chat) => (
               <li key={`widget-chat-list--${chat.id}`}>
-                <Chat>
+                <Chat onClick={() => handleOnClick(chat)}>
                   <ChatPhotoWrapper>
                     <ChatPhoto>{chat.title[0].toUpperCase()}</ChatPhoto>
                   </ChatPhotoWrapper>
