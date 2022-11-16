@@ -4,6 +4,9 @@ import { color } from "../../../../constants/colors";
 export const Wrapper = styled.div`
   min-width: 500px;
   font-size: 1.2rem;
+  .active {
+    background-color: #565656;
+  }
 `;
 
 export const ChatHeader = styled.div`
@@ -61,7 +64,6 @@ export const ChatMode = styled.ul`
 `;
 export const ChatOption = styled.li`
   color: white;
-  //background-color: #565656;
   padding: 5px 9px;
 `;
 

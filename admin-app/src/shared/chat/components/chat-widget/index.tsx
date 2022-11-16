@@ -41,7 +41,7 @@ export const ChatWidget = () => {
               <ChatPhoto></ChatPhoto>
             </ChatHeader>
             <ChatMode>
-              <ChatOption>Текущие</ChatOption>
+              <ChatOption className={"active"}>Текущие</ChatOption>
               <ChatOption>Запланированные</ChatOption>
             </ChatMode>
             <Chat>
