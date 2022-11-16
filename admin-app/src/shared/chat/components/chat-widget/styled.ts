@@ -98,6 +98,9 @@ export const ChatMessages = styled.ul`
 export const Message = styled.li`
   color: white;
   margin-left: 10px;
+  &:last-child {
+    margin-bottom: 10px;
+  }
 `;
 export const MessageTop = styled.div`
   color: black;
@@ -132,4 +135,7 @@ export const MessageAuthor = styled.div``;
 export const Date = styled.li`
   color: white;
   text-align: center;
+  &:first-child {
+    margin-top: 10px;
+  }
 `;
