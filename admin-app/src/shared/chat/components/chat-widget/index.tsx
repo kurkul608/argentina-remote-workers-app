@@ -184,7 +184,7 @@ export const ChatWidget = () => {
               </ChatInnerWrapper>
             </ChatWrapper>
           </Chat>
-          <SendMessageWidget></SendMessageWidget>
+          <SendMessageWidget chatIds={[-1001677100248]} />
         </Wrapper>
       </Widget>
     </>
