@@ -13,13 +13,17 @@ import { sendMessage } from "../../services/data";
 import * as Yup from "yup";
 import { IChatInterface } from "../../../../interfaces/chat.interface";
 
+interface SendMessageWidgetProps {
+  chatIds?: number[];
+}
+
 const chatToOption = (chat: IChatInterface): IDropdownOption => ({
   label: chat.title,
   key: `dropdown-chat-option-${chat.id}`,
   value: chat.id.toString(),
 });
 
-export const SendMessageWidget = () => {
+export const SendMessageWidget = ({ chatIds }: SendMessageWidgetProps) => {
   const validationSchema = Yup.object().shape({
     selectedChats: Yup.array().of(Yup.number()).min(1, "select any chat"),
     message: Yup.string().required(),
@@ -35,7 +39,7 @@ export const SendMessageWidget = () => {
     isSubmitting,
   } = useFormik({
     initialValues: {
-      selectedChats: [],
+      selectedChats: chatIds ? chatIds : [],
 
       message: "",
       pin: false,
@@ -61,14 +65,16 @@ export const SendMessageWidget = () => {
   return (
     <Widget name={"Send message widget"}>
       <SendMessageWrapper onSubmit={handleSubmit}>
-        <DropdownList
-          handleChange={handleChange}
-          list={list.map(chatToOption)}
-          nameList={"selectedChats"}
-          selectedValues={values.selectedChats}
-          placeHolder={"Select chat"}
-          errors={errors.selectedChats}
-        />
+        {!chatIds ? (
+          <DropdownList
+            handleChange={handleChange}
+            list={list.map(chatToOption)}
+            nameList={"selectedChats"}
+            selectedValues={values.selectedChats}
+            placeHolder={"Select chat"}
+            errors={errors.selectedChats}
+          />
+        ) : null}
         <Input
           onChange={handleChange}
           id={"message"}

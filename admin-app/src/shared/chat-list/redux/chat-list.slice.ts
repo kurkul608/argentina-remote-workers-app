@@ -42,6 +42,7 @@ export const chatsSlice = createSlice({
         state.error = action.payload as string;
       })
       .addCase(getAllChats.pending, (state) => {
+        state.list = []
         state.isLoading = true;
       });
   },
