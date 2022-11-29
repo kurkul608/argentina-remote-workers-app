@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { BotUpdate } from './bot.update';
 import { BotService } from './bot.service';
 import { TelegrafModule } from 'nestjs-telegraf';
@@ -11,7 +11,7 @@ import { ChatsModule } from '../chats/chats.module';
     TelegrafModule.forRoot({
       token: process.env.TELEGRAM_API_KEY,
     }),
-    ChatsModule,
+    forwardRef(() => ChatsModule),
   ],
   controllers: [],
   providers: [BotService, BotUpdate],

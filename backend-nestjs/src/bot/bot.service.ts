@@ -13,4 +13,14 @@ export class BotService {
     });
     return;
   }
+  async getChatInfoById(chatId: number) {
+    const chatInfo = await this.bot.telegram.getChat(chatId);
+    return chatInfo;
+  }
+  async getChatMembersById(chatId: number) {
+    const chatMembersCount = await this.bot.telegram.getChatMembersCount(
+      chatId,
+    );
+    return chatMembersCount;
+  }
 }

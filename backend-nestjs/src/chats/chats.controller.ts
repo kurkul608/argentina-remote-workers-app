@@ -1,9 +1,4 @@
-import {
-  CacheInterceptor,
-  Controller,
-  Get,
-  UseInterceptors,
-} from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { ChatsService } from './chats.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateChatDto } from './create-chat.dto';
@@ -15,8 +10,14 @@ export class ChatsController {
 
   @ApiOperation({ summary: 'Return full chats list' })
   @ApiResponse({ status: 200, type: [CreateChatDto] })
-  @Get('/')
+  @Get()
   getAll() {
     return this.chatsService.getAll();
+  }
+  @ApiOperation({ summary: 'Return chat information' })
+  @ApiResponse({ status: 200, type: Object })
+  @Get(':id')
+  getChatInfo(@Param('id') id: number) {
+    return this.chatsService.getChatInfo(id);
   }
 }
