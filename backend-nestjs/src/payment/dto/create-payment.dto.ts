@@ -4,7 +4,7 @@ export enum PaymentType {
   donation = 'DONATION',
 }
 
-export class CreatePaymentMethodDto {
+export class CreatePaymentDto {
   @ApiProperty({
     example: 'Main  donation  account',
     description: 'name of payment method',
@@ -20,21 +20,7 @@ export class CreatePaymentMethodDto {
   network: string;
 
   @ApiProperty({
-    example: 'private key',
-    description: 'private key',
-    required: false,
-  })
-  privateKey: string;
-
-  @ApiProperty({
-    example: 'public key',
-    description: 'public key',
-    required: false,
-  })
-  publicKey: string;
-
-  @ApiProperty({
-    example: 'public key',
+    example: PaymentType.donation,
     description: `${PaymentType.donation} |${PaymentType.targeted}`,
     required: true,
     enum: PaymentType,
@@ -47,16 +33,4 @@ export class CreatePaymentMethodDto {
     required: true,
   })
   chats: number[];
-
-  @ApiProperty({
-    example: {
-      base58: 'trc..',
-    },
-    description: 'address info',
-    required: true,
-  })
-  address: {
-    base58: string;
-    hex?: string;
-  };
 }
