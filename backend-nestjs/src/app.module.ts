@@ -10,6 +10,7 @@ import { PaymentMethodModule } from './payment-method/payment-method.module';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { RedisModule } from '@liaoliaots/nestjs-redis';
 import { RedisClientModule } from './redis-client/redis-client.module';
+import { TronModule } from './tron/tron.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { RedisClientModule } from './redis-client/redis-client.module';
     BotModule,
     PaymentMethodModule,
     RedisClientModule,
+    TronModule,
   ],
   controllers: [AppController],
   providers: [
