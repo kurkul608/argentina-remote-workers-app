@@ -1,12 +1,12 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Payment, PaymentDocument } from './payment-method.schema';
+import { Payment, PaymentDocument } from './payment.schema';
 import { Model } from 'mongoose';
-import { CreatePaymentMethodDto } from './create-payment-method.dto';
+import { CreatePaymentDto } from './create-payment.dto';
 import { ChatsService } from '../chats/chats.service';
 
 @Injectable()
-export class PaymentMethodService {
+export class PaymentService {
   constructor(
     @InjectModel(Payment.name)
     private readonly paymentModel: Model<PaymentDocument>,
@@ -14,7 +14,7 @@ export class PaymentMethodService {
     @Inject('TRON_WEB') private readonly tronWeb,
   ) {}
 
-  async createPaymentMethod(dto: CreatePaymentMethodDto) {
+  async createPaymentMethod(dto: CreatePaymentDto) {
     const chats = await this.chatsService.findAllByIds(dto.chats);
     const paymentMethod = await this.paymentModel.create({
       ...dto,

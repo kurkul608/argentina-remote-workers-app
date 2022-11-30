@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { PaymentMethodService } from './payment-method.service';
-import { PaymentMethodController } from './payment-method.controller';
+import { PaymentService } from './payment.service';
+import { PaymentController } from './payment.controller';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Payment, PaymentSchema } from './payment-method.schema';
+import { Payment, PaymentSchema } from './payment.schema';
 import { ChatsModule } from '../chats/chats.module';
 import { TronModule } from '../tron/tron.module';
 import { Mode } from '../utils/constants/mode';
@@ -13,8 +13,8 @@ import { Mode } from '../utils/constants/mode';
     ChatsModule,
     TronModule.forRoot({ mode: (process.env.MODE as Mode) || Mode.develop }),
   ],
-  providers: [PaymentMethodService],
-  controllers: [PaymentMethodController],
-  exports: [PaymentMethodService],
+  providers: [PaymentService],
+  controllers: [PaymentController],
+  exports: [PaymentService],
 })
-export class PaymentMethodModule {}
+export class PaymentModule {}

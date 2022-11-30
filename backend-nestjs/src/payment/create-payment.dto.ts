@@ -4,7 +4,7 @@ export enum PaymentType {
   donation = 'DONATION',
 }
 
-export class CreatePaymentMethodDto {
+export class CreatePaymentDto {
   @ApiProperty({
     example: 'Main  donation  account',
     description: 'name of payment method',

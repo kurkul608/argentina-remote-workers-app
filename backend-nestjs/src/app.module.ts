@@ -6,7 +6,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ChatsModule } from './chats/chats.module';
 import { MessageModule } from './message/message.module';
 import { BotModule } from './bot/bot.module';
-import { PaymentMethodModule } from './payment-method/payment-method.module';
+import { PaymentModule } from './payment/payment.module';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { RedisModule } from '@liaoliaots/nestjs-redis';
 import { RedisClientModule } from './redis-client/redis-client.module';
@@ -33,7 +33,7 @@ import { TronModule } from './tron/tron.module';
     ChatsModule,
     MessageModule,
     BotModule,
-    PaymentMethodModule,
+    PaymentModule,
     RedisClientModule,
     TronModule,
   ],
