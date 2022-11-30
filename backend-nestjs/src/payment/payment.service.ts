@@ -1,9 +1,10 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Payment, PaymentDocument } from './payment.schema';
 import { Model } from 'mongoose';
 import { CreatePaymentDto } from './create-payment.dto';
 import { ChatsService } from '../chats/chats.service';
+import { TronService } from '../tron/tron.service';
 
 @Injectable()
 export class PaymentService {
@@ -11,7 +12,7 @@ export class PaymentService {
     @InjectModel(Payment.name)
     private readonly paymentModel: Model<PaymentDocument>,
     private readonly chatsService: ChatsService,
-    @Inject('TRON_WEB') private readonly tronWeb,
+    private readonly tronWebService: TronService,
   ) {}
 
   async createPaymentMethod(dto: CreatePaymentDto) {
@@ -23,11 +24,8 @@ export class PaymentService {
     await paymentMethod.save();
     return paymentMethod;
   }
-
-  async tronWebTest() {
-    const userBalance = await this.tronWeb.trx.getBalance(
-      'TQvxpD3noy3WYy2zW3UceUGhXkxph4dvth',
-    );
-    return userBalance;
+  async walletBalance(wallet: string) {
+    const balance = await this.tronWebService.GetBalance(wallet);
+    return balance;
   }
 }

@@ -1,26 +1,15 @@
-import { DynamicModule, Global, Module, Provider } from '@nestjs/common';
-import { CreateTronWebFactory } from './utils/create-tron-web-factory';
-import { DiscoveryModule } from '@nestjs/core';
-import { TronModuleOptions } from './interfaces/tron-module-options';
+import { Module } from '@nestjs/common';
+import { TronService } from './tron.service';
+import { TronCoreModule } from '../tron-core/tron-core.module';
+import { Mode } from '../utils/constants/mode';
 
-@Global()
 @Module({
-  imports: [DiscoveryModule],
+  imports: [
+    TronCoreModule.forRoot({
+      mode: (process.env.MODE as Mode) || Mode.develop,
+    }),
+  ],
+  providers: [TronService],
+  exports: [TronService],
 })
-export class TronModule {
-  public static forRoot(options: TronModuleOptions): DynamicModule {
-    const tronWebProvider: Provider = {
-      provide: 'TRON_WEB',
-      useFactory: async () => {
-        const tronWeb = await CreateTronWebFactory(options.mode);
-        return tronWeb;
-      },
-    };
-
-    return {
-      module: TronModule,
-      providers: [tronWebProvider],
-      exports: [tronWebProvider],
-    };
-  }
-}
+export class TronModule {}

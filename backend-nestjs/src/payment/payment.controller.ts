@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { PaymentService } from './payment.service';
 import { CreatePaymentDto } from './create-payment.dto';
@@ -15,10 +15,10 @@ export class PaymentController {
     return this.paymentMethodService.createPaymentMethod(dto);
   }
 
-  @ApiOperation({ summary: 'TronWeb test' })
-  @ApiResponse({ status: 201, type: Payment })
-  @Get('/')
-  tronWebTest() {
-    return this.paymentMethodService.tronWebTest();
+  @ApiOperation({ summary: 'Get balance by wallet' })
+  @ApiResponse({ status: 201, type: Number })
+  @Get(':wallet')
+  getWalletBalance(@Param('wallet') wallet: string) {
+    return this.paymentMethodService.walletBalance(wallet);
   }
 }
