@@ -1,28 +1,18 @@
 import { DynamicModule, Global, Module, Provider } from '@nestjs/common';
 import { CreateTronWebFactory } from './utils/create-tron-web-factory';
 import { DiscoveryModule } from '@nestjs/core';
+import { TronModuleOptions } from './interfaces/tron-module-options';
 
 @Global()
 @Module({
   imports: [DiscoveryModule],
-  // providers: [],
-  // exports: [],
-  // controllers: [],
 })
 export class TronModule {
-  public static forRoot(): DynamicModule {
-    // const telegrafBotName = getBotToken(options.botName);
-    //
-    // const telegrafBotNameProvider = {
-    //   provide: TELEGRAF_BOT_NAME,
-    //   useValue: telegrafBotName,
-    // };
-
+  public static forRoot(options: TronModuleOptions): DynamicModule {
     const tronWebProvider: Provider = {
       provide: 'TRON_WEB',
       useFactory: async () => {
-        const tronWeb = await CreateTronWebFactory();
-        // allBotsMap.set(telegrafBotName, bot);
+        const tronWeb = await CreateTronWebFactory(options.mode);
         return tronWeb;
       },
     };
