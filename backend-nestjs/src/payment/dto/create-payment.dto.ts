@@ -20,21 +20,7 @@ export class CreatePaymentDto {
   network: string;
 
   @ApiProperty({
-    example: 'private key',
-    description: 'private key',
-    required: false,
-  })
-  privateKey: string;
-
-  @ApiProperty({
-    example: 'public key',
-    description: 'public key',
-    required: false,
-  })
-  publicKey: string;
-
-  @ApiProperty({
-    example: 'public key',
+    example: PaymentType.donation,
     description: `${PaymentType.donation} |${PaymentType.targeted}`,
     required: true,
     enum: PaymentType,
@@ -47,16 +33,4 @@ export class CreatePaymentDto {
     required: true,
   })
   chats: number[];
-
-  @ApiProperty({
-    example: {
-      base58: 'trc..',
-    },
-    description: 'address info',
-    required: true,
-  })
-  address: {
-    base58: string;
-    hex?: string;
-  };
 }
