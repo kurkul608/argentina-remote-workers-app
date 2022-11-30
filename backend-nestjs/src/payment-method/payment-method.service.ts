@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Payment, PaymentDocument } from './payment-method.schema';
 import { Model } from 'mongoose';
@@ -11,6 +11,7 @@ export class PaymentMethodService {
     @InjectModel(Payment.name)
     private readonly paymentModel: Model<PaymentDocument>,
     private readonly chatsService: ChatsService,
+    @Inject('TRON_WEB') private readonly tronWeb,
   ) {}
 
   async createPaymentMethod(dto: CreatePaymentMethodDto) {
@@ -21,5 +22,12 @@ export class PaymentMethodService {
     });
     await paymentMethod.save();
     return paymentMethod;
+  }
+
+  async tronWebTest() {
+    const userBalance = await this.tronWeb.trx.getBalance(
+      'TQvxpD3noy3WYy2zW3UceUGhXkxph4dvth',
+    );
+    return userBalance;
   }
 }

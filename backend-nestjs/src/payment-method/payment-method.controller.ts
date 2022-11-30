@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { PaymentMethodService } from './payment-method.service';
 import { CreatePaymentMethodDto } from './create-payment-method.dto';
@@ -13,5 +13,12 @@ export class PaymentMethodController {
   @Post('/')
   createPaymentMethod(@Body() dto: CreatePaymentMethodDto) {
     return this.paymentMethodService.createPaymentMethod(dto);
+  }
+
+  @ApiOperation({ summary: 'TronWeb test' })
+  @ApiResponse({ status: 201, type: Payment })
+  @Get('/')
+  tronWebTest() {
+    return this.paymentMethodService.tronWebTest();
   }
 }
