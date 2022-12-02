@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { PaymentService } from './payment.service';
 import { PaymentController } from './payment.controller';
 import { MongooseModule } from '@nestjs/mongoose';
@@ -9,7 +9,7 @@ import { TronModule } from '../tron/tron.module';
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: Payment.name, schema: PaymentSchema }]),
-    ChatsModule,
+    forwardRef(() => ChatsModule),
     TronModule,
   ],
   providers: [PaymentService],

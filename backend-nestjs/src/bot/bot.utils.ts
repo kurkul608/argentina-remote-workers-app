@@ -8,5 +8,5 @@ export const isChannel = (chatType: ChatType) => {
   return chatType === 'channel';
 };
 export const isPrivate = (chatType: ChatType) => {
-  return chatType === 'channel';
+  return chatType === 'private';
 };
