@@ -1,4 +1,4 @@
-import { HttpException, Injectable } from '@nestjs/common';
+import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Payment, PaymentDocument } from './payment.schema';
 import { Model } from 'mongoose';
@@ -11,6 +11,7 @@ export class PaymentService {
   constructor(
     @InjectModel(Payment.name)
     private readonly paymentModel: Model<PaymentDocument>,
+    @Inject(forwardRef(() => ChatsService))
     private readonly chatsService: ChatsService,
     private readonly tronWebService: TronService,
   ) {}

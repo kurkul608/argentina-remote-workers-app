@@ -4,6 +4,8 @@ import { Chat, ChatDocument } from './chats.schema';
 import { Model } from 'mongoose';
 import { CreateChatDto } from './create-chat.dto';
 import { BotService } from '../bot/bot.service';
+import { PaymentType } from '../payment/dto/create-payment.dto';
+import { PaymentService } from '../payment/payment.service';
 
 @Injectable()
 export class ChatsService {
@@ -11,6 +13,8 @@ export class ChatsService {
     @InjectModel(Chat.name) private readonly chatModel: Model<ChatDocument>,
     @Inject(forwardRef(() => BotService))
     private readonly botService: BotService,
+    @Inject(forwardRef(() => PaymentService))
+    private readonly paymentService: PaymentService,
   ) {}
 
   async create(createChatDto: CreateChatDto) {
@@ -37,12 +41,16 @@ export class ChatsService {
     };
   }
 
-  async getChatInfo(chatId: number) {
+  async getChatInfo(chatId: number, paymentType?: PaymentType) {
     const chatInfo = await this.botService.getChatInfoById(chatId);
     const chatMembersCount = await this.botService.getChatMembersById(chatId);
+    const payments = paymentType
+      ? await this.paymentService.getPaymentsByTypeAndChat(chatId, paymentType)
+      : [];
     return {
       chatInfo,
       chatMembersCount,
+      payments: payments,
     };
   }
 }
