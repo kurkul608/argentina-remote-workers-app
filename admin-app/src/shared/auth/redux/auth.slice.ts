@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { authRequest } from "../services/data";
+// import { authRequest } from "../services/data";
 
 export interface IAuth {
   token: string;
@@ -15,12 +15,12 @@ export const initialState: IAuth = {
   status: "loading",
 };
 
-export const authAsync = createAsyncThunk(
-  "user/auth",
-  async (params: IUserLogin) => {
-    return await authRequest(params);
-  }
-);
+// export const authAsync = createAsyncThunk(
+//   "user/auth",
+//   async (params: IUserLogin) => {
+//     return await authRequest(params);
+//   }
+// );
 
 const AuthSlice = createSlice({
   name: "auth",
@@ -31,16 +31,16 @@ const AuthSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(authAsync.pending, (state) => {
-      state.status = "loading";
-    });
-    builder.addCase(authAsync.rejected, (state) => {
-      state.status = "rejected";
-    });
-    builder.addCase(authAsync.fulfilled, (state, action) => {
-      state.token = action.payload.login.token;
-      state.status = "fulfilled";
-    });
+    // builder.addCase(authAsync.pending, (state) => {
+    //   state.status = "loading";
+    // });
+    // builder.addCase(authAsync.rejected, (state) => {
+    //   state.status = "rejected";
+    // });
+    // builder.addCase(authAsync.fulfilled, (state, action) => {
+    //   state.token = action.payload.login.token;
+    //   state.status = "fulfilled";
+    // });
   },
 });
 

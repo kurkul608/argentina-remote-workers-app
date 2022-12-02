@@ -4,6 +4,7 @@ import { BotService } from './bot.service';
 import { TelegrafModule } from 'nestjs-telegraf';
 import { ConfigModule } from '@nestjs/config';
 import { ChatsModule } from '../chats/chats.module';
+import { BotController } from './bot.controller';
 
 @Module({
   imports: [
@@ -13,7 +14,7 @@ import { ChatsModule } from '../chats/chats.module';
     }),
     forwardRef(() => ChatsModule),
   ],
-  controllers: [],
+  controllers: [BotController],
   providers: [BotService, BotUpdate],
   exports: [BotService],
 })

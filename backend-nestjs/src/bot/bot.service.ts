@@ -23,4 +23,8 @@ export class BotService {
     );
     return chatMembersCount;
   }
+
+  getBotName() {
+    return process.env.TELEGRAM_API_NAME;
+  }
 }
