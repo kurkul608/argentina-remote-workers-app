@@ -116,7 +116,7 @@ export const MainPage = () => {
       <div
         style={{
           gridColumnStart: 1,
-          gridColumnEnd: 5,
+          gridColumnEnd: -1,
           fontSize: "2rem",
           color: "#ffffff",
         }}

@@ -44,7 +44,10 @@ export const ChatListWidget = () => {
       {/*  </Widget>*/}
       {/*</ChatListWrapper>*/}
       {list.map((chat) => (
-        <ChatListWrapper key={`widget-chat-list--${chat.id}`}>
+        <ChatListWrapper
+          key={`widget-chat-list--${chat.id}`}
+          style={{ minWidth: 280, width: "100%" }}
+        >
           <Widget name={""} onClick={() => handleOnClick(chat)}>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <div
