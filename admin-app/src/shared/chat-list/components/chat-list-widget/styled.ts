@@ -1,10 +1,22 @@
 import styled from "styled-components";
 import { color } from "../../../../constants/colors";
+import { Widget } from "../../../widget";
+import { WidgetWrapper } from "../../../widget/styled";
 
 export const ChatListWrapper = styled.div`
   flex: 1 0 280px;
+  color: ${(props) => color(props.theme.mainTheme).widgetMainText};
+  cursor: pointer;
+  & > ${WidgetWrapper}:hover {
+    background-color: ${(props) =>
+      color(props.theme.mainTheme).chatHoverBackgroundColor};
+    transition: background-color 0.3s;
+  }
 `;
-
+export const GridChatsWrapper = styled.div`
+  display: grid;
+  gap: 10px;
+`;
 export const ChatListUL = styled.ul`
   margin-top: 10px;
 
@@ -15,7 +27,8 @@ export const ChatListUL = styled.ul`
     color: ${(props) => color(props.theme.mainTheme).widgetMainText};
 
     &:hover {
-      background-color: ${(props) => color(props.theme.mainTheme).chatHoverBackgroundColor};
+      background-color: ${(props) =>
+        color(props.theme.mainTheme).chatHoverBackgroundColor};
     }
   }
 `;
@@ -29,6 +42,7 @@ export const Chat = styled.div`
 export const ChatTitle = styled.h3`
   text-overflow: ellipsis;
   white-space: nowrap;
+  font-size: 1.8rem;
   overflow: hidden;
   font-weight: 400;
 `;

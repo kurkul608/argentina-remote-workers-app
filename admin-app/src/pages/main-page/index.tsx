@@ -1,6 +1,5 @@
 import React from "react";
 import { ChatListWidget } from "../../shared/chat-list/components/chat-list-widget";
-import { SendMessageWidget } from "../../shared/message/components/send-message-widget";
 import { IComp } from "./test";
 
 export const MainPage = () => {
@@ -114,8 +113,18 @@ export const MainPage = () => {
 
   return (
     <>
+      <div
+        style={{
+          gridColumnStart: 1,
+          gridColumnEnd: 5,
+          fontSize: "2rem",
+          color: "#ffffff",
+        }}
+      >
+        Chats
+      </div>
       <ChatListWidget />
-      <SendMessageWidget />
+      {/*<SendMessageWidget />*/}
     </>
   );
 };
