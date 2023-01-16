@@ -6,7 +6,7 @@ import BugReportIcon from "@mui/icons-material/BugReport";
 import { useTranslation } from "react-i18next";
 
 export const Aside = () => {
-  const { t } = useTranslation("", { keyPrefix: "aside" });
+  const { t } = useTranslation("translation", { keyPrefix: "aside" });
   return (
     <StyledAside>
       <StyledNavBar>
