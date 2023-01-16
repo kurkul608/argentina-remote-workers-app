@@ -6,7 +6,7 @@ import BugReportIcon from "@mui/icons-material/BugReport";
 import { useTranslation } from "react-i18next";
 
 export const Aside = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("", { keyPrefix: "aside" });
   return (
     <StyledAside>
       <StyledNavBar>
@@ -18,7 +18,7 @@ export const Aside = () => {
             }
           >
             <HouseIcon />
-            <p>{t("aside.mainPage")}</p>
+            <p>{t("mainPage")}</p>
           </NavLink>
           <NavLink
             to={"test"}
@@ -27,7 +27,7 @@ export const Aside = () => {
             }
           >
             <BugReportIcon />
-            <p>{t("aside.test")}</p>
+            <p>{t("test")}</p>
           </NavLink>
         </li>
       </StyledNavBar>
