@@ -16,7 +16,6 @@ export enum Routes {
   chat = "chat/:chatId",
   auth = "auth",
 }
-
 export const router = createBrowserRouter([
   {
     path: Routes.landing,
