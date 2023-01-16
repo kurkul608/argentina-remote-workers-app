@@ -2,7 +2,7 @@ import "styled-components";
 import { Theme } from "./constants/theme";
 
 declare module "styled-components" {
-  export interface DefaultTheme {
-    mainTheme: Theme;
-  }
+	export interface DefaultTheme {
+		mainTheme: Theme;
+	}
 }

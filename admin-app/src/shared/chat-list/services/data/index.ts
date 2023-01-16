@@ -3,4 +3,4 @@ import { ITableDataInterface } from "../../../../interfaces/dto/table-data.inter
 import { IChatInterface } from "../../../../interfaces/chat.interface";
 
 export const getChatsList = () =>
-  get<ITableDataInterface<IChatInterface>>("chats");
+	get<ITableDataInterface<IChatInterface>>("chats");
