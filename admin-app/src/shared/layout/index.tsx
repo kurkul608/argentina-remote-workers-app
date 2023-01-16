@@ -6,15 +6,15 @@ import { Main } from "./styled";
 import { widgetSize } from "../../constants/size";
 
 export const Layout = () => {
-  return (
-    <>
-      <Header />
-      <div style={{ display: "flex" }}>
-        <Aside />
-        <Main size={widgetSize.small}>
-          <Outlet />
-        </Main>
-      </div>
-    </>
-  );
+	return (
+		<>
+			<Header />
+			<div style={{ display: "flex" }}>
+				<Aside />
+				<Main size={widgetSize.small}>
+					<Outlet />
+				</Main>
+			</div>
+		</>
+	);
 };

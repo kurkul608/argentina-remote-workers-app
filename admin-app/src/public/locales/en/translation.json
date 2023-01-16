@@ -1,13 +1,13 @@
 {
-  "aside": {
-    "mainPage": "Main page",
-    "chatList": "Chat List",
-    "test": "Test"
-  },
-  "header": {
-    "logout": "Log out"
-  },
-  "chatPage": {
-    "chatList": "Chat list"
-  }
+	"aside": {
+		"mainPage": "Main page",
+		"chatList": "Chat List",
+		"test": "Test"
+	},
+	"header": {
+		"logout": "Log out"
+	},
+	"chatPage": {
+		"chatList": "Chat list"
+	}
 }

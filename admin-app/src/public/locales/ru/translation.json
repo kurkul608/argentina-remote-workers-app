@@ -1,13 +1,13 @@
 {
-  "aside": {
-    "mainPage": "Главная страница",
-    "chatList": "Список чатов",
-    "test": "Тест"
-  },
-  "header": {
-    "logout": "Выход"
-  },
-  "chatPage": {
-    "chatList": "Список чатов"
-  }
+	"aside": {
+		"mainPage": "Главная страница",
+		"chatList": "Список чатов",
+		"test": "Тест"
+	},
+	"header": {
+		"logout": "Выход"
+	},
+	"chatPage": {
+		"chatList": "Список чатов"
+	}
 }

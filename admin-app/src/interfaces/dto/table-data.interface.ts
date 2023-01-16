@@ -1,4 +1,4 @@
 export interface ITableDataInterface<T> {
-  data: T[];
-  total_count: number;
+	data: T[];
+	total_count: number;
 }
