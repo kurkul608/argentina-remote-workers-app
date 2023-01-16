@@ -16,7 +16,6 @@ export const LanguageSwitchButton = styled.button<IButtonProps>`
   font: inherit;
   cursor: pointer;
   outline: inherit;
-  // color: ${(props) => color(props.theme.mainTheme).baseText};
   color: ${(props) =>
     props.active
       ? color(props.theme.mainTheme).activeTabText
