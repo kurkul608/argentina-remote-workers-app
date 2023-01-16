@@ -1,17 +1,24 @@
 import React, { useCallback, useEffect } from "react";
-import { useAppSelector, useAppDispatch } from "../../../../redux/hooks";
+import { useNavigate } from "react-router";
+import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import { Widget } from "../../../widget";
 import {
-  Chat,
-  ChatListUL,
   ChatListWrapper,
   ChatPhoto,
   ChatPhotoWrapper,
   ChatTitle,
+  ChatTitleWrapper,
+  ChatWrapper,
+  Subscribers,
+  SvgWrapper,
+  TextWrapper,
 } from "./styled";
 import { getAllChats } from "../../redux/chat-list.slice";
-import { useNavigate } from "react-router";
 import { IChatInterface } from "../../../../interfaces/chat.interface";
+import { SettingsSvg } from "../settings";
+import { routeBuilder } from "../../../router/services/route-builder";
+import { Routes } from "../../../router";
+import { RouteReplacer } from "../../../router/services/route-replacer";
 
 export const ChatListWidget = () => {
   const { list } = useAppSelector((state) => state.chats);
@@ -21,27 +28,39 @@ export const ChatListWidget = () => {
   }, []);
   const navigate = useNavigate();
   const handleOnClick = useCallback(
-    (chat: IChatInterface) => navigate(`/chat/${chat.id}`, { replace: true }),
+    (chat: IChatInterface) =>
+      navigate(
+        RouteReplacer(
+          routeBuilder([Routes.admin, Routes.chat]),
+          "chatId",
+          chat.id
+        ),
+        { replace: true }
+      ),
     [navigate]
   );
   return (
     <>
-      <ChatListWrapper>
-        <Widget name={"Chat list widget"}>
-          <ChatListUL>
-            {list.map((chat) => (
-              <li key={`widget-chat-list--${chat.id}`}>
-                <Chat onClick={() => handleOnClick(chat)}>
-                  <ChatPhotoWrapper>
-                    <ChatPhoto>{chat.title[0].toUpperCase()}</ChatPhoto>
-                  </ChatPhotoWrapper>
+      {list.map((chat) => (
+        <ChatListWrapper key={`widget-chat-list--${chat.id}`}>
+          <Widget name={""} onClick={() => handleOnClick(chat)}>
+            <ChatWrapper>
+              <TextWrapper>
+                <ChatPhotoWrapper>
+                  <ChatPhoto>{chat.title[0].toUpperCase()}</ChatPhoto>
+                </ChatPhotoWrapper>
+                <ChatTitleWrapper>
                   <ChatTitle>{chat.title}</ChatTitle>
-                </Chat>
-              </li>
-            ))}
-          </ChatListUL>
-        </Widget>
-      </ChatListWrapper>
+                  <Subscribers>{`32k subscribers`}</Subscribers>
+                </ChatTitleWrapper>
+              </TextWrapper>
+              <SvgWrapper>
+                <SettingsSvg />
+              </SvgWrapper>
+            </ChatWrapper>
+          </Widget>
+        </ChatListWrapper>
+      ))}
     </>
   );
 };

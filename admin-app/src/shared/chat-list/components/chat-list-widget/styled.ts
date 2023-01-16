@@ -1,22 +1,15 @@
 import styled from "styled-components";
 import { color } from "../../../../constants/colors";
+import { WidgetWrapper } from "../../../widget/styled";
 
 export const ChatListWrapper = styled.div`
   flex: 1 0 280px;
-`;
-
-export const ChatListUL = styled.ul`
-  margin-top: 10px;
-
-  li {
-    margin-top: 10px;
-    font-size: 1.4rem;
-    padding: 5px;
-    color: ${(props) => color(props.theme.mainTheme).widgetMainText};
-
-    &:hover {
-      background-color: ${(props) => color(props.theme.mainTheme).chatHoverBackgroundColor};
-    }
+  color: ${(props) => color(props.theme.mainTheme).widgetMainText};
+  cursor: pointer;
+  & > ${WidgetWrapper}:hover {
+    background-color: ${(props) =>
+      color(props.theme.mainTheme).chatHoverBackgroundColor};
+    transition: background-color 0.3s;
   }
 `;
 
@@ -29,6 +22,7 @@ export const Chat = styled.div`
 export const ChatTitle = styled.h3`
   text-overflow: ellipsis;
   white-space: nowrap;
+  font-size: 1.8rem;
   overflow: hidden;
   font-weight: 400;
 `;
@@ -48,4 +42,20 @@ export const ChatPhoto = styled.div`
 
 export const ChatPhotoWrapper = styled.div`
   position: relative;
+`;
+export const ChatTitleWrapper = styled.div``;
+export const Subscribers = styled.span``;
+export const SvgWrapper = styled.span`
+  width: 24px;
+`;
+export const ChatWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+`;
+
+export const TextWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 20px;
 `;

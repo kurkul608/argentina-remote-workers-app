@@ -1,8 +1,9 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { widgetSize } from "../../constants/size";
 
 interface IWrapper {
   size: widgetSize;
+  gridAutoFlowIsDisabled?: boolean;
 }
 
 export const Main = styled.main<IWrapper>`
@@ -13,7 +14,12 @@ export const Main = styled.main<IWrapper>`
   gap: 25px;
   row-gap: 25px;
   grid-auto-flow: row dense;
-  grid-auto-rows: 450px;
+  ${(props) =>
+    props.gridAutoFlowIsDisabled
+      ? null
+      : css`
+          grid-auto-rows: 450px;
+        `};
   grid-template-columns: repeat(
     4,
     ${(props) => (props.size ? `${props.size}fr` : "auto")}
