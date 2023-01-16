@@ -11,6 +11,7 @@ import {
 } from "./styled";
 import { Link } from "react-router-dom";
 import Moment from "react-moment";
+import { LanguageSwitch } from "./language-switch/language-switch";
 
 export const Header = () => {
   return (
@@ -21,6 +22,7 @@ export const Header = () => {
       <StyledIHeaderInformationBlock>
         <StyledHeaderSearchBlock />
         <StyledHeaderRightSideWrapper>
+          <LanguageSwitch />
           <StyledHeaderDateBlock>
             <Moment format="dddd" interval={60000} />
             <Moment format="DD MMMM YYYY" interval={60000} />

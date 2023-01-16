@@ -1,5 +1,6 @@
 const path = require("path");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 module.exports = {
@@ -56,5 +57,13 @@ module.exports = {
     }),
     new CleanWebpackPlugin(),
     new ForkTsCheckerWebpackPlugin(),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: path.join("src/public", "locales"),
+          to: path.join(__dirname, "./dist/locales"),
+        },
+      ],
+    }),
   ],
 };
