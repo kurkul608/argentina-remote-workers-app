@@ -33,65 +33,6 @@ export const AuthForm = () => {
   //     </script>
   //   </>
   // );
-  const dataOnauth = (user: any) => {};
-
-  useLayoutEffect(() => {
-    getBotToken().then((botName) => {
-      // @ts-ignore
-      window.TelegramLoginWidget = {
-        dataOnauth: (user: any) => dataOnauth(user),
-      };
-
-      const script = document.createElement("script");
-      script.src = "https://telegram.org/js/telegram-widget.js?" + 21;
-      script.setAttribute("data-telegram-login", botName);
-      script.setAttribute("data-size", "large");
-      // if (cornerRadius !== undefined) {
-      //   script.setAttribute("data-radius", cornerRadius);
-      // }
-      script.setAttribute("data-request-access", "write");
-      // script.setAttribute("data-userpic", usePic);
-      // script.setAttribute("data-lang", lang);
-      // if (dataAuthUrl !== undefined) {
-      //   script.setAttribute("data-auth-url", dataAuthUrl);
-      // } else {
-      //   script.setAttribute(
-      //       "data-onauth",
-      //       "TelegramLoginWidget.dataOnauth(user)"
-      //   );
-      // }
-      script.setAttribute(
-        "data-onauth",
-        "TelegramLoginWidget.dataOnauth(user)"
-      );
-      script.async = true;
-      // @ts-ignore
-      ref.current!.appendChild(script);
-    });
-  });
-  // const userSchema = yup.object({
-  //   username: yup
-  //     .string()
-  //     .required()
-  //     .lowercase()
-  //     .min(2)
-  //     .max(20)
-  //     .matches(
-  //       /^(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/,
-  //       "Remove incorrect symbols like @!#$%"
-  //     ),
-  // });
-
-  // const { values, handleChange, handleSubmit, errors } = useFormik({
-  //   initialValues: {
-  //     username: "",
-  //   },
-  //   onSubmit: async (values: IUserLogin) => {
-  //     const result = await dispatch(authAsync(values));
-  //   },
-  //   validationSchema: userSchema,
-  //   validateOnChange: true,
-  // });
   const navigate = useNavigate();
   if (isAuth) {
     navigate("/");
