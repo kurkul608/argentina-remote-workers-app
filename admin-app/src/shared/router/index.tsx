@@ -11,6 +11,7 @@ const NotFound = () => {
 
 export enum Routes {
   landing = "",
+  admin = "admin",
   chatList = "chat",
   chat = "chat/:chatId",
   auth = "auth",
@@ -19,8 +20,12 @@ export enum Routes {
 export const router = createBrowserRouter([
   {
     path: Routes.landing,
-    element: <Layout />,
+    element: <></>,
     errorElement: <NotFound />,
+  },
+  {
+    path: Routes.admin,
+    element: <Layout />,
     children: [
       {
         element: <MainPage />,
