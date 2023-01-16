@@ -3,8 +3,11 @@ import { StyledAside, StyledNavBar } from "./styled";
 import { NavLink } from "react-router-dom";
 import HouseIcon from "@mui/icons-material/House";
 import BugReportIcon from "@mui/icons-material/BugReport";
+import { useTranslation } from "react-i18next";
 
 export const Aside = () => {
+  const { t } = useTranslation();
+  console.log(t("aside.mainPage"));
   return (
     <StyledAside>
       <StyledNavBar>
@@ -14,10 +17,9 @@ export const Aside = () => {
             className={({ isActive }) =>
               isActive ? "active-nav-link" : undefined
             }
-            end
           >
             <HouseIcon />
-            <p>Main page</p>
+            <p>{t("aside.mainPage")}</p>
           </NavLink>
           <NavLink
             to={"test"}
@@ -26,7 +28,7 @@ export const Aside = () => {
             }
           >
             <BugReportIcon />
-            <p>Test</p>
+            <p>{t("aside.test")}</p>
           </NavLink>
         </li>
       </StyledNavBar>

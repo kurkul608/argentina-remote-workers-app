@@ -1,0 +1,12 @@
+{
+  "aside": {
+    "mainPage": "Главная страница",
+    "test": "Тест"
+  },
+  "header": {
+    "logout": "Выход"
+  },
+  "chatPage": {
+    "chatList": "Список чатов"
+  }
+}
