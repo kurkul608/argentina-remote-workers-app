@@ -49,8 +49,6 @@ export const MainPage = () => {
     const arr = new Array(numOfRows)
       .fill("")
       .map(() => new Array(numOfColumns).fill("."));
-    console.log("rows", numOfRows);
-    console.log("arr", arr);
     return arr;
   }
 
@@ -65,7 +63,6 @@ export const MainPage = () => {
         (acc, item) => (item !== "." ? 0 : acc + 1),
         0
       );
-      console.log("space", freeSpace);
       if (freeSpace < comp.widthSize) {
         if (i === copyArea.length - 1) {
           copyArea.push(new Array(numOfColumns).fill("."));
@@ -79,15 +76,11 @@ export const MainPage = () => {
       let freeSpaceY = 0;
       try {
         for (let j = i; j < i + comp.heightSize; j++) {
-          console.log("free", j, freeDotIndex);
           if (copyArea[j][freeDotIndex] === ".") {
             freeSpaceY += 1;
           }
         }
       } catch (e: any) {
-        console.log(
-          "Ты пытаешься захуячить компонент в несуществующую ячеку в длину"
-        );
         copyArea.push(new Array(numOfColumns).fill("."));
         return enterComp(comp, copyArea, numOfColumns);
       }
@@ -108,8 +101,6 @@ export const MainPage = () => {
   sortedMas.forEach((item) => {
     enterComp(item, areaTemplate, 4);
   });
-
-  console.log("area", areaTemplate);
 
   return (
     <>

@@ -1,0 +1,12 @@
+{
+  "aside": {
+    "mainPage": "Main page",
+    "test": "Test"
+  },
+  "header": {
+    "logout": "Log out"
+  },
+  "chatPage": {
+    "chatList": "Chat list"
+  }
+}

@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useRef } from "react";
+import React, { useLayoutEffect, useRef } from "react";
 // import { Input } from "../../../components/form-input";
 import {
   // ButtonWrapper,
@@ -33,9 +33,7 @@ export const AuthForm = () => {
   //     </script>
   //   </>
   // );
-  const dataOnauth = (user: any) => {
-    console.log(user);
-  };
+  const dataOnauth = (user: any) => {};
 
   useLayoutEffect(() => {
     getBotToken().then((botName) => {
