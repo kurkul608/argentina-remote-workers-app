@@ -7,9 +7,9 @@ import "./shared/i18n/i18n";
 
 const rootNode = document.getElementById("root");
 if (rootNode) {
-  createRoot(rootNode).render(
-    <Provider store={store}>
-      <App />
-    </Provider>
-  );
+	createRoot(rootNode).render(
+		<Provider store={store}>
+			<App />
+		</Provider>
+	);
 }

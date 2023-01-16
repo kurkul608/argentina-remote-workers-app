@@ -2,16 +2,16 @@ import styled from "styled-components";
 import { color } from "../../../../constants/colors";
 
 export const Wrapper = styled.div`
-  // margin: 150px auto;
-  // max-width: 500px;
-  // width: 100%;
-  // border-radius: 5px;
-  // padding: 50px;
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+	// margin: 150px auto;
+	// max-width: 500px;
+	// width: 100%;
+	// border-radius: 5px;
+	// padding: 50px;
+	width: 100%;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 `;
 //
 // export const Title = styled.h1`
