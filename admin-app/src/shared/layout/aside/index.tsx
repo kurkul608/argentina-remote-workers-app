@@ -7,7 +7,6 @@ import { useTranslation } from "react-i18next";
 
 export const Aside = () => {
   const { t } = useTranslation();
-  console.log(t("aside.mainPage"));
   return (
     <StyledAside>
       <StyledNavBar>
