@@ -73,8 +73,7 @@
 		"yup": "^0.32.11"
 	},
 	"lint-staged": {
-		"*.ts": "eslint --cache --fix",
-		"*.--write": "prettier --write",
-		"*.js": "eslint --cache --fix"
+		"src/**/*.{js,ts,tsx}": "eslint --cache --fix",
+		"*.--write": "prettier --write"
 	}
 }
