@@ -1,5 +1,5 @@
 import React from "react";
-import { ChatWidget } from "../../shared/chat/components/chat-widget";
+import { ChatWidget } from "../../shared/chat/components/chat-messange-page";
 
 export const MainPage = () => {
   return (

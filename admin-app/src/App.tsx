@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { DefaultTheme, ThemeProvider } from "styled-components";
 import GlobalStyles from "./global";
 import { Theme } from "./constants/theme";
 import { RouterProvider } from "react-router";
 import { router } from "./shared/router";
 
-const darkTheme: DefaultTheme = {
+export const darkTheme: DefaultTheme = {
   mainTheme: Theme.dark,
 };
-const lightTheme: DefaultTheme = {
+export const lightTheme: DefaultTheme = {
   mainTheme: Theme.light,
 };
 

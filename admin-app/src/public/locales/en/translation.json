@@ -12,5 +12,8 @@
   },
   "chatsPage": {
     "chats": "Chats"
+  },
+  "chatsSettingsPage": {
+    "settingsWidget": "Detailed information about the chat"
   }
 }

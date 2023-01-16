@@ -4,6 +4,7 @@ import { AuthPage } from "../../pages/auth-page";
 import { Layout } from "../layout";
 import { ChatPage } from "../../pages/chat-page";
 import { ChatListPage } from "../../pages/chat-list-page";
+import { ChatSettings } from "../../pages/chat-settings";
 
 const NotFound = () => {
   return <div>Page not found</div>;
@@ -14,6 +15,7 @@ export enum Routes {
   admin = "admin",
   chatList = "chat",
   chat = "chat/:chatId",
+  chatSettings = "chat/:chatId/settings",
   auth = "auth",
 }
 export const router = createBrowserRouter([
@@ -37,6 +39,10 @@ export const router = createBrowserRouter([
       {
         path: Routes.chat,
         element: <ChatPage />,
+      },
+      {
+        path: Routes.chatSettings,
+        element: <ChatSettings />,
       },
     ],
   },

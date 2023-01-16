@@ -12,5 +12,8 @@
   },
   "chatsPage": {
     "chats": "Чаты"
+  },
+  "chatsSettingsPage": {
+    "settingsWidget": "Подробная информация о чате"
   }
 }

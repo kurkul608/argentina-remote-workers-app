@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
-import { IChatInterface } from "../../../interfaces/chat.interface";
-import { getChatsList } from "../services/data";
-import { ITableDataInterface } from "../../../interfaces/dto/table-data.interface";
+import { IChatInterface } from "../../../../interfaces/chat.interface";
+import { getChatsList } from "../../services/data";
+import { ITableDataInterface } from "../../../../interfaces/dto/table-data.interface";
 
 interface IChatsState {
   list: IChatInterface[];
@@ -18,6 +18,7 @@ const initialState: IChatsState = {
 export const getAllChats = createAsyncThunk("chats/getAllChats", async () => {
   return (await getChatsList()) as ITableDataInterface<IChatInterface>;
 });
+
 export const chatsSlice = createSlice({
   name: "chats",
   initialState,
@@ -42,7 +43,7 @@ export const chatsSlice = createSlice({
         state.error = action.payload as string;
       })
       .addCase(getAllChats.pending, (state) => {
-        state.list = []
+        state.list = [];
         state.isLoading = true;
       });
   },

@@ -13,9 +13,8 @@ import {
   SvgWrapper,
   TextWrapper,
 } from "./styled";
-import { getAllChats } from "../../redux/chat-list.slice";
+import { getAllChats } from "../../redux/chat-page/chat-list.slice";
 import { IChatInterface } from "../../../../interfaces/chat.interface";
-import { SettingsSvg } from "../settings";
 import { routeBuilder } from "../../../router/services/route-builder";
 import { Routes } from "../../../router";
 import { RouteReplacer } from "../../../router/services/route-replacer";
@@ -39,6 +38,18 @@ export const ChatListWidget = () => {
       ),
     [navigate]
   );
+  const handleOnClickSettings = useCallback(
+    (chat: IChatInterface) =>
+      navigate(
+        RouteReplacer(
+          routeBuilder([Routes.admin, Routes.chatSettings]),
+          "chatId",
+          chat.id
+        ),
+        { replace: true }
+      ),
+    [navigate]
+  );
   return (
     <>
       {list.map((chat) => (
@@ -54,8 +65,13 @@ export const ChatListWidget = () => {
                   <Subscribers>{`32k subscribers`}</Subscribers>
                 </ChatTitleWrapper>
               </TextWrapper>
-              <SvgWrapper>
-                <SettingsSvg />
+              <SvgWrapper
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleOnClickSettings(chat);
+                }}
+              >
+                Settings
               </SvgWrapper>
             </ChatWrapper>
           </Widget>
