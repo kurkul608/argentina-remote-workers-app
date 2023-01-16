@@ -7,7 +7,6 @@ interface IOwnProps {
   children?: React.ReactNode;
 }
 export const Widget = ({ name, children, onClick }: IOwnProps) => {
-  console.log(onClick);
   return (
     <WidgetWrapper onClick={onClick}>
       <WidgetName>{name ?? ""}</WidgetName>

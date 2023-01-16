@@ -4,6 +4,6 @@ export const RouteReplacer = (
   route: Pathname,
   key: string,
   value: string | number
-): string => {
+): Pathname => {
   return route.replace(`:${key}`, value.toString());
 };

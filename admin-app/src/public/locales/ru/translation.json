@@ -9,5 +9,8 @@
   },
   "chatPage": {
     "chatList": "Список чатов"
+  },
+  "chatsPage": {
+    "chats": "Чаты"
   }
 }

@@ -1,9 +1,9 @@
 import React from "react";
 import { createBrowserRouter } from "react-router-dom";
 import { AuthPage } from "../../pages/auth-page";
-import { MainPage } from "../../pages/main-page";
 import { Layout } from "../layout";
 import { ChatPage } from "../../pages/chat-page";
+import { ChatListPage } from "../../pages/chat-list-page";
 
 const NotFound = () => {
   return <div>Page not found</div>;
@@ -32,7 +32,7 @@ export const router = createBrowserRouter([
       },
       {
         path: Routes.chatList,
-        element: <MainPage />,
+        element: <ChatListPage />,
       },
       {
         path: Routes.chat,

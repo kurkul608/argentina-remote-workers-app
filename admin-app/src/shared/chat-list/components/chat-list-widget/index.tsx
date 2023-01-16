@@ -1,16 +1,24 @@
 import React, { useCallback, useEffect } from "react";
-import { useAppSelector, useAppDispatch } from "../../../../redux/hooks";
+import { useNavigate } from "react-router";
+import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
 import { Widget } from "../../../widget";
 import {
   ChatListWrapper,
   ChatPhoto,
   ChatPhotoWrapper,
   ChatTitle,
+  ChatTitleWrapper,
+  ChatWrapper,
+  Subscribers,
+  SvgWrapper,
+  TextWrapper,
 } from "./styled";
 import { getAllChats } from "../../redux/chat-list.slice";
-import { useNavigate } from "react-router";
 import { IChatInterface } from "../../../../interfaces/chat.interface";
 import { SettingsSvg } from "../settings";
+import { routeBuilder } from "../../../router/services/route-builder";
+import { Routes } from "../../../router";
+import { RouteReplacer } from "../../../router/services/route-replacer";
 
 export const ChatListWidget = () => {
   const { list } = useAppSelector((state) => state.chats);
@@ -18,55 +26,38 @@ export const ChatListWidget = () => {
   useEffect(() => {
     dispatch(getAllChats());
   }, []);
-  console.log(list);
   const navigate = useNavigate();
   const handleOnClick = useCallback(
-    (chat: IChatInterface) => navigate(`/chat/${chat.id}`, { replace: true }),
+    (chat: IChatInterface) =>
+      navigate(
+        RouteReplacer(
+          routeBuilder([Routes.admin, Routes.chat]),
+          "chatId",
+          chat.id
+        ),
+        { replace: true }
+      ),
     [navigate]
   );
-  console.log(list[0]);
   return (
     <>
-      {/*<ChatListWrapper>*/}
-      {/*  <Widget name={"Chat list widget"}>*/}
-      {/*    <ChatListUL>*/}
-      {/*      {list.map((chat) => (*/}
-      {/*        <li key={`widget-chat-list--${chat.id}`}>*/}
-      {/*          <Chat onClick={() => handleOnClick(chat)}>*/}
-      {/*            <ChatPhotoWrapper>*/}
-      {/*              <ChatPhoto>{chat.title[0].toUpperCase()}</ChatPhoto>*/}
-      {/*            </ChatPhotoWrapper>*/}
-      {/*            <ChatTitle>{chat.title}</ChatTitle>*/}
-      {/*          </Chat>*/}
-      {/*        </li>*/}
-      {/*      ))}*/}
-      {/*    </ChatListUL>*/}
-      {/*  </Widget>*/}
-      {/*</ChatListWrapper>*/}
       {list.map((chat) => (
-        <ChatListWrapper
-          key={`widget-chat-list--${chat.id}`}
-          style={{ minWidth: 280, width: "100%" }}
-        >
+        <ChatListWrapper key={`widget-chat-list--${chat.id}`}>
           <Widget name={""} onClick={() => handleOnClick(chat)}>
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 20,
-                }}
-              >
+            <ChatWrapper>
+              <TextWrapper>
                 <ChatPhotoWrapper>
                   <ChatPhoto>{chat.title[0].toUpperCase()}</ChatPhoto>
                 </ChatPhotoWrapper>
-                <div>
+                <ChatTitleWrapper>
                   <ChatTitle>{chat.title}</ChatTitle>
-                  <span>32k subscribers</span>
-                </div>
-              </div>
-              <SettingsSvg />
-            </div>
+                  <Subscribers>{`32k subscribers`}</Subscribers>
+                </ChatTitleWrapper>
+              </TextWrapper>
+              <SvgWrapper>
+                <SettingsSvg />
+              </SvgWrapper>
+            </ChatWrapper>
           </Widget>
         </ChatListWrapper>
       ))}
