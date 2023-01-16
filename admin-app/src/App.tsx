@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { DefaultTheme, ThemeProvider } from "styled-components";
 import GlobalStyles from "./global";
-import { AppRouter } from "./shared/router";
 import { Theme } from "./constants/theme";
+import { RouterProvider } from "react-router";
+import { router } from "./shared/router";
 
 const darkTheme: DefaultTheme = {
   mainTheme: Theme.dark,
@@ -37,7 +38,7 @@ export const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />
-      <AppRouter />
+      <RouterProvider router={router} />
     </ThemeProvider>
   );
 };
