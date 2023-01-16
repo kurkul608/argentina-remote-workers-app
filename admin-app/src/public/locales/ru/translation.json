@@ -1,6 +1,7 @@
 {
   "aside": {
     "mainPage": "Главная страница",
+    "chatList": "Список чатов",
     "test": "Тест"
   },
   "header": {
