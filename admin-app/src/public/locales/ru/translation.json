@@ -13,7 +13,10 @@
   "chatsPage": {
     "chats": "Чаты"
   },
-  "chatsSettingsPage": {
-    "settingsWidget": "Подробная информация о чате"
+  "chatsInfoPage": {
+    "infoWidgetTitle": "Детельная информация о чате",
+    "id": "ID чата",
+    "chatTitle": "Название чата",
+    "count": "Количество участников"
   }
 }

@@ -13,7 +13,10 @@
   "chatsPage": {
     "chats": "Chats"
   },
-  "chatsSettingsPage": {
-    "settingsWidget": "Detailed information about the chat"
+  "chatsInfoPage": {
+    "infoWidgetTitle": "Detailed information about the chat",
+    "id": "Chat ID",
+    "chatTitle": "Chat title",
+    "count": "Subscribers count"
   }
 }
