@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-// import { authRequest } from "../services/data";
 
 export interface IAuth {
 	token: string;

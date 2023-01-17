@@ -7,7 +7,6 @@ export const LanguageSwitch = () => {
 	const changeLanguage = (event: React.MouseEvent<HTMLButtonElement>) => {
 		const target = event.target as HTMLButtonElement;
 		i18n.changeLanguage(target.value);
-		console.log(i18n.language);
 	};
 	return (
 		<LanguageSwitchWrapper>

@@ -2,14 +2,15 @@ import React from "react";
 import { WidgetName, WidgetWrapper } from "./styled";
 
 interface IOwnProps {
-	name: string;
-	children?: React.ReactNode;
+  name: string;
+  onClick?: () => void;
+  children?: React.ReactNode;
 }
-export const Widget = ({ name, children }: IOwnProps) => {
-	return (
-		<WidgetWrapper>
-			<WidgetName>{name ?? ""}</WidgetName>
-			{children}
-		</WidgetWrapper>
-	);
+export const Widget = ({ name, children, onClick }: IOwnProps) => {
+  return (
+    <WidgetWrapper onClick={onClick}>
+      <WidgetName>{name ?? ""}</WidgetName>
+      {children}
+    </WidgetWrapper>
+  );
 };
