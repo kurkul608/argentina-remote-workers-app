@@ -33,7 +33,7 @@ export const ChatSettingsWidget = () => {
 					<LineDescription></LineDescription>
 				</SettingLine>
 				<SettingLine>
-					<LineTitle>Канал для Журнала</LineTitle>
+					<LineTitle>Канал для Журнала2</LineTitle>
 					<LineDescription></LineDescription>
 				</SettingLine>
 				<SettingLine>
