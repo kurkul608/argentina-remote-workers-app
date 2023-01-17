@@ -20,6 +20,7 @@ export enum ColorsDark {
 	inputCheckedColor = "#17A625",
 	inputUncheckedColor = "#BDBDBD",
 	breadcrumbsBorderColorActive = "#ff0000ff",
+	pageTitle = baseWhiteText,
 }
 export enum ColorsLight {
 	backGround = "#f1f3f6",
@@ -41,6 +42,7 @@ export enum ColorsLight {
 	inputCheckedColor = "#17A625",
 	inputUncheckedColor = "#BDBDBD",
 	breadcrumbsBorderColorActive = "#ff0000ff",
+	pageTitle = "#000000",
 }
 
 export const color = (theme: Theme) => {
