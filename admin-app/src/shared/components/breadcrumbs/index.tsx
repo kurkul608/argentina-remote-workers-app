@@ -15,7 +15,7 @@ export const Breadcrumbs = ({ link, separator }: IBreadcrumbs) => {
 				<>
 					<Breadcrumb
 						key={value}
-						onClick={() => navigate(`${value}`, { replace: true })}
+						onClick={() => navigate(value, { replace: true })}
 					>
 						{value.split("/").pop()}
 					</Breadcrumb>
