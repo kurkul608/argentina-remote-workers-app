@@ -2,9 +2,9 @@ import React from "react";
 import { TitleWrapper } from "./styled";
 
 interface ITitle {
-  titleElement: React.ReactNode;
+	children: React.ReactNode;
 }
 
-export const Title = ({ titleElement }: ITitle) => {
-  return <TitleWrapper>{titleElement}</TitleWrapper>;
+export const PageTitle = ({ children }: ITitle) => {
+	return <TitleWrapper>{children}</TitleWrapper>;
 };
