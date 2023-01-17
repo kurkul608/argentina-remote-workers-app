@@ -62,7 +62,7 @@ export const ChatListWidget = () => {
                 </ChatPhotoWrapper>
                 <ChatTitleWrapper>
                   <ChatTitle>{chat.title}</ChatTitle>
-                  <Subscribers>{`32k subscribers`}</Subscribers>
+                  <Subscribers>{"32k subscribers"}</Subscribers>
                 </ChatTitleWrapper>
               </TextWrapper>
               <SvgWrapper
