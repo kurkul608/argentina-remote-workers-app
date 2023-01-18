@@ -1,17 +1,15 @@
 import React from "react";
-import { Widget } from "../../../widget";
+import { Widget } from "shared/widget";
 import { SendMessageWrapper } from "./styled";
 import { useFormik } from "formik";
-import { Input } from "../../../components/form-input";
-import { Button } from "../../../components/form-button";
-import {
-	DropdownList,
-	IDropdownOption,
-} from "../../../components/dropdown-list";
-import { useAppSelector } from "../../../../redux/hooks";
+import { Input } from "shared/components/form-input";
+import { Button } from "shared/components/form-button";
+import { DropdownList, IDropdownOption } from "shared/components/dropdown-list";
+import { useAppSelector } from "redux/hooks";
 import { sendMessage } from "../../services/data";
 import * as Yup from "yup";
-import { IChatInterface } from "../../../../interfaces/chat.interface";
+import { IChatInterface } from "interfaces/chat.interface";
+import { TextEditor } from "shared/components/text-editor";
 
 interface SendMessageWidgetProps {
 	chatIds?: number[];
@@ -75,12 +73,11 @@ export const SendMessageWidget = ({ chatIds }: SendMessageWidgetProps) => {
 						errors={errors.selectedChats}
 					/>
 				) : null}
-				<Input
-					onChange={handleChange}
+				<TextEditor
+					onChange={handleChange("message")}
 					id={"message"}
-					name={"message"}
 					value={values.message}
-					errors={errors.message}
+					// errors={errors.message}
 				/>
 				<Input
 					type={"checkbox"}
