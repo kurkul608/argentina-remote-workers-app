@@ -24,5 +24,13 @@ module.exports = {
 		semi: ["error", "always"],
 		"@typescript-eslint/no-var-requires": 0,
 		"no-console": ["error", { allow: ["warn", "error"] }],
+		"react/self-closing-comp": [
+			"error",
+			{
+				component: true,
+				html: true,
+			},
+		],
+		"react/jsx-first-prop-new-line": ["error", "multiline"],
 	},
 };
