@@ -35,6 +35,8 @@ module.exports = {
 		],
 		"react/jsx-first-prop-new-line": ["error", "multiline"],
 		"import/no-unresolved": [2, { caseSensitive: false }],
+		"no-unused-vars": "off",
+		"@typescript-eslint/no-unused-vars": ["error"],
 	},
 	settings: {
 		"import/parsers": {
