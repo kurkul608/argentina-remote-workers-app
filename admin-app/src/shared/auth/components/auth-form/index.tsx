@@ -9,7 +9,7 @@ import {
 } from "./styled";
 // import { Title } from "./styled";
 // import { Button } from "../../../components/form-button";
-import { useAppSelector } from "../../../../redux/hooks";
+import { useAppSelector } from "redux/hooks";
 // import { authAsync, IUserLogin } from "../../redux/auth.slice";
 import { useNavigate } from "react-router";
 // import { useFormik } from "formik";

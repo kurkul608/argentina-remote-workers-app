@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { color } from "../../../../constants/colors";
+import { color } from "constants/colors";
 
 export const Wrapper = styled.div`
 	min-width: 500px;

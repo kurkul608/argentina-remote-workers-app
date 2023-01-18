@@ -1,7 +1,7 @@
 import React from "react";
-import { ChatSettingsWidget } from "../../shared/chat/components/settings-page";
-import { PageTitle } from "../../shared/components/title";
-import { Breadcrumbs } from "../../shared/components/breadcrumbs";
+import { ChatSettingsWidget } from "shared/chat/components/settings-page";
+import { PageTitle } from "shared/components/title";
+import { Breadcrumbs } from "shared/components/breadcrumbs";
 import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
 
