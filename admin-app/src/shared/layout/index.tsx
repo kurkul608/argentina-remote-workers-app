@@ -8,17 +8,17 @@ import { routeExactMatch } from "../router/services/route-exact";
 import { Routes } from "../router";
 
 export const Layout = () => {
-  const location = useLocation();
-  const autoFlow = routeExactMatch(location.pathname, Routes.chatList);
-  return (
-    <>
-      <Header />
-      <div style={{ display: "flex" }}>
-        <Aside />
-        <Main size={widgetSize.small} gridAutoFlowIsDisabled={autoFlow}>
-          <Outlet />
-        </Main>
-      </div>
-    </>
-  );
+	const location = useLocation();
+	const autoFlow = routeExactMatch(location.pathname, Routes.chatList);
+	return (
+		<>
+			<Header />
+			<div style={{ display: "flex" }}>
+				<Aside />
+				<Main size={widgetSize.small} gridAutoFlowIsDisabled={autoFlow}>
+					<Outlet />
+				</Main>
+			</div>
+		</>
+	);
 };

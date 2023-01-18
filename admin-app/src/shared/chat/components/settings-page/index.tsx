@@ -8,7 +8,7 @@ import { getChatAsync } from "../../redux/settings-page/chat.slice";
 
 export const ChatSettingsWidget = () => {
 	const { t } = useTranslation("translation", {
-		keyPrefix: "chatsSettingsPage",
+		keyPrefix: "chatsInfoPage",
 	});
 	const { chatId } = useParams();
 	const { data } = useAppSelector((state) => state.chat);
@@ -17,28 +17,21 @@ export const ChatSettingsWidget = () => {
 		if (chatId) dispatch(getChatAsync(+chatId));
 	}, []);
 	const { id, title } = data.chatInfo;
+	const count = data.chatMembersCount;
 	return (
-		<Widget name={t("settingsWidget")}>
+		<Widget name={t("infoWidgetTitle")}>
 			<SettingsUL>
 				<SettingLine>
-					<LineTitle>ID Чата</LineTitle>
+					<LineTitle>{t("id")}</LineTitle>
 					<LineDescription>{id}</LineDescription>
 				</SettingLine>
 				<SettingLine>
-					<LineTitle>Название чата</LineTitle>
+					<LineTitle>{t("chatTitle")}</LineTitle>
 					<LineDescription>{title}</LineDescription>
 				</SettingLine>
 				<SettingLine>
-					<LineTitle>Язык чата</LineTitle>
-					<LineDescription></LineDescription>
-				</SettingLine>
-				<SettingLine>
-					<LineTitle>Канал для Журнала</LineTitle>
-					<LineDescription></LineDescription>
-				</SettingLine>
-				<SettingLine>
-					<LineTitle>Канал для Журнала</LineTitle>
-					<LineDescription></LineDescription>
+					<LineTitle>{t("count")}</LineTitle>
+					<LineDescription>{count}</LineDescription>
 				</SettingLine>
 			</SettingsUL>
 		</Widget>
