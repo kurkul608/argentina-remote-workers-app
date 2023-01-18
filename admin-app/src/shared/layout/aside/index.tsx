@@ -21,6 +21,7 @@ export const Aside = () => {
 			<StyledNavBar>
 				<li>
 					<NavLink
+						end
 						to={routeBuilder([Routes.admin])}
 						className={({ isActive }) =>
 							isActive ? "active-nav-link" : undefined
@@ -30,6 +31,7 @@ export const Aside = () => {
 						<p>{t("mainPage")}</p>
 					</NavLink>
 					<NavLink
+						end
 						to={routeBuilder([Routes.admin, Routes.chatList])}
 						className={({ isActive }) =>
 							isActive ? "active-nav-link" : undefined
@@ -43,6 +45,7 @@ export const Aside = () => {
 			<ChatLeftBar isHidden={isHidden}>
 				<StyledNavBar>
 					<NavLink
+						end
 						to={RouteReplacer(
 							routeBuilder([Routes.admin, Routes.chat]),
 							"chatId",
@@ -55,6 +58,7 @@ export const Aside = () => {
 						<p>Info</p>
 					</NavLink>
 					<NavLink
+						end
 						to={RouteReplacer(
 							routeBuilder([Routes.admin, Routes.chatSettings]),
 							"chatId",
