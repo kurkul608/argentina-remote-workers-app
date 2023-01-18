@@ -10,7 +10,6 @@ export const StyledAside = styled.aside`
 
 export const StyledNavBar = styled.ul`
 	width: 100%;
-
 	a {
 		padding-left: 15px;
 		padding-right: 15px;
@@ -19,6 +18,7 @@ export const StyledNavBar = styled.ul`
 		display: flex;
 		gap: 10px;
 		align-items: center;
+
 		&:hover {
 			background-color: ${(props) =>
 				color(props.theme.mainTheme).activeNavLinkBackground};

@@ -2,7 +2,11 @@
 	"aside": {
 		"mainPage": "Main page",
 		"chatList": "Chat List",
-		"test": "Test"
+		"test": "Test",
+		"chatCategories": {
+			"settings": "Settings",
+			"info": "Info"
+		}
 	},
 	"header": {
 		"logout": "Log out"

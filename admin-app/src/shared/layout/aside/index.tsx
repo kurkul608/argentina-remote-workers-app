@@ -55,7 +55,7 @@ export const Aside = () => {
 							isActive ? "active-nav-link" : undefined
 						}
 					>
-						<p>Info</p>
+						<p>{t("chatCategories.info")}</p>
 					</NavLink>
 					<NavLink
 						end
@@ -68,7 +68,7 @@ export const Aside = () => {
 							isActive ? "active-nav-link" : undefined
 						}
 					>
-						<p>Settings</p>
+						<p>{t("chatCategories.settings")}</p>
 					</NavLink>
 				</StyledNavBar>
 			</ChatLeftBar>

@@ -20,6 +20,7 @@ export enum ColorsDark {
 	inputCheckedColor = "#17A625",
 	inputUncheckedColor = "#BDBDBD",
 	breadcrumbsBorderColorActive = "#ff0000ff",
+	asideBorderColor = "#f7b03e",
 }
 export enum ColorsLight {
 	backGround = "#f1f3f6",

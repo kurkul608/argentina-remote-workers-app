@@ -2,7 +2,11 @@
 	"aside": {
 		"mainPage": "Главная страница",
 		"chatList": "Список чатов",
-		"test": "Тест"
+		"test": "Тест",
+		"chatCategories" :{
+			"settings": "Настройки",
+			"info": "Информация"
+		}
 	},
 	"header": {
 		"logout": "Выход"
