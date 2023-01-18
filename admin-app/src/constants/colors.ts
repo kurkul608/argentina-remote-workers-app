@@ -19,6 +19,8 @@ export enum ColorsDark {
 	chatHoverBackgroundColor = "#545454",
 	inputCheckedColor = "#17A625",
 	inputUncheckedColor = "#BDBDBD",
+	breadcrumbsBorderColorActive = "#ff0000ff",
+	pageTitle = baseWhiteText,
 }
 export enum ColorsLight {
 	backGround = "#f1f3f6",
@@ -39,6 +41,8 @@ export enum ColorsLight {
 	chatHoverBackgroundColor = "#C8C8C8",
 	inputCheckedColor = "#17A625",
 	inputUncheckedColor = "#BDBDBD",
+	breadcrumbsBorderColorActive = "#ff0000ff",
+	pageTitle = "#000000",
 }
 
 export const color = (theme: Theme) => {
