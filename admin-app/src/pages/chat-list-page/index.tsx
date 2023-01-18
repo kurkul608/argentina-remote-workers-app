@@ -4,11 +4,11 @@ import { Title } from "../../shared/components/title";
 import { useTranslation } from "react-i18next";
 
 export const ChatListPage = () => {
-  const { t } = useTranslation("translation", { keyPrefix: "chatsPage" });
-  return (
-    <>
-      <Title titleElement={<h3>{t("chats")}</h3>} />
-      <ChatListWidget />
-    </>
-  );
+	const { t } = useTranslation("translation", { keyPrefix: "chatsPage" });
+	return (
+		<>
+			<Title titleElement={<h3>{t("chats")}</h3>} />
+			<ChatListWidget />
+		</>
+	);
 };

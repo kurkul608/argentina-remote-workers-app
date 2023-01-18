@@ -37,7 +37,7 @@ export const ChatWidget = () => {
 							<ChatTitle>Makson</ChatTitle>
 							<ChatUnderTitle>3.5k subscribers</ChatUnderTitle>
 						</ChatName>
-						<ChatPhoto></ChatPhoto>
+						<ChatPhoto />
 					</ChatHeader>
 					<ChatMode>
 						<ChatOption className={"active"}>Текущие</ChatOption>

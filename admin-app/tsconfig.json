@@ -14,7 +14,8 @@
 		/* Module Resolution Options */
 		"moduleResolution": "node",
 		"forceConsistentCasingInFileNames": true,
-		"esModuleInterop": true
+		"esModuleInterop": true,
+		"baseUrl": "./src"
 	},
 	"include": ["src"]
 }
