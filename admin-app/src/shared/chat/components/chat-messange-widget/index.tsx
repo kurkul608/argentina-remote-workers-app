@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Widget } from "shared/widget";
 import {
 	BackButton,
@@ -25,8 +25,17 @@ import {
 	Wrapper,
 } from "./styled";
 import { SendMessageWidget } from "shared/message/components/send-message-widget";
+import { useParams } from "react-router";
+import { useAppDispatch, useAppSelector } from "redux/hooks";
+import { getChatAsync } from "shared/chat/redux/settings-page/chat.slice";
 
 export const ChatWidget = () => {
+	const { chatId } = useParams();
+	const { data } = useAppSelector((state) => state.chat);
+	const dispatch = useAppDispatch();
+	useEffect(() => {
+		if (chatId) dispatch(getChatAsync(+chatId));
+	}, []);
 	return (
 		<>
 			<Widget name={""}>
@@ -34,7 +43,7 @@ export const ChatWidget = () => {
 					<ChatHeader>
 						<BackButton>Назад</BackButton>
 						<ChatName>
-							<ChatTitle>Makson</ChatTitle>
+							<ChatTitle>{data.chatInfo.title}</ChatTitle>
 							<ChatUnderTitle>3.5k subscribers</ChatUnderTitle>
 						</ChatName>
 						<ChatPhoto />
