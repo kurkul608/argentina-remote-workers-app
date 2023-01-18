@@ -13,7 +13,7 @@ export const ChatSettings = () => {
 		<>
 			<PageTitle>
 				<h3>{t("chats")}</h3>
-				<Breadcrumbs link={location.pathname}></Breadcrumbs>
+				<Breadcrumbs link={location.pathname} />
 			</PageTitle>
 			<ChatSettingsWidget />
 		</>

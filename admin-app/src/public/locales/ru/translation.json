@@ -1,19 +1,22 @@
 {
-  "aside": {
-    "mainPage": "Главная страница",
-    "chatList": "Список чатов",
-    "test": "Тест"
-  },
-  "header": {
-    "logout": "Выход"
-  },
-  "chatPage": {
-    "chatList": "Список чатов"
-  },
-  "chatsPage": {
-    "chats": "Чаты"
-  },
-  "chatsSettingsPage": {
-    "settingsWidget": "Подробная информация о чате"
-  }
+	"aside": {
+		"mainPage": "Главная страница",
+		"chatList": "Список чатов",
+		"test": "Тест"
+	},
+	"header": {
+		"logout": "Выход"
+	},
+	"chatPage": {
+		"chatList": "Список чатов"
+	},
+	"chatsPage": {
+		"chats": "Чаты"
+	},
+	"chatsInfoPage": {
+		"infoWidgetTitle": "Детельная информация о чате",
+		"id": "ID чата",
+		"chatTitle": "Название чата",
+		"count": "Количество участников"
+	}
 }

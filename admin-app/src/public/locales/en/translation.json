@@ -1,19 +1,22 @@
 {
-  "aside": {
-    "mainPage": "Main page",
-    "chatList": "Chat List",
-    "test": "Test"
-  },
-  "header": {
-    "logout": "Log out"
-  },
-  "chatPage": {
-    "chatList": "Chat list"
-  },
-  "chatsPage": {
-    "chats": "Chats"
-  },
-  "chatsSettingsPage": {
-    "settingsWidget": "Detailed information about the chat"
-  }
+	"aside": {
+		"mainPage": "Main page",
+		"chatList": "Chat List",
+		"test": "Test"
+	},
+	"header": {
+		"logout": "Log out"
+	},
+	"chatPage": {
+		"chatList": "Chat list"
+	},
+	"chatsPage": {
+		"chats": "Chats"
+	},
+	"chatsInfoPage": {
+		"infoWidgetTitle": "Detailed information about the chat",
+		"id": "Chat ID",
+		"chatTitle": "Chat title",
+		"count": "Subscribers count"
+	}
 }

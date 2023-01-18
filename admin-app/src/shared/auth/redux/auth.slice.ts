@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 export interface IAuth {
 	token: string;
@@ -29,7 +29,7 @@ const AuthSlice = createSlice({
 			state.token = "";
 		},
 	},
-	extraReducers: (builder) => {
+	extraReducers: () => {
 		// builder.addCase(authAsync.pending, (state) => {
 		//   state.status = "loading";
 		// });

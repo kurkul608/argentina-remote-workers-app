@@ -1,5 +1,5 @@
 import React from "react";
-import { Widget } from "../../../widget";
+import { Widget } from "shared/widget";
 import {
 	BackButton,
 	Chat,
@@ -24,7 +24,7 @@ import {
 	MessageWrapper,
 	Wrapper,
 } from "./styled";
-import { SendMessageWidget } from "../../../message/components/send-message-widget";
+import { SendMessageWidget } from "shared/message/components/send-message-widget";
 
 export const ChatWidget = () => {
 	return (
@@ -37,7 +37,7 @@ export const ChatWidget = () => {
 							<ChatTitle>Makson</ChatTitle>
 							<ChatUnderTitle>3.5k subscribers</ChatUnderTitle>
 						</ChatName>
-						<ChatPhoto></ChatPhoto>
+						<ChatPhoto />
 					</ChatHeader>
 					<ChatMode>
 						<ChatOption className={"active"}>Текущие</ChatOption>

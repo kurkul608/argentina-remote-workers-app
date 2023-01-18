@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef } from "react";
+import React, { useRef } from "react";
 // import { Input } from "../../../components/form-input";
 import {
 	// ButtonWrapper,
@@ -9,16 +9,14 @@ import {
 } from "./styled";
 // import { Title } from "./styled";
 // import { Button } from "../../../components/form-button";
-import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
+import { useAppSelector } from "../../../../redux/hooks";
 // import { authAsync, IUserLogin } from "../../redux/auth.slice";
 import { useNavigate } from "react-router";
 // import { useFormik } from "formik";
 // import * as yup from "yup";
-import { getBotToken } from "../../services/data";
 
 export const AuthForm = () => {
 	const { token } = useAppSelector((state) => state.auth);
-	const dispatch = useAppDispatch();
 	const isAuth = !!token;
 
 	const ref = useRef(null);
