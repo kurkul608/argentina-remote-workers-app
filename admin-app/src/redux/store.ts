@@ -5,12 +5,12 @@ import activeChatsReducer from "../shared/chat/redux/active-chats.slice";
 import chatInfoReducer from "../shared/chat/redux/settings-page/chat.slice";
 
 export const store = configureStore({
-  reducer: {
-    chats: chatReducer,
-    auth: authReducer,
-    activeChats: activeChatsReducer,
-    chat: chatInfoReducer,
-  },
+	reducer: {
+		chats: chatReducer,
+		auth: authReducer,
+		activeChats: activeChatsReducer,
+		chat: chatInfoReducer,
+	},
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
