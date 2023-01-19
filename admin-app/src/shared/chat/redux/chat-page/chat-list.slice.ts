@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
-import { IChatInterface } from "../../../../interfaces/chat.interface";
+import { IChatInterface } from "interfaces/chat.interface";
 import { getChatsList } from "../../services/data";
-import { ITableDataInterface } from "../../../../interfaces/dto/table-data.interface";
+import { ITableDataInterface } from "interfaces/dto/table-data.interface";
 
 interface IChatsState {
 	list: IChatInterface[];

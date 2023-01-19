@@ -3,7 +3,7 @@ import { Aside } from "./aside";
 import { Outlet, useLocation } from "react-router-dom";
 import React from "react";
 import { Main } from "./styled";
-import { widgetSize } from "../../constants/size";
+import { widgetSize } from "constants/size";
 import { routeExactMatch } from "../router/services/route-exact";
 import { Routes } from "../router";
 

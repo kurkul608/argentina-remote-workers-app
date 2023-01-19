@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { color } from "../../../../constants/colors";
-import { WidgetWrapper } from "../../../widget/styled";
+import { color } from "constants/colors";
+import { WidgetWrapper } from "shared/widget/styled";
 
 export const ChatListWrapper = styled.div`
 	flex: 1 0 280px;

@@ -1,10 +1,10 @@
 import React from "react";
 import { createBrowserRouter } from "react-router-dom";
-import { AuthPage } from "../../pages/auth-page";
+import { AuthPage } from "pages/auth-page";
 import { Layout } from "../layout";
-import { ChatPage } from "../../pages/chat-page";
-import { ChatListPage } from "../../pages/chat-list-page";
-import { ChatSettings } from "../../pages/chat-settings";
+import { ChatPage } from "pages/chat-page";
+import { ChatListPage } from "pages/chat-list-page";
+import { ChatSettings } from "pages/chat-settings";
 
 const NotFound = () => {
 	return <div>Page not found</div>;

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { DefaultTheme, ThemeProvider } from "styled-components";
 import GlobalStyles from "./global";
-import { Theme } from "./constants/theme";
+import { Theme } from "constants/theme";
 import { RouterProvider } from "react-router";
-import { router } from "./shared/router";
+import { router } from "shared/router";
 
 export const darkTheme: DefaultTheme = {
 	mainTheme: Theme.dark,

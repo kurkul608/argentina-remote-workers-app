@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from "react";
 import { useNavigate } from "react-router";
-import { useAppDispatch, useAppSelector } from "../../../../redux/hooks";
-import { Widget } from "../../../widget";
+import { useAppDispatch, useAppSelector } from "redux/hooks";
+import { Widget } from "shared/widget";
 import {
 	ChatListWrapper,
 	ChatPhoto,
@@ -13,11 +13,11 @@ import {
 	SvgWrapper,
 	TextWrapper,
 } from "./styled";
-import { getAllChats } from "../../redux/chat-page/chat-list.slice";
-import { IChatInterface } from "../../../../interfaces/chat.interface";
-import { routeBuilder } from "../../../router/services/route-builder";
-import { Routes } from "../../../router";
-import { RouteReplacer } from "../../../router/services/route-replacer";
+import { getAllChats } from "shared/chat/redux/chat-page/chat-list.slice";
+import { IChatInterface } from "interfaces/chat.interface";
+import { routeBuilder } from "shared/router/services/route-builder";
+import { Routes } from "shared/router";
+import { RouteReplacer } from "shared/router/services/route-replacer";
 
 export const ChatListWidget = () => {
 	const { list } = useAppSelector((state) => state.chats);

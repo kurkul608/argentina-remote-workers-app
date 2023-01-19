@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { widgetSize } from "../../constants/size";
+import { widgetSize } from "constants/size";
 
 interface IWrapper {
 	size: widgetSize;
