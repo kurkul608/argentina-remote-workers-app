@@ -21,6 +21,7 @@ export class ChatsService {
     const chatInfo = await this.botService.getChatInfoById(createChatDto.id);
     return this.chatModel.create({
       ...createChatDto,
+      isHidden: !!createChatDto.isHidden,
       ...chatInfo,
     });
   }
@@ -33,6 +34,19 @@ export class ChatsService {
     return this.chatModel.find().where('id').in(ids);
   }
 
+  async changeVisible(chatId: number, isHidden: boolean) {
+    const chat = await this.getChat(chatId);
+    if (chat) {
+      await chat.updateOne({ isHidden });
+    }
+    return chat;
+  }
+  async getChat(chatId: number) {
+    const chat = await this.chatModel.findOne({ id: chatId });
+    if (chat) {
+      return chat;
+    }
+  }
   async getAll() {
     const data = await this.chatModel.find();
     return {
@@ -42,15 +56,19 @@ export class ChatsService {
   }
 
   async getChatInfo(chatId: number, paymentType?: PaymentType) {
+    const chat = await this.getChat(chatId);
     const chatInfo = await this.botService.getChatInfoById(chatId);
     const chatMembersCount = await this.botService.getChatMembersById(chatId);
     const payments = paymentType
       ? await this.paymentService.getPaymentsByTypeAndChat(chatId, paymentType)
       : [];
-    return {
-      chatInfo,
-      chatMembersCount,
-      payments: payments,
-    };
+    if (chat && chatInfo && chatMembersCount) {
+      return {
+        chat,
+        chatInfo,
+        chatMembersCount,
+        payments: payments,
+      };
+    }
   }
 }

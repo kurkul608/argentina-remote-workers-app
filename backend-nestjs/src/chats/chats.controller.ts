@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { ChatsService } from './chats.service';
 import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateChatDto } from './create-chat.dto';
@@ -29,5 +29,20 @@ export class ChatsController {
     @Query('paymentType') paymentType: PaymentType,
   ) {
     return this.chatsService.getChatInfo(id, paymentType);
+  }
+
+  @ApiOperation({ summary: 'Change chat visible' })
+  @ApiResponse({ status: 200, type: [CreateChatDto] })
+  @ApiQuery({
+    example: true,
+    name: 'isHidden',
+    required: false,
+  })
+  @Post(':id/change-visible')
+  changeChatVisible(
+    @Param('id') id: number,
+    @Query('isHidden') isHidden: boolean,
+  ) {
+    return this.chatsService.changeVisible(id, isHidden);
   }
 }

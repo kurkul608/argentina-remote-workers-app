@@ -35,6 +35,9 @@ export class Chat {
 
   @Prop({ required: false })
   join_to_send_messages: boolean;
+
+  @Prop({ required: true })
+  isHidden: boolean;
 }
 
 export const ChatSchema = SchemaFactory.createForClass(Chat);

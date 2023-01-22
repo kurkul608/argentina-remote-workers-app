@@ -51,4 +51,11 @@ export class CreateChatDto {
     required: false,
   })
   readonly join_to_send_messages: boolean;
+
+  @ApiProperty({
+    example: 'true',
+    description: 'chat visible',
+    required: false,
+  })
+  readonly isHidden: boolean;
 }
