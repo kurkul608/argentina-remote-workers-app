@@ -37,7 +37,7 @@ export class ChatsService {
   async changeVisible(chatId: number, isHidden: boolean) {
     const chat = await this.getChat(chatId);
     if (chat) {
-      await chat.update({ isHidden });
+      await chat.updateOne({ isHidden });
     }
     return chat;
   }
