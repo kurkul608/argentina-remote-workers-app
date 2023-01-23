@@ -13,7 +13,8 @@ async function bootstrap() {
     .setTitle('Argentina remote')
     .setDescription('Argentina remote API description')
     .setVersion('1.0')
-    // .addTag('argentina')
+    .addBearerAuth()
+    .addSecurityRequirements('bearer')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
