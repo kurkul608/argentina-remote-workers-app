@@ -55,13 +55,13 @@ const initialState: IChatState = {
 	isLoading: false,
 	error: "",
 };
-interface IChatProps {
+interface IChatParams {
 	id: number;
 	token: string;
 }
 export const getChatAsync = createAsyncThunk(
 	"chat/getChat",
-	async ({ id, token }: IChatProps) => {
+	async ({ id, token }: IChatParams) => {
 		return (await getChat(id, token)) as IChatInfo;
 	}
 );
