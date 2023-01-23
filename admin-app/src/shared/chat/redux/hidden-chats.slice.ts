@@ -1,16 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IChatInterface } from "../../../interfaces/chat.interface";
+import { IChatInterface } from "interfaces/chat.interface";
 
 interface IChatsState {
 	list: IChatInterface[];
-	isLoading: boolean;
-	error: string;
 }
 
 const initialState: IChatsState = {
 	list: [],
-	isLoading: false,
-	error: "",
 };
 
 export const activeChat = createSlice({

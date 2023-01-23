@@ -15,9 +15,14 @@ const initialState: IChatsState = {
 	error: "",
 };
 
-export const getAllChats = createAsyncThunk("chats/getAllChats", async () => {
-	return (await getChatsList()) as ITableDataInterface<IChatInterface>;
-});
+export const getAllChats = createAsyncThunk(
+	"chats/getAllChats",
+	async (isHidden?: boolean) => {
+		return (await getChatsList(
+			isHidden
+		)) as ITableDataInterface<IChatInterface>;
+	}
+);
 
 export const chatsSlice = createSlice({
 	name: "chats",

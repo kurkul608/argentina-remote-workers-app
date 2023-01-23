@@ -6,9 +6,9 @@ export const instance = axios.create({
 	headers: { "Content-Type": "application/json" },
 });
 
-export const get = async <T>(path: string) => {
+export const get = async <T>(path: string, params?: any) => {
 	try {
-		const chatTableData = await instance.get<T>(path);
+		const chatTableData = await instance.get<T>(path, { params });
 		return chatTableData.data;
 	} catch (error) {
 		if (axios.isAxiosError(error)) {

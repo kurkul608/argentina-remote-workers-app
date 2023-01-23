@@ -19,11 +19,15 @@ import { routeBuilder } from "shared/router/services/route-builder";
 import { Routes } from "shared/router";
 import { RouteReplacer } from "shared/router/services/route-replacer";
 
-export const ChatListWidget = () => {
+interface IChatListWidgetProps {
+	isHiddenChatList?: boolean;
+}
+
+export const ChatListWidget = ({ isHiddenChatList }: IChatListWidgetProps) => {
 	const { list } = useAppSelector((state) => state.chats);
 	const dispatch = useAppDispatch();
 	useEffect(() => {
-		dispatch(getAllChats());
+		dispatch(getAllChats(isHiddenChatList));
 	}, []);
 	const navigate = useNavigate();
 	const handleOnClick = useCallback(

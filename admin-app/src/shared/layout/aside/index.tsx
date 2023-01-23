@@ -10,6 +10,7 @@ import { ChatLeftBar } from "shared/chat/components/chat-left-bar";
 import { useParams } from "react-router";
 import { RouteReplacer } from "shared/router/services/route-replacer";
 import { useAppSelector } from "redux/hooks";
+import { SearchParamsBuilder } from "shared/router/services/search-params-builder";
 
 export const Aside = () => {
 	const { t } = useTranslation("translation", { keyPrefix: "aside" });
@@ -32,7 +33,10 @@ export const Aside = () => {
 					</NavLink>
 					<NavLink
 						end
-						to={routeBuilder([Routes.admin, Routes.chatList])}
+						to={{
+							pathname: routeBuilder([Routes.admin, Routes.chatList]),
+							search: SearchParamsBuilder({ isHidden: true }),
+						}}
 						className={({ isActive }) =>
 							isActive ? "active-nav-link" : undefined
 						}

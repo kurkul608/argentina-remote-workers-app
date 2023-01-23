@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { color } from "constants/colors";
 
-export const Submit = styled.button`
+export const StyledButton = styled.button`
 	padding: 15px;
 	width: 100%;
 	color: ${(props) => color(props.theme.mainTheme).widgetMainText};

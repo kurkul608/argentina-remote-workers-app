@@ -1,5 +1,5 @@
 import React from "react";
-import { Submit } from "./styeld";
+import { StyledButton } from "./styeld";
 
 interface ISubmit {
 	onSubmit?: () => void;
@@ -15,13 +15,13 @@ export const Button = ({
 	isDisabled = false,
 }: ISubmit) => {
 	return (
-		<Submit
+		<StyledButton
 			type={type || "button"}
 			placeholder={"Enter your username"}
 			onClick={onSubmit}
 			disabled={isDisabled}
 		>
 			{label}
-		</Submit>
+		</StyledButton>
 	);
 };
