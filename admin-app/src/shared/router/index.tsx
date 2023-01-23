@@ -1,13 +1,20 @@
 import React from "react";
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import { AuthPage } from "pages/auth-page";
 import { Layout } from "../layout";
 import { ChatPage } from "pages/chat-page";
 import { ChatListPage } from "pages/chat-list-page";
 import { ChatSettings } from "pages/chat-settings";
+import { AuthTokenPage } from "pages/auth-token-page";
+import { useAppSelector } from "redux/hooks";
 
 const NotFound = () => {
 	return <div>Page not found</div>;
+};
+
+const PrivateRoute = () => {
+	const { token } = useAppSelector((state) => state.auth);
+	return token ? <Layout /> : <Navigate to={"/"} replace />;
 };
 
 export enum Routes {
@@ -17,6 +24,7 @@ export enum Routes {
 	chat = "chat/:chatId",
 	chatSettings = "chat/:chatId/settings",
 	auth = "auth",
+	token = "auth/:token",
 }
 export const router = createBrowserRouter([
 	{
@@ -26,7 +34,7 @@ export const router = createBrowserRouter([
 	},
 	{
 		path: Routes.admin,
-		element: <Layout />,
+		element: <PrivateRoute />,
 		children: [
 			{
 				element: <></>,
@@ -49,5 +57,9 @@ export const router = createBrowserRouter([
 	{
 		path: Routes.auth,
 		element: <AuthPage />,
+	},
+	{
+		path: Routes.token,
+		element: <AuthTokenPage />,
 	},
 ]);

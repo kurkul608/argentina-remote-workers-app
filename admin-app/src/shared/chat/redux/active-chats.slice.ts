@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IChatInterface } from "../../../interfaces/chat.interface";
+import { IChatInterface } from "interfaces/chat.interface";
 
 interface IChatsState {
 	list: IChatInterface[];

@@ -16,7 +16,9 @@ module.exports = {
 		static: {
 			directory: path.resolve(__dirname, "./dist"),
 		},
-		historyApiFallback: true,
+		historyApiFallback: {
+			disableDotRule: true,
+		},
 	},
 	module: {
 		rules: [

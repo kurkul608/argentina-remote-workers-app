@@ -3,15 +3,26 @@ import { config } from "./config";
 
 export const instance = axios.create({
 	...config.api,
-	headers: { "Content-Type": "application/json" },
+	headers: {
+		"Content-Type": "application/json",
+	},
 });
 
-export const get = async <T>(path: string) => {
+export const get = async <T>(path: string, token: string) => {
 	try {
-		const chatTableData = await instance.get<T>(path);
+		const chatTableData = await instance.get<T>(path, {
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+		});
 		return chatTableData.data;
 	} catch (error) {
 		if (axios.isAxiosError(error)) {
+			if (error.response) {
+				if (error.response.status === 401) {
+					localStorage.removeItem("auth");
+				}
+			}
 			return error.message;
 		} else {
 			return "An unexpected error occurred";
@@ -25,6 +36,11 @@ export const post = async <T, D>(path: string, body: D) => {
 		return chatTableData.data;
 	} catch (error) {
 		if (axios.isAxiosError(error)) {
+			if (error.response) {
+				if (error.response.status === 401) {
+					localStorage.removeItem("auth");
+				}
+			}
 			return error.message;
 		} else {
 			return "An unexpected error occurred";

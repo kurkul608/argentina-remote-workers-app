@@ -18,12 +18,14 @@ import { IChatInterface } from "interfaces/chat.interface";
 import { routeBuilder } from "shared/router/services/route-builder";
 import { Routes } from "shared/router";
 import { RouteReplacer } from "shared/router/services/route-replacer";
+import { getAuthToken } from "helpers/storage-parser";
 
 export const ChatListWidget = () => {
 	const { list } = useAppSelector((state) => state.chats);
 	const dispatch = useAppDispatch();
+	const token = getAuthToken();
 	useEffect(() => {
-		dispatch(getAllChats());
+		dispatch(getAllChats(token));
 	}, []);
 	const navigate = useNavigate();
 	const handleOnClick = useCallback(
