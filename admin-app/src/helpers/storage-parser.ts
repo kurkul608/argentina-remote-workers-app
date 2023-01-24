@@ -1,12 +1,10 @@
-import { useAppSelector } from "redux/hooks";
+import { IAuth } from "shared/auth/redux/auth.slice";
 
 export const storageParser = (key: string): string => {
 	const localData = localStorage.getItem(key);
 	return localData ?? "";
 };
 
-export const getAuthToken = (): string => {
-	const { token } = useAppSelector((state) => state.auth);
-	const localData = storageParser("auth");
-	return localData ?? token ?? "";
+export const getAuthToken = ({ token }: IAuth) => {
+	return token;
 };

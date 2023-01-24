@@ -1,10 +1,6 @@
 import React from "react";
-import { AuthForm } from "shared/auth/components/auth-form";
+import { AuthTokenComponent } from "shared/auth/components/auth-token-widget";
 
 export const AuthPage = () => {
-	return (
-		<>
-			<AuthForm />
-		</>
-	);
+	return <AuthTokenComponent />;
 };

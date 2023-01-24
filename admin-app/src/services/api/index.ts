@@ -18,11 +18,6 @@ export const get = async <T>(path: string, token: string) => {
 		return chatTableData.data;
 	} catch (error) {
 		if (axios.isAxiosError(error)) {
-			if (error.response) {
-				if (error.response.status === 401) {
-					localStorage.removeItem("auth");
-				}
-			}
 			return error.message;
 		} else {
 			return "An unexpected error occurred";
@@ -36,11 +31,6 @@ export const post = async <T, D>(path: string, body: D) => {
 		return chatTableData.data;
 	} catch (error) {
 		if (axios.isAxiosError(error)) {
-			if (error.response) {
-				if (error.response.status === 401) {
-					localStorage.removeItem("auth");
-				}
-			}
 			return error.message;
 		} else {
 			return "An unexpected error occurred";

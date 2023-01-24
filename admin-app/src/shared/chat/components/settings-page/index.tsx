@@ -12,9 +12,12 @@ export const ChatSettingsWidget = () => {
 		keyPrefix: "chatsInfoPage",
 	});
 	const { chatId } = useParams();
-	const { data } = useAppSelector((state) => state.chat);
+	const { data, auth } = useAppSelector((state) => ({
+		data: state.chat.data,
+		auth: state.auth,
+	}));
 	const dispatch = useAppDispatch();
-	const token = getAuthToken();
+	const token = getAuthToken(auth)!;
 	useEffect(() => {
 		if (chatId) dispatch(getChatAsync({ id: +chatId, token }));
 	}, []);

@@ -21,9 +21,12 @@ import { RouteReplacer } from "shared/router/services/route-replacer";
 import { getAuthToken } from "helpers/storage-parser";
 
 export const ChatListWidget = () => {
-	const { list } = useAppSelector((state) => state.chats);
+	const { list, auth } = useAppSelector((state) => ({
+		list: state.chats.list,
+		auth: state.auth,
+	}));
 	const dispatch = useAppDispatch();
-	const token = getAuthToken();
+	const token = getAuthToken(auth)!;
 	useEffect(() => {
 		dispatch(getAllChats(token));
 	}, []);
