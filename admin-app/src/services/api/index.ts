@@ -8,11 +8,11 @@ export const instance = axios.create({
 	},
 });
 
-export const get = async <T>(path: string, token: string) => {
+export const get = async <T>(path: string, authToken: string) => {
 	try {
 		const chatTableData = await instance.get<T>(path, {
 			headers: {
-				Authorization: `Bearer ${token}`,
+				Authorization: `Bearer ${authToken}`,
 			},
 		});
 		return chatTableData.data;
