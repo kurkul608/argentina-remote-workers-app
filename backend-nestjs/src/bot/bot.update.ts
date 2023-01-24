@@ -1,5 +1,5 @@
 import { Ctx, InjectBot, Message, On, Start, Update } from 'nestjs-telegraf';
-import { Context, Telegraf } from 'telegraf';
+import { Context, Markup, Telegraf } from 'telegraf';
 import { ChatsService } from '../chats/chats.service';
 import { isPrivate } from './bot.utils';
 import { CreateChatDto } from '../chats/create-chat.dto';
@@ -112,11 +112,15 @@ export class BotUpdate {
       const { from } = ctx.message;
       if (msg === 'Получить токен') {
         const { access_token } = await this.authService.login(from);
-        await ctx.reply(`Твой токен - ${access_token}`, {
-          reply_markup: {
-            keyboard: [[{ text: 'Получить токен' }]],
-          },
-        });
+        const href = `${process.env.FRONT_URL}/auth/${access_token}`;
+        await ctx.reply(
+          `Ваша ссылка для входа: ${
+            process.env.MODE === 'DEVELOP' ? href : ''
+          }`,
+          process.env.MODE !== 'DEVELOP'
+            ? Markup.inlineKeyboard([Markup.button.url(href, href)])
+            : {},
+        );
       }
     }
     return;
