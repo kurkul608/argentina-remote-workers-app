@@ -7,6 +7,7 @@ import { router } from "shared/router";
 import { logIn } from "shared/auth/redux/auth.slice";
 import { getAuthToken } from "helpers/storage-parser";
 import { useAppDispatch, useAppSelector } from "redux/hooks";
+import { localStorageServiceGet } from "services/local-storage.service";
 
 export const darkTheme: DefaultTheme = {
 	mainTheme: Theme.dark,
@@ -22,7 +23,7 @@ export const App = () => {
 	const tokenStorage = getAuthToken(auth);
 	useEffect(() => {
 		if (!tokenStorage) {
-			const tokenFromLocalStorage = localStorage.getItem("auth");
+			const tokenFromLocalStorage = localStorageServiceGet("auth");
 			dispatch(logIn(tokenFromLocalStorage));
 		}
 	}, [tokenStorage]);
