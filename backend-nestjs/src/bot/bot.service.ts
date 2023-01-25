@@ -30,4 +30,26 @@ export class BotService {
   getBotName() {
     return process.env.TELEGRAM_API_NAME;
   }
+
+  async getFileLink(filePath: string) {
+    return await this.bot.telegram.getFileLink(filePath);
+  }
+  async getChatTGInfo(chatId: number) {
+    const chatInfo = await this.getChatInfoById(chatId);
+    const chatMembersCount = await this.getChatMembersById(chatId);
+    const photos = chatInfo.photo;
+    const photosLinks = {
+      small: photos?.small_file_id
+        ? await this.getFileLink(photos.small_file_id)
+        : undefined,
+      big: photos?.big_file_id
+        ? await this.getFileLink(photos.big_file_id)
+        : undefined,
+    };
+    return {
+      chatInfo,
+      chatMembersCount,
+      photos: photosLinks,
+    };
+  }
 }

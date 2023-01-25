@@ -47,26 +47,42 @@ export class ChatsService {
       return chat;
     }
   }
-  async getAll() {
-    const data = await this.chatModel.find();
+  async getAll(limit: number, offset: number) {
+    const chatsFromDB = await this.chatModel.find().limit(limit).skip(offset);
+    const totalCount = await this.chatModel.count();
+    const data = [];
+    for (const chat of chatsFromDB) {
+      const chatTGInfo = await this.botService.getChatTGInfo(chat.id);
+      const fullChatInfo = {
+        chat,
+        ...chatTGInfo,
+      };
+      data.push(fullChatInfo);
+    }
+    // const data = chatsFromDB.map(async (chatDB) => {
+    //   const chatTGInfo = await this.botService.getChatTGInfo(chatDB.id);
+    //   return {
+    //     chat: chatDB,
+    //     ...chatTGInfo,
+    //   };
+    // });
     return {
-      total: data.length,
+      total: totalCount,
       data,
     };
   }
 
   async getChatInfo(chatId: number, paymentType?: PaymentType) {
     const chat = await this.getChat(chatId);
-    const chatInfo = await this.botService.getChatInfoById(chatId);
-    const chatMembersCount = await this.botService.getChatMembersById(chatId);
     const payments = paymentType
       ? await this.paymentService.getPaymentsByTypeAndChat(chatId, paymentType)
       : [];
-    if (chat && chatInfo && chatMembersCount) {
+    const chatTGInfo = await this.botService.getChatTGInfo(chatId);
+
+    if (chat) {
       return {
         chat,
-        chatInfo,
-        chatMembersCount,
+        ...chatTGInfo,
         payments: payments,
       };
     }

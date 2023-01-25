@@ -11,9 +11,19 @@ export class ChatsController {
 
   @ApiOperation({ summary: 'Return full chats list' })
   @ApiResponse({ status: 200, type: [CreateChatDto] })
+  @ApiQuery({
+    example: 10,
+    name: 'limit',
+    required: true,
+  })
+  @ApiQuery({
+    example: 0,
+    name: 'offset',
+    required: true,
+  })
   @Get()
-  getAll() {
-    return this.chatsService.getAll();
+  getAll(@Query('limit') limit: number, @Query('offset') offset: number) {
+    return this.chatsService.getAll(limit, offset);
   }
   @ApiOperation({ summary: 'Return chat information' })
   @ApiResponse({ status: 200, type: Object })
