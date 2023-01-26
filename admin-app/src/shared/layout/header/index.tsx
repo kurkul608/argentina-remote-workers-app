@@ -12,6 +12,7 @@ import {
 import { Link } from "react-router-dom";
 import Moment from "react-moment";
 import { LanguageSwitch } from "./language-switch/language-switch";
+import { Logout } from "shared/layout/header/logout";
 
 export const Header = () => {
 	return (
@@ -37,6 +38,7 @@ export const Header = () => {
 							<p>Petr Molcanov</p>
 							<span>Software Engineer</span>
 						</StyledHeaderNameBlock>
+						<Logout />
 					</StyledHeaderAccountWrapper>
 				</StyledHeaderRightSideWrapper>
 			</StyledIHeaderInformationBlock>

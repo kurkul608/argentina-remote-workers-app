@@ -1,47 +1,26 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface IAuth {
-	token: string;
+	token?: string | null;
 	status: "loading" | "fulfilled" | "rejected";
 }
 
-export interface IUserLogin {
-	username: string;
-}
-
 export const initialState: IAuth = {
-	token: "",
 	status: "loading",
 };
-
-// export const authAsync = createAsyncThunk(
-//   "user/auth",
-//   async (params: IUserLogin) => {
-//     return await authRequest(params);
-//   }
-// );
 
 const AuthSlice = createSlice({
 	name: "auth",
 	initialState: initialState,
 	reducers: {
-		logOut: (state) => {
-			state.token = "";
+		logIn: (state, action: PayloadAction<string | undefined | null>) => {
+			state.token = action.payload;
 		},
-	},
-	extraReducers: () => {
-		// builder.addCase(authAsync.pending, (state) => {
-		//   state.status = "loading";
-		// });
-		// builder.addCase(authAsync.rejected, (state) => {
-		//   state.status = "rejected";
-		// });
-		// builder.addCase(authAsync.fulfilled, (state, action) => {
-		//   state.token = action.payload.login.token;
-		//   state.status = "fulfilled";
-		// });
+		logOut: (state) => {
+			state.token = undefined;
+		},
 	},
 });
 
-export const { logOut } = AuthSlice.actions;
+export const { logOut, logIn } = AuthSlice.actions;
 export default AuthSlice.reducer;

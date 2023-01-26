@@ -18,12 +18,25 @@ import { IChatInterface } from "interfaces/chat.interface";
 import { routeBuilder } from "shared/router/services/route-builder";
 import { Routes } from "shared/router";
 import { RouteReplacer } from "shared/router/services/route-replacer";
+import { getAuthToken } from "helpers/storage-parser";
 
 export const ChatListWidget = () => {
-	const { list } = useAppSelector((state) => state.chats);
+	const { list, auth } = useAppSelector((state) => ({
+		list: state.chats.list,
+		auth: state.auth,
+	}));
 	const dispatch = useAppDispatch();
+	const token = getAuthToken(auth)!;
 	useEffect(() => {
-		dispatch(getAllChats());
+		dispatch(
+			getAllChats({
+				token,
+				query: {
+					limit: 0,
+					offset: 2,
+				},
+			})
+		);
 	}, []);
 	const navigate = useNavigate();
 	const handleOnClick = useCallback(
@@ -52,7 +65,7 @@ export const ChatListWidget = () => {
 	);
 	return (
 		<>
-			{list.map((chat) => (
+			{list.map(({ chat }) => (
 				<ChatListWrapper key={`widget-chat-list--${chat.id}`}>
 					<Widget name={""} onClick={() => handleOnClick(chat)}>
 						<ChatWrapper>

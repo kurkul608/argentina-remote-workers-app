@@ -1,10 +1,10 @@
 import React from "react";
 import { createBrowserRouter } from "react-router-dom";
 import { AuthPage } from "pages/auth-page";
-import { Layout } from "../layout";
 import { ChatPage } from "pages/chat-page";
 import { ChatListPage } from "pages/chat-list-page";
 import { ChatSettings } from "pages/chat-settings";
+import { PrivateRoute } from "shared/router/private/private-route";
 
 const NotFound = () => {
 	return <div>Page not found</div>;
@@ -16,7 +16,7 @@ export enum Routes {
 	chatList = "chat",
 	chat = "chat/:chatId",
 	chatSettings = "chat/:chatId/settings",
-	auth = "auth",
+	auth = "auth/:token",
 }
 export const router = createBrowserRouter([
 	{
@@ -26,7 +26,7 @@ export const router = createBrowserRouter([
 	},
 	{
 		path: Routes.admin,
-		element: <Layout />,
+		element: <PrivateRoute />,
 		children: [
 			{
 				element: <></>,
