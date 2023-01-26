@@ -7,12 +7,17 @@ export const instance = axios.create({
 		"Content-Type": "application/json",
 	},
 });
-export const get = async <T>(path: string, authToken: string) => {
+export const get = async <T, D = any>(
+	path: string,
+	authToken: string,
+	query?: D
+) => {
 	try {
 		const chatTableData = await instance.get<T>(path, {
 			headers: {
 				Authorization: `Bearer ${authToken}`,
 			},
+			params: query,
 		});
 		return chatTableData.data;
 	} catch (error) {

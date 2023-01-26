@@ -28,7 +28,15 @@ export const ChatListWidget = () => {
 	const dispatch = useAppDispatch();
 	const token = getAuthToken(auth)!;
 	useEffect(() => {
-		dispatch(getAllChats(token));
+		dispatch(
+			getAllChats({
+				token,
+				query: {
+					limit: 0,
+					offset: 2,
+				},
+			})
+		);
 	}, []);
 	const navigate = useNavigate();
 	const handleOnClick = useCallback(
@@ -57,7 +65,7 @@ export const ChatListWidget = () => {
 	);
 	return (
 		<>
-			{list.map((chat) => (
+			{list.map(({ chat }) => (
 				<ChatListWrapper key={`widget-chat-list--${chat.id}`}>
 					<Widget name={""} onClick={() => handleOnClick(chat)}>
 						<ChatWrapper>
