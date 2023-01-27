@@ -8,14 +8,14 @@ import { DropdownList, IDropdownOption } from "shared/components/dropdown-list";
 import { useAppSelector } from "redux/hooks";
 import { sendMessage } from "../../services/data";
 import * as Yup from "yup";
-import { IChatInterface } from "interfaces/chat.interface";
+import { IChat } from "interfaces/chat.interface";
 import { TextEditor } from "shared/components/text-editor";
 
 interface SendMessageWidgetProps {
 	chatIds?: number[];
 }
 
-const chatToOption = (chat: IChatInterface): IDropdownOption => ({
+const chatToOption = ({ chat }: IChat): IDropdownOption => ({
 	label: chat.title,
 	key: `dropdown-chat-option-${chat.id}`,
 	value: chat.id.toString(),
@@ -27,7 +27,9 @@ export const SendMessageWidget = ({ chatIds }: SendMessageWidgetProps) => {
 		message: Yup.string().required(),
 		pin: Yup.boolean(),
 	});
-	const { list } = useAppSelector((state) => state.chats);
+	const { list } = useAppSelector((state) => ({
+		list: state.chats.list,
+	}));
 	const {
 		handleSubmit,
 		handleChange,

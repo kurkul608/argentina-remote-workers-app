@@ -21,6 +21,7 @@ export class ChatsService {
     const chatInfo = await this.botService.getChatInfoById(createChatDto.id);
     return this.chatModel.create({
       ...createChatDto,
+      isHidden: !!createChatDto.isHidden,
       ...chatInfo,
     });
   }
@@ -33,24 +34,57 @@ export class ChatsService {
     return this.chatModel.find().where('id').in(ids);
   }
 
-  async getAll() {
-    const data = await this.chatModel.find();
+  async changeVisible(chatId: number, isHidden: boolean) {
+    const chat = await this.getChat(chatId);
+    if (chat) {
+      await chat.updateOne({ isHidden });
+    }
+    return chat;
+  }
+  async getChat(chatId: number) {
+    const chat = await this.chatModel.findOne({ id: chatId });
+    if (chat) {
+      return chat;
+    }
+  }
+  async getAll(limit: number, offset: number) {
+    const chatsFromDB = await this.chatModel.find().limit(limit).skip(offset);
+    const totalCount = await this.chatModel.count();
+    const data = [];
+    for (const chat of chatsFromDB) {
+      const chatTGInfo = await this.botService.getChatTGInfo(chat.id);
+      const fullChatInfo = {
+        chat,
+        ...chatTGInfo,
+      };
+      data.push(fullChatInfo);
+    }
+    // const data = chatsFromDB.map(async (chatDB) => {
+    //   const chatTGInfo = await this.botService.getChatTGInfo(chatDB.id);
+    //   return {
+    //     chat: chatDB,
+    //     ...chatTGInfo,
+    //   };
+    // });
     return {
-      total: data.length,
+      total: totalCount,
       data,
     };
   }
 
   async getChatInfo(chatId: number, paymentType?: PaymentType) {
-    const chatInfo = await this.botService.getChatInfoById(chatId);
-    const chatMembersCount = await this.botService.getChatMembersById(chatId);
+    const chat = await this.getChat(chatId);
     const payments = paymentType
       ? await this.paymentService.getPaymentsByTypeAndChat(chatId, paymentType)
       : [];
-    return {
-      chatInfo,
-      chatMembersCount,
-      payments: payments,
-    };
+    const chatTGInfo = await this.botService.getChatTGInfo(chatId);
+
+    if (chat) {
+      return {
+        chat,
+        ...chatTGInfo,
+        payments: payments,
+      };
+    }
   }
 }

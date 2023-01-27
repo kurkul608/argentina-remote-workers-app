@@ -5,12 +5,15 @@ import { Context, Telegraf } from 'telegraf';
 @Injectable()
 export class BotService {
   constructor(@InjectBot() private readonly bot: Telegraf<Context>) {}
+
   async sendMessage(chatId: number, message: string, pinMessage: boolean) {
-    await this.bot.telegram.sendMessage(chatId, message).then((m) => {
-      if (pinMessage) {
-        this.bot.telegram.pinChatMessage(chatId, m.message_id);
-      }
-    });
+    await this.bot.telegram
+      .sendMessage(chatId, message, { parse_mode: 'HTML' })
+      .then((m) => {
+        if (pinMessage) {
+          this.bot.telegram.pinChatMessage(chatId, m.message_id);
+        }
+      });
     return;
   }
   async getChatInfoById(chatId: number) {
@@ -26,5 +29,27 @@ export class BotService {
 
   getBotName() {
     return process.env.TELEGRAM_API_NAME;
+  }
+
+  async getFileLink(filePath: string) {
+    return await this.bot.telegram.getFileLink(filePath);
+  }
+  async getChatTGInfo(chatId: number) {
+    const chatInfo = await this.getChatInfoById(chatId);
+    const chatMembersCount = await this.getChatMembersById(chatId);
+    const photos = chatInfo.photo;
+    const photosLinks = {
+      small: photos?.small_file_id
+        ? await this.getFileLink(photos.small_file_id)
+        : undefined,
+      big: photos?.big_file_id
+        ? await this.getFileLink(photos.big_file_id)
+        : undefined,
+    };
+    return {
+      chatInfo,
+      chatMembersCount,
+      photos: photosLinks,
+    };
   }
 }

@@ -28,14 +28,19 @@ import { SendMessageWidget } from "shared/message/components/send-message-widget
 import { useParams } from "react-router";
 import { useAppDispatch, useAppSelector } from "redux/hooks";
 import { getChatAsync } from "shared/chat/redux/settings-page/chat.slice";
+import { getAuthToken } from "helpers/storage-parser";
 
 export const ChatWidget = () => {
 	const { chatId } = useParams();
-	const { data } = useAppSelector((state) => state.chat);
+	const { data, auth } = useAppSelector((state) => ({
+		data: state.chat.data,
+		auth: state.auth,
+	}));
 	const dispatch = useAppDispatch();
+	const token = getAuthToken(auth)!;
 	useEffect(() => {
-		if (chatId) dispatch(getChatAsync(+chatId));
-	}, []);
+		if (chatId) dispatch(getChatAsync({ id: +chatId, token }));
+	}, [token]);
 	return (
 		<>
 			<Widget name={""}>

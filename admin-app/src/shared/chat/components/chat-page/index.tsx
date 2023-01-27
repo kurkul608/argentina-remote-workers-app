@@ -18,16 +18,25 @@ import { IChatInterface } from "interfaces/chat.interface";
 import { routeBuilder } from "shared/router/services/route-builder";
 import { Routes } from "shared/router";
 import { RouteReplacer } from "shared/router/services/route-replacer";
+import { getAuthToken } from "helpers/storage-parser";
 
-interface IChatListWidgetProps {
-	isHiddenChatList?: boolean;
-}
-
-export const ChatListWidget = ({ isHiddenChatList }: IChatListWidgetProps) => {
-	const { list } = useAppSelector((state) => state.chats);
+export const ChatListWidget = () => {
+	const { list, auth } = useAppSelector((state) => ({
+		list: state.chats.list,
+		auth: state.auth,
+	}));
 	const dispatch = useAppDispatch();
+	const token = getAuthToken(auth)!;
 	useEffect(() => {
-		dispatch(getAllChats(isHiddenChatList));
+		dispatch(
+			getAllChats({
+				token,
+				query: {
+					limit: 0,
+					offset: 2,
+				},
+			})
+		);
 	}, []);
 	const navigate = useNavigate();
 	const handleOnClick = useCallback(
