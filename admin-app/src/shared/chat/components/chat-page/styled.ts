@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { color } from "constants/colors";
 import { WidgetWrapper } from "shared/widget/styled";
+import { StyledInfiniteScroll } from "shared/components/infinite-scroll/styled";
 
 export const ChatListWrapper = styled.div`
 	flex: 1 0 280px;
@@ -10,6 +11,14 @@ export const ChatListWrapper = styled.div`
 		background-color: ${(props) =>
 			color(props.theme.mainTheme).chatHoverBackgroundColor};
 		transition: background-color 0.3s;
+	}
+`;
+export const StyledChatList = styled.div`
+	${StyledInfiniteScroll} {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		gap: 50px;
 	}
 `;
 

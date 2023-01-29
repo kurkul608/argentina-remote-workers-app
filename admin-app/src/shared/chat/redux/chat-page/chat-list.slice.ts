@@ -7,10 +7,12 @@ interface IChatsState {
 	list: IChat[];
 	isLoading: boolean;
 	error: string;
+	total: number;
 }
 
 const initialState: IChatsState = {
 	list: [],
+	total: 0,
 	isLoading: false,
 	error: "",
 };
@@ -45,6 +47,7 @@ export const chatsSlice = createSlice({
 		builder
 			.addCase(getAllChats.fulfilled, (state, action) => {
 				state.list = state.list.concat((action.payload?.data as IChat[]) || []);
+				state.total = action.payload.total;
 				state.isLoading = false;
 			})
 			.addCase(getAllChats.rejected, (state, action) => {

@@ -5,7 +5,8 @@ interface IWrapper {
 }
 export const Wrapper = styled.div<IWrapper>`
 	margin-top: 20px;
-	display: grid;
+	display: flex;
+	flex-direction: column;
 	align-items: center;
 	gap: 25px;
 	row-gap: 25px;
