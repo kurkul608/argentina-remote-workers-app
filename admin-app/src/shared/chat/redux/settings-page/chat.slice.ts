@@ -1,23 +1,32 @@
-import { IChatInfo } from "../../types";
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getChat } from "../../services/data";
+import { ISelectedChat } from "../../types";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { chatChangeVisible, getChat } from "../../services/data";
+import { IChatInterface } from "interfaces/chat.interface";
 
 interface IChatState {
-	data: IChatInfo;
+	data: ISelectedChat;
 	isLoading: boolean;
 	error: string;
 }
 
 const initialState: IChatState = {
 	data: {
+		chat: { id: 1, type: "test", title: "test", isHidden: false },
+		photos: {},
 		chatInfo: {
-			id: -5213,
+			id: 1,
+			join_to_send_messages: true,
+			type: "group",
 			title: "test",
-			type: "supergroup",
-			invite_link: "https://t.me/+dWlI-E31e2djOGYy",
 			permissions: {
 				can_send_messages: true,
 				can_send_media_messages: true,
+				can_send_audios: true,
+				can_send_documents: true,
+				can_send_photos: true,
+				can_send_videos: true,
+				can_send_video_notes: true,
+				can_send_voice_notes: true,
 				can_send_polls: true,
 				can_send_other_messages: true,
 				can_add_web_page_previews: true,
@@ -26,31 +35,9 @@ const initialState: IChatState = {
 				can_pin_messages: true,
 				can_manage_topics: true,
 			},
-			join_to_send_messages: true,
-			photo: {
-				small_file_id: "AQADAgADAcAxG2VwwEoACAIAAyhrZMcW____-hsdxvmaYlUtBA",
-				small_file_unique_id: "AQADAcAxG2VwwEoAAQ",
-				big_file_id: "AQADAgADAcAxG2VwwEoACAMAAyhrZMcW____-hsdxvmaYlUtBA",
-				big_file_unique_id: "AQADAcAxG2VwwEoB",
-			},
-			pinned_message: {
-				message_id: 56,
-				from: {
-					id: 5553023967,
-					is_bot: true,
-					first_name: "Argentinets bot",
-					username: "cyka_ya_tyt_bot",
-				},
-				chat: {
-					id: -1001677100248,
-					title: "Боты Аргентинцы",
-					type: "supergroup",
-				},
-				date: 1667459209,
-				text: "23",
-			},
 		},
-		chatMembersCount: 2,
+		chatMembersCount: 0,
+		payments: [],
 	},
 	isLoading: false,
 	error: "",
@@ -59,10 +46,24 @@ interface IChatParams {
 	id: number;
 	token: string;
 }
+
+interface IChangeVisibleParams extends IChatParams {
+	isHidden: boolean;
+}
 export const getChatAsync = createAsyncThunk(
 	"chat/getChat",
 	async ({ id, token }: IChatParams) => {
-		return (await getChat(id, token)) as IChatInfo;
+		return (await getChat(id, token)) as ISelectedChat;
+	}
+);
+export const changeVisibleAsync = createAsyncThunk(
+	"chat/changeVisible",
+	async ({ id, token, isHidden }: IChangeVisibleParams) => {
+		return (await chatChangeVisible(
+			id,
+			{ isHidden: !isHidden },
+			token
+		)) as IChatInterface;
 	}
 );
 
@@ -75,10 +76,13 @@ export const chatSlice = createSlice({
 		},
 	},
 	extraReducers: (builder) => {
-		builder.addCase(getChatAsync.fulfilled, (state, action) => {
-			state.data = action.payload as IChatInfo;
-			state.isLoading = false;
-		});
+		builder.addCase(
+			getChatAsync.fulfilled,
+			(state, action: PayloadAction<ISelectedChat>) => {
+				state.data = action.payload;
+				state.isLoading = false;
+			}
+		);
 		builder.addCase(getChatAsync.pending, (state) => {
 			state.isLoading = true;
 		});
@@ -86,6 +90,12 @@ export const chatSlice = createSlice({
 			state.isLoading = false;
 			state.error = action.payload as string;
 		});
+		builder.addCase(
+			changeVisibleAsync.fulfilled,
+			(state, action: PayloadAction<IChatInterface>) => {
+				state.data.chat.isHidden = action.payload.isHidden;
+			}
+		);
 	},
 });
 export default chatSlice.reducer;
