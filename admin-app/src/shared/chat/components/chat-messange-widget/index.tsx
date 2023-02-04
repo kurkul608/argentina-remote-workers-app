@@ -49,7 +49,7 @@ export const ChatWidget = () => {
 						<BackButton>Назад</BackButton>
 						<ChatName>
 							<ChatTitle>{data.chatInfo.title}</ChatTitle>
-							<ChatUnderTitle>3.5k subscribers</ChatUnderTitle>
+							<ChatUnderTitle>{data.chatMembersCount}</ChatUnderTitle>
 						</ChatName>
 						<ChatPhoto />
 					</ChatHeader>
