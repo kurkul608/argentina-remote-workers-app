@@ -5,9 +5,11 @@ export const TopBarWrapper = styled.div`
 	align-items: center;
 	width: 100%;
 `;
-export const TopBarChatPhoto = styled.image`
+export const TopBarChatPhoto = styled.div<{ chatPhoto?: string }>`
 	width: 50px;
 	height: 50px;
 	border-radius: 50px;
-	background-color: gray;
+	background-image: ${(props) =>
+		props.chatPhoto ? `url(${props.chatPhoto})` : "gray"};
+	background-size: 100%;
 `;

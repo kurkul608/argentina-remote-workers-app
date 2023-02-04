@@ -1,10 +1,8 @@
 import styled from "styled-components";
 import { color } from "constants/colors";
 import { WidgetWrapper } from "shared/widget/styled";
-import { StyledInfiniteScroll } from "shared/components/infinite-scroll/styled";
 
 export const ChatListWrapper = styled.div`
-	flex: 1 0 280px;
 	color: ${(props) => color(props.theme.mainTheme).widgetMainText};
 	cursor: pointer;
 	& > ${WidgetWrapper}:hover {
@@ -14,12 +12,15 @@ export const ChatListWrapper = styled.div`
 	}
 `;
 export const StyledChatList = styled.div`
-	${StyledInfiniteScroll} {
-		position: relative;
-		display: flex;
-		flex-direction: column;
-		gap: 50px;
-	}
+	width: 100%;
+	max-width: 780px;
+	align-self: flex-start;
+`;
+
+export const ChatsWrapper = styled.div`
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
 `;
 
 export const Chat = styled.div`
@@ -35,7 +36,7 @@ export const ChatTitle = styled.h3`
 	overflow: hidden;
 	font-weight: 400;
 `;
-export const ChatPhoto = styled.div`
+export const ChatPhoto = styled.div<{ chatPhoto?: string }>`
 	display: flex;
 	width: 50px;
 	height: 50px;
@@ -44,12 +45,16 @@ export const ChatPhoto = styled.div`
 	text-align: center;
 	border-radius: 100px;
 	background: ${(props) =>
-		color(props.theme.mainTheme).chatPhotoBackgroundColor};
+		props.chatPhoto
+			? `url(${props.chatPhoto})`
+			: color(props.theme.mainTheme).chatPhotoBackgroundColor};
 	color: ${(props) => color(props.theme.mainTheme).baseWhiteText};
+	background-size: 100%;
 	font-weight: 600;
 `;
 
 export const ChatPhotoWrapper = styled.div`
+	height: 100%;
 	position: relative;
 `;
 export const ChatTitleWrapper = styled.div``;

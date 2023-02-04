@@ -2,6 +2,7 @@
 	"aside": {
 		"mainPage": "Main page",
 		"chatList": "Chat List",
+		"hiddenChatList": "Hidden Chats",
 		"test": "Test",
 		"chatCategories": {
 			"settings": "Settings",
@@ -12,12 +13,14 @@
 		"logout": "Log out"
 	},
 	"chatPage": {
+		"chat": "Chat",
 		"chatList": "Chat list"
 	},
 	"chatsPage": {
-		"chats": "Chats"
+		"chats": "Chats",
+		"count": "Subscribers"
 	},
-	"chatsInfoPage": {
+	"chatInfoWidget": {
 		"infoWidgetTitle": "Detailed information about the chat",
 		"id": "Chat ID",
 		"chatTitle": "Chat title",

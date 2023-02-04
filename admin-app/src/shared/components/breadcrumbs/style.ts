@@ -8,21 +8,41 @@ export const BreadcrumbsWrapper = styled.div`
 
 export const Breadcrumb = styled.div`
 	cursor: pointer;
+	position: relative;
 	color: ${(props) => color(props.theme.mainTheme).regularTabText};
 	&:hover {
-		border-bottom: 1px gray solid;
+		&:after {
+			position: absolute;
+			width: 100%;
+			display: block;
+
+			content: "";
+			border-bottom: 1px gray solid;
+		}
 	}
 
 	&:last-child {
 		cursor: default;
 		color: ${(props) => color(props.theme.mainTheme).activeTabText};
-		border-bottom: 1px
-			${(props) => color(props.theme.mainTheme).breadcrumbsBorderColorActive}
-			solid;
+		&:hover {
+			&:after {
+				position: absolute;
+				width: 100%;
+				display: block;
+
+				content: "";
+				border-bottom: none;
+			}
+		}
 	}
 `;
 
 export const Separator = styled.div`
 	user-select: none;
 	color: ${(props) => color(props.theme.mainTheme).regularTabText};
+`;
+
+export const BreadcrumbWrapper = styled.div`
+	display: flex;
+	gap: 10px;
 `;

@@ -9,7 +9,7 @@ import { getAuthToken } from "helpers/storage-parser";
 
 export const ChatSettingsWidget = () => {
 	const { t } = useTranslation("translation", {
-		keyPrefix: "chatsInfoPage",
+		keyPrefix: "chatInfoWidget",
 	});
 	const { chatId } = useParams();
 	const { data, auth } = useAppSelector((state) => ({

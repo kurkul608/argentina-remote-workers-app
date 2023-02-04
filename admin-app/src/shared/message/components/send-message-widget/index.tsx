@@ -10,6 +10,7 @@ import { sendMessage } from "../../services/data";
 import * as Yup from "yup";
 import { IChat } from "interfaces/chat.interface";
 import { TextEditor } from "shared/components/text-editor";
+import { getAuthToken } from "helpers/storage-parser";
 
 interface SendMessageWidgetProps {
 	chatIds?: number[];
@@ -27,8 +28,9 @@ export const SendMessageWidget = ({ chatIds }: SendMessageWidgetProps) => {
 		message: Yup.string().required(),
 		pin: Yup.boolean(),
 	});
-	const { list } = useAppSelector((state) => ({
+	const { list, token } = useAppSelector((state) => ({
 		list: state.chats.list,
+		token: getAuthToken(state.auth)!,
 	}));
 	const {
 		handleSubmit,
@@ -46,7 +48,7 @@ export const SendMessageWidget = ({ chatIds }: SendMessageWidgetProps) => {
 		},
 		validationSchema: validationSchema,
 		onSubmit: async () => {
-			await sendMessage({
+			await sendMessage(token, {
 				message: values.message,
 				pin_message: values.pin,
 				chat_ids: values.selectedChats,

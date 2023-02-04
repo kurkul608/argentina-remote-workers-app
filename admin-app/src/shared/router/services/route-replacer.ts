@@ -1,6 +1,6 @@
 import { Pathname } from "react-router-dom";
 
-export const RouteReplacer = (
+export const routeReplacer = (
 	route: Pathname,
 	key: string,
 	value: string | number

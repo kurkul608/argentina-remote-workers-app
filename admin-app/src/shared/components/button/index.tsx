@@ -4,10 +4,13 @@ import { ButtonWrapper } from "shared/components/button/styled";
 interface IButtonProps {
 	isDisabled?: boolean;
 	children?: string | React.ReactNode;
+	onClick?: () => void;
 }
 
-export const Button = ({ isDisabled, children }: IButtonProps) => {
+export const Button = ({ isDisabled, children, onClick }: IButtonProps) => {
 	return (
-		<ButtonWrapper disabled={isDisabled || false}>{children}</ButtonWrapper>
+		<ButtonWrapper onClick={onClick} disabled={isDisabled || false}>
+			{children}
+		</ButtonWrapper>
 	);
 };
