@@ -1,5 +1,5 @@
-import { post } from "../../../../services/api";
-import { IMessageDtoInterface } from "../../../../interfaces/dto/message-dto.interface";
+import { post } from "services/api";
+import { IMessageDtoInterface } from "interfaces/dto/message-dto.interface";
 
-export const sendMessage = (data: IMessageDtoInterface) =>
-	post("message", data);
+export const sendMessage = (token: string, data: IMessageDtoInterface) =>
+	post("message", token, data);
