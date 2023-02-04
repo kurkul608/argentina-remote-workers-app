@@ -1,5 +1,4 @@
 import React from "react";
-// import { useAppSelector } from "redux/hooks";
 import {
 	TopBarChatPhoto,
 	TopBarWrapper,

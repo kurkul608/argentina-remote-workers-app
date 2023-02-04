@@ -90,12 +90,9 @@ export const chatSlice = createSlice({
 			state.isLoading = false;
 			state.error = action.payload as string;
 		});
-		builder.addCase(
-			changeVisibleAsync.fulfilled,
-			(state, action: PayloadAction<IChatInterface>) => {
-				state.data.chat.isHidden = action.payload.isHidden;
-			}
-		);
+		builder.addCase(changeVisibleAsync.fulfilled, (state) => {
+			state.data.chat.isHidden = !state.data.chat.isHidden;
+		});
 	},
 });
 export default chatSlice.reducer;
