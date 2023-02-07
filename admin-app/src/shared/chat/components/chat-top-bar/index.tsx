@@ -7,7 +7,7 @@ import { Widget } from "shared/widget";
 import { Button } from "shared/components/button";
 import { useAppDispatch, useAppSelector } from "redux/hooks";
 import { getAuthToken } from "helpers/storage-parser";
-import { changeVisibleAsync } from "shared/chat/redux/settings-page/chat.slice";
+import { changeVisibleAsync } from "shared/chat/redux/chat-info-page/chat.slice";
 
 export const ChatTopBar = () => {
 	const dispatch = useAppDispatch();
@@ -22,7 +22,7 @@ export const ChatTopBar = () => {
 	};
 	return (
 		<>
-			<Widget name={""}>
+			<Widget>
 				<TopBarWrapper>
 					<TopBarChatPhoto chatPhoto={photos.small}>
 						{!photos.small && chat.title}
