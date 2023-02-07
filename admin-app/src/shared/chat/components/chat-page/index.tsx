@@ -88,7 +88,7 @@ export const ChatListWidget = () => {
 				<ChatsWrapper>
 					{list.map(({ chat, photos, chatMembersCount }) => (
 						<ChatListWrapper key={`widget-chat-list--${chat.id}`}>
-							<Widget name={""} onClick={() => handleOnClick(chat)}>
+							<Widget onClick={() => handleOnClick(chat)}>
 								<ChatWrapper>
 									<TextWrapper>
 										<ChatPhotoWrapper>
