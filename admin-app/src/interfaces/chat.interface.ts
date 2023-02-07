@@ -2,6 +2,7 @@ export interface IChatInterface {
 	id: number;
 	title: string;
 	type: string;
+	isHidden: boolean;
 }
 
 export interface IChatInfoInterface {
@@ -23,7 +24,8 @@ export interface IChatInfoInterface {
 }
 
 export interface IChatPhotos {
-	[x: string]: any;
+	big?: string;
+	small?: string;
 }
 
 export interface IChat {

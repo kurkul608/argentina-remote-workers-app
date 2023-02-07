@@ -1,3 +1,5 @@
+import { IChatPhotos } from "interfaces/chat.interface";
+
 export interface Permissions {
 	can_send_messages: boolean;
 	can_send_media_messages: boolean;
@@ -8,6 +10,15 @@ export interface Permissions {
 	can_invite_users: boolean;
 	can_pin_messages: boolean;
 	can_manage_topics: boolean;
+}
+
+export interface ExtraPermissions extends Permissions {
+	can_send_audios: boolean;
+	can_send_documents: boolean;
+	can_send_photos: boolean;
+	can_send_videos: boolean;
+	can_send_video_notes: boolean;
+	can_send_voice_notes: boolean;
 }
 
 export interface Photo {
@@ -28,6 +39,7 @@ export interface Chat {
 	id: number;
 	title: string;
 	type: string;
+	isHidden: boolean;
 }
 
 export interface PinnedMessage {
@@ -49,7 +61,17 @@ export interface ChatInfo {
 	pinned_message?: PinnedMessage;
 }
 
+export interface ExtraChatInfo extends ChatInfo {
+	permissions: ExtraPermissions;
+}
+
 export interface IChatInfo {
-	chatInfo: ChatInfo;
+	chat: Chat;
+	photos: IChatPhotos;
+	chatInfo: ExtraChatInfo;
 	chatMembersCount: number;
+}
+
+export interface ISelectedChat extends IChatInfo {
+	payments: [];
 }

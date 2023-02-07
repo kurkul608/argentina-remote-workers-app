@@ -4,6 +4,7 @@ import { PageTitle } from "shared/components/title";
 import { Breadcrumbs } from "shared/components/breadcrumbs";
 import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
+import { WidgetWrapper } from "shared/widget/components/widget-wrapper";
 
 export const ChatSettings = () => {
 	const { t } = useTranslation("translation", { keyPrefix: "chatsPage" });
@@ -15,7 +16,9 @@ export const ChatSettings = () => {
 				<h3>{t("chats")}</h3>
 				<Breadcrumbs link={location.pathname} />
 			</PageTitle>
-			<ChatSettingsWidget />
+			<WidgetWrapper>
+				<ChatSettingsWidget />
+			</WidgetWrapper>
 		</>
 	);
 };
