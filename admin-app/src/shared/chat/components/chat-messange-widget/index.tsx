@@ -27,7 +27,7 @@ import {
 import { SendMessageWidget } from "shared/message/components/send-message-widget";
 import { useParams } from "react-router";
 import { useAppDispatch, useAppSelector } from "redux/hooks";
-import { getChatAsync } from "shared/chat/redux/settings-page/chat.slice";
+import { getChatAsync } from "shared/chat/redux/chat-info-page/chat.slice";
 import { getAuthToken } from "helpers/storage-parser";
 
 export const ChatWidget = () => {
@@ -43,7 +43,7 @@ export const ChatWidget = () => {
 	}, [token]);
 	return (
 		<>
-			<Widget name={""}>
+			<Widget>
 				<Wrapper>
 					<ChatHeader>
 						<BackButton>Назад</BackButton>
