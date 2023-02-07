@@ -28,13 +28,18 @@ export const get = async <T, D = any>(
 		}
 	}
 };
-
-export const post = async <T, D = any>(
-	path: string,
-	authToken: string,
-	body?: D,
-	query?: D
-) => {
+interface IParams<D, P> {
+	path: string;
+	authToken: string;
+	body?: D;
+	query?: P;
+}
+export const post = async <T>({
+	authToken,
+	query,
+	body,
+	path,
+}: IParams<any, any>) => {
 	try {
 		const chatTableData = await instance.post<T>(path, body, {
 			headers: {

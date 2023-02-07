@@ -22,4 +22,9 @@ export const chatChangeVisible = (
 	id: number,
 	query: ChatChangeVisibleQuery,
 	token: string
-) => post<IChatInterface>(`chats/${id}/change-visible`, token, {}, query);
+) =>
+	post<IChatInterface>({
+		authToken: token,
+		query: query,
+		path: `chats/${id}/change-visible`,
+	});
