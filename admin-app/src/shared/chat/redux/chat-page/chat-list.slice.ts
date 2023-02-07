@@ -4,8 +4,6 @@ import { getChatsList } from "../../services/data";
 import { ITableDataInterface } from "interfaces/dto/table-data.interface";
 import { Limits } from "constants/limits";
 
-const CHATS_LIMIT = Limits.chatsPerPage;
-
 interface IChatsState {
 	list: IChat[];
 	isLoading: boolean;
@@ -60,7 +58,7 @@ export const chatsSlice = createSlice({
 			.addCase(getAllChats.fulfilled, (state, action) => {
 				state.list = state.list.concat((action.payload?.data as IChat[]) || []);
 				state.total = action.payload.total;
-				state.hasMore = state.page * CHATS_LIMIT < state.total;
+				state.hasMore = state.page * Limits.chatsPerPage < state.total;
 				state.isLoading = false;
 			})
 			.addCase(getAllChats.rejected, (state, action) => {
