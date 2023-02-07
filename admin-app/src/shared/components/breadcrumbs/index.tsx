@@ -17,7 +17,7 @@ export const Breadcrumbs = ({ link, separator }: IBreadcrumbs) => {
 	return (
 		<BreadcrumbsWrapper>
 			{links.map((value, i, arr) => (
-				<BreadcrumbWrapper key={value}>
+				<BreadcrumbWrapper key={`beadcrumb-wrapper--${value}`}>
 					<Breadcrumb onClick={() => navigate(value, { replace: true })}>
 						{value.split("/").pop()}
 					</Breadcrumb>

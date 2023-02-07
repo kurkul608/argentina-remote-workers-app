@@ -4,7 +4,7 @@ import { LineDescription, LineTitle, SettingLine, SettingsUL } from "./styled";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router";
 import { useAppDispatch, useAppSelector } from "redux/hooks";
-import { getChatAsync } from "../../redux/settings-page/chat.slice";
+import { getChatAsync } from "../../redux/chat-info-page/chat.slice";
 import { getAuthToken } from "helpers/storage-parser";
 
 export const ChatSettingsWidget = () => {
@@ -24,7 +24,7 @@ export const ChatSettingsWidget = () => {
 	const { id, title } = data.chatInfo;
 	const count = data.chatMembersCount;
 	return (
-		<Widget name={t("infoWidgetTitle")}>
+		<Widget name={t("infoWidgetTitle") as string}>
 			<SettingsUL>
 				<SettingLine>
 					<LineTitle>{t("id")}</LineTitle>

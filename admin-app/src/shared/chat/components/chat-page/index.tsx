@@ -26,8 +26,6 @@ import { useTranslation } from "react-i18next";
 import { Limits } from "constants/limits";
 import { CircularProgress } from "@mui/material";
 
-const CHATS_LIMIT = Limits.chatsPerPage;
-
 export const ChatListWidget = () => {
 	const dispatch = useAppDispatch();
 	const { t } = useTranslation("translation", {
@@ -47,7 +45,7 @@ export const ChatListWidget = () => {
 				getAllChats({
 					token,
 					params: {
-						limit: CHATS_LIMIT,
+						limit: Limits.chatsPerPage,
 						page: page,
 					},
 				})
