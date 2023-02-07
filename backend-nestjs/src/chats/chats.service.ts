@@ -47,9 +47,16 @@ export class ChatsService {
       return chat;
     }
   }
-  async getAll(limit: number, offset: number) {
-    const chatsFromDB = await this.chatModel.find().limit(limit).skip(offset);
-    const totalCount = await this.chatModel.count();
+  async getAll(limit: number, offset: number, isHidden: boolean) {
+    const filters = {};
+    if (typeof isHidden === 'boolean') {
+      filters['isHidden'] = isHidden;
+    }
+    const chatsFromDB = await this.chatModel
+      .find({ ...filters })
+      .limit(limit)
+      .skip(offset);
+    const totalCount = await this.chatModel.find({ ...filters }).count();
     const data = [];
     for (const chat of chatsFromDB) {
       const chatTGInfo = await this.botService.getChatTGInfo(chat.id);
@@ -59,13 +66,7 @@ export class ChatsService {
       };
       data.push(fullChatInfo);
     }
-    // const data = chatsFromDB.map(async (chatDB) => {
-    //   const chatTGInfo = await this.botService.getChatTGInfo(chatDB.id);
-    //   return {
-    //     chat: chatDB,
-    //     ...chatTGInfo,
-    //   };
-    // });
+
     return {
       total: totalCount,
       data,
