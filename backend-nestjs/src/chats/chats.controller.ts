@@ -22,8 +22,12 @@ export class ChatsController {
     required: true,
   })
   @Get()
-  getAll(@Query('limit') limit: number, @Query('offset') offset: number) {
-    return this.chatsService.getAll(limit, offset);
+  getAll(
+    @Query('limit') limit: number,
+    @Query('offset') offset: number,
+    @Query('isHidden') isHidden: boolean,
+  ) {
+    return this.chatsService.getAll(limit, offset, isHidden);
   }
   @ApiOperation({ summary: 'Return chat information' })
   @ApiResponse({ status: 200, type: Object })
