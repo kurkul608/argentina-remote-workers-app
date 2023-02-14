@@ -6,6 +6,7 @@ import { ISelectedChat } from "../../types";
 export interface AllChatsQuery {
 	limit: number;
 	offset: number;
+	isHidden?: boolean;
 }
 
 export interface ChatChangeVisibleQuery {

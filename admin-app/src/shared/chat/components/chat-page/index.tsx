@@ -25,9 +25,15 @@ import { InfiniteScroll } from "shared/components/infinite-scroll";
 import { useTranslation } from "react-i18next";
 import { Limits } from "constants/limits";
 import { CircularProgress } from "@mui/material";
+import { searchParamsGrabber } from "shared/router/services/search-params-grabber";
+import { useLocation } from "react-router-dom";
+import { searchParamsFinder } from "shared/router/services/search-params-finder";
 
 export const ChatListWidget = () => {
 	const dispatch = useAppDispatch();
+	const locate = useLocation();
+	const searchParams = searchParamsGrabber(locate.search);
+	const isHidden = !!searchParamsFinder(searchParams, "isHidden");
 	const { t } = useTranslation("translation", {
 		keyPrefix: "chatsPage",
 	});
@@ -47,6 +53,7 @@ export const ChatListWidget = () => {
 					params: {
 						limit: Limits.chatsPerPage,
 						page: page,
+						isHidden: isHidden,
 					},
 				})
 			);

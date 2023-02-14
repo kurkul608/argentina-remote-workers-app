@@ -25,6 +25,7 @@ const initialState: IChatsState = {
 export interface GetAllChatsParams {
 	page: number;
 	limit: number;
+	isHidden?: boolean;
 	forceClear?: boolean;
 }
 export interface IGetAllChats {
@@ -34,10 +35,11 @@ export interface IGetAllChats {
 export const getAllChats = createAsyncThunk(
 	"chats/getAllChats",
 	async ({ token, params }: IGetAllChats) => {
-		const { page, limit } = params;
+		const { page, limit, isHidden } = params;
 		return (await getChatsList(token, {
 			limit: limit,
 			offset: page * limit,
+			isHidden: isHidden,
 		})) as ITableDataInterface<IChat>;
 	}
 );
