@@ -17,7 +17,10 @@ import {
 } from "./styled";
 import { getAllChats } from "shared/chat/redux/chat-page/chat-list.slice";
 import { IChatInterface } from "interfaces/chat.interface";
-import { routeBuilder } from "shared/router/services/route-builder";
+import {
+	routeBuilder,
+	routeBuilderWithReplace,
+} from "shared/router/services/route-builder";
 import { Routes } from "shared/router";
 import { routeReplacer } from "shared/router/services/route-replacer";
 import { getAuthToken } from "helpers/storage-parser";
@@ -63,12 +66,11 @@ export const ChatListWidget = () => {
 	const handleOnClick = useCallback(
 		(chat: IChatInterface) =>
 			navigate(
-				routeReplacer(
-					routeBuilder([Routes.admin, Routes.chat]),
+				routeBuilderWithReplace(
+					[Routes.admin, Routes.chatList, Routes.chat],
 					"chatId",
 					chat.id
-				),
-				{ replace: true }
+				)
 			),
 		[navigate]
 	);

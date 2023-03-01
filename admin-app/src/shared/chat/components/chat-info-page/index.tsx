@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from "redux/hooks";
 import { getChatAsync } from "../../redux/chat-info-page/chat.slice";
 import { getAuthToken } from "helpers/storage-parser";
 
-export const ChatSettingsWidget = () => {
+export const ChatInfoWidget = () => {
 	const { t } = useTranslation("translation", {
 		keyPrefix: "chatInfoWidget",
 	});

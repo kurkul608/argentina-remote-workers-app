@@ -8,6 +8,5 @@ export const WidgetWrapper = styled.div`
 	transition: background-color 0.3s;
 `;
 export const WidgetName = styled.h4`
-	font-size: 14px;
 	color: ${(props) => color(props.theme.mainTheme).widgetTitleText};
 `;

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { color } from "constants/colors";
+import { StyledAccordionMenu } from "shared/components/accordion/styled";
 
 export const StyledAside = styled.aside`
 	height: 100%;
@@ -32,7 +33,7 @@ export const StyledNavBar = styled.ul`
 			fill: white;
 		}
 		p {
-			font-size: 13px;
+			font-size: 1.3rem;
 			color: ${(props) => color(props.theme.mainTheme).regularTabText};
 			text-transform: uppercase;
 		}
@@ -43,5 +44,27 @@ export const StyledNavBar = styled.ul`
 		p {
 			color: ${(props) => color(props.theme.mainTheme).activeTabText};
 		}
+	}
+`;
+
+export const AsideAccordion = styled.div`
+	${StyledAccordionMenu} {
+		padding-left: 15px;
+		padding-right: 15px;
+		width: 100%;
+		height: 42px;
+		display: flex;
+		gap: 10px;
+		align-items: center;
+		font-size: 1.3rem;
+		color: ${(props) => color(props.theme.mainTheme).regularTabText};
+		text-transform: uppercase;
+		&:hover {
+			background-color: ${(props) =>
+				color(props.theme.mainTheme).activeNavLinkBackground};
+		}
+	}
+	.accordion--active {
+		color: ${(props) => color(props.theme.mainTheme).activeTabText};
 	}
 `;

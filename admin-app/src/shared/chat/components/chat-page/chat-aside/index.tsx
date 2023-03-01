@@ -5,7 +5,7 @@ import {
 	ChatBarTitleWrapper,
 	ChatLeftBarWrapper,
 	ChatNavWrapper,
-} from "shared/chat/components/chat-left-bar/styled";
+} from "shared/chat/components/chat-page/chat-aside/styled";
 import { useAppSelector } from "redux/hooks";
 
 interface IChatLeftBar {
@@ -13,7 +13,7 @@ interface IChatLeftBar {
 	children?: React.ReactNode;
 }
 
-export const ChatLeftBar = ({ isHidden, children }: IChatLeftBar) => {
+export const ChatAside = ({ isHidden, children }: IChatLeftBar) => {
 	const { chatInfo } = useAppSelector((state) => state.chat.data);
 	return (
 		<>
