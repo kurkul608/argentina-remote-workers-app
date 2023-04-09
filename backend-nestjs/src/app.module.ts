@@ -1,4 +1,9 @@
-import { CacheInterceptor, CacheModule, Module } from '@nestjs/common';
+import {
+  CacheInterceptor,
+  CacheModule,
+  MiddlewareConsumer,
+  Module,
+} from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
