@@ -44,7 +44,7 @@ export class MessageController {
   @ApiOperation({ summary: 'Get message' })
   @ApiResponse({ status: 200, type: Message })
   @UsePipes(MongoIdPipe)
-  @Get(':id"')
+  @Get(':id')
   async getMessage(@Param('id') id: string) {
     return this.messageService.getMessage(id);
   }

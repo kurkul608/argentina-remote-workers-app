@@ -19,7 +19,7 @@ export interface IHiddenTextButton {
 }
 export interface IKeyboard {
   type: ButtonTypeEnum;
-  link?: ILink[];
+  links?: ILink[];
   hidden_text_buttons?: IHiddenTextButton[];
 }
 @Schema()
@@ -64,7 +64,7 @@ export class Keyboard extends Document {
 
   @ApiProperty()
   @Prop({ required: false, type: [LinkSchema], ref: Link.name })
-  link?: [ILink];
+  links?: [ILink];
 
   @ApiProperty()
   @Prop({
@@ -113,11 +113,11 @@ export class Message {
   owner: Types.ObjectId;
 
   @ApiProperty()
-  @Prop({ default: now() })
+  @Prop({ type: Date, default: now() })
   createdAt: Date;
 
   @ApiProperty()
-  @Prop({ default: now() })
+  @Prop({ type: Date, default: now() })
   updatedAt: Date;
 }
 

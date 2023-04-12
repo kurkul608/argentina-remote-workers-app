@@ -1,9 +1,4 @@
-import {
-  CacheInterceptor,
-  CacheModule,
-  MiddlewareConsumer,
-  Module,
-} from '@nestjs/common';
+import { CacheInterceptor, CacheModule, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
@@ -20,6 +15,7 @@ import { TronModule } from './tron/tron.module';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './users/user.module';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
+import { PostModule } from './post/post.module';
 
 @Module({
   imports: [
@@ -51,6 +47,7 @@ import { JwtAuthGuard } from './auth/jwt-auth.guard';
     TronModule,
     AuthModule,
     UserModule,
+    PostModule,
   ],
   controllers: [AppController],
   providers: [

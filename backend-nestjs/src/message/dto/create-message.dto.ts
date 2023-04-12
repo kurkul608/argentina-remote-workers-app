@@ -61,7 +61,7 @@ export class CreateMessageDto {
     example: [
       {
         type: ButtonTypeEnum.link,
-        link: [{ text: 'link text', url: 'https://google.com' }],
+        links: [{ text: 'link text', url: 'https://google.com' }],
         hidden_text_buttons: [
           {
             button_text: 'button text',
