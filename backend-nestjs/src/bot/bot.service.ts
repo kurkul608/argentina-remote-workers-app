@@ -4,39 +4,23 @@ import { Context, Telegraf } from 'telegraf';
 
 @Injectable()
 export class BotService {
-  constructor(@InjectBot() private readonly bot: Telegraf<Context>) {
-    // this.bot.catch((err: any, ctx: Context) => {
-    //   console.log('err: ', err);
-    //   console.log('ctx: ', ctx);
-    // });
-  }
+  constructor(@InjectBot() private readonly bot: Telegraf<Context>) {}
 
   async sendMessage(chatId: number, message: string, pinMessage: boolean) {
     await this.bot.telegram
-      .sendMessage(chatId, message, { parse_mode: 'HTML' })
+      .sendMessage(chatId, message, {
+        parse_mode: 'HTML',
+        protect_content: true,
+        entities: [{ type: 'code', offset: 0, length: 1 }],
+      })
       .then((m) => {
         if (pinMessage) {
-          this.bot.telegram.pinChatMessage(chatId, m.message_id);
+          return this.bot.telegram.pinChatMessage(chatId, m.message_id);
         }
       });
     return;
   }
   async getChatInfoById(chatId: number) {
-    // this.bot.catch((err) => {
-    //   console.log(err);
-    // // });
-    // this.bot.catch((err) => {
-    //   console.log('CATECH !!!!!!!');
-    // });
-    // const smt = await this.bot.telegram.migrateChat;
-    // await this.bot.telegram.getChat(chatId);
-    // .then((d) => {
-    //   console.log('d: ', d);
-    // })
-    // .catch((err) => {
-    //   console.log('err: ', err);
-    // });
-    // const chatInfo = await this.bot.telegram.getChat(chatId);
     const chatInfo = await this.bot.telegram.getChat(chatId);
     return chatInfo;
   }
