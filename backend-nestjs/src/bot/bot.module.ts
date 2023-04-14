@@ -7,6 +7,7 @@ import { ChatsModule } from '../chats/chats.module';
 import { BotController } from './bot.controller';
 import { UserModule } from '../users/user.module';
 import { AuthModule } from '../auth/auth.module';
+// import { TelegrafCustomModule } from '../telegraf-custom/telegraf-custom.module';
 
 @Module({
   imports: [
@@ -14,6 +15,9 @@ import { AuthModule } from '../auth/auth.module';
     TelegrafModule.forRoot({
       token: process.env.TELEGRAM_API_KEY,
     }),
+    // TelegrafCustomModule.forRoot({
+    //   token: process.env.TELEGRAM_API_KEY,
+    // }),
     forwardRef(() => ChatsModule),
     forwardRef(() => UserModule),
     forwardRef(() => AuthModule),

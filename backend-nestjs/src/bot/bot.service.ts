@@ -8,10 +8,14 @@ export class BotService {
 
   async sendMessage(chatId: number, message: string, pinMessage: boolean) {
     await this.bot.telegram
-      .sendMessage(chatId, message, { parse_mode: 'HTML' })
+      .sendMessage(chatId, message, {
+        parse_mode: 'HTML',
+        protect_content: true,
+        entities: [{ type: 'code', offset: 0, length: 1 }],
+      })
       .then((m) => {
         if (pinMessage) {
-          this.bot.telegram.pinChatMessage(chatId, m.message_id);
+          return this.bot.telegram.pinChatMessage(chatId, m.message_id);
         }
       });
     return;

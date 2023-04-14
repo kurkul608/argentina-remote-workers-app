@@ -22,13 +22,18 @@ export class BotUpdate {
 
   @Public()
   @Start()
-  async startCommand(ctx: Context) {
-    if (isPrivate(ctx.chat.type)) {
-      const isOldUser = await this.userService.findById(ctx.from.id);
+  async startCommand(
+    @Message('from') from,
+    @Message('chat') chat,
+    @Ctx() ctx: Context,
+  ) {
+    console.log(ctx);
+    if (isPrivate(chat.type)) {
+      const isOldUser = await this.userService.findById(from.id);
       if (!isOldUser) {
         await this.userService.create({
           ...ctx.from,
-          language_code: ctx.from.language_code ?? 'en',
+          language_code: from.language_code ?? 'en',
         });
       }
       await ctx.reply('Привет, можешь выбрть интересующую тебя функцию', {
@@ -72,12 +77,6 @@ export class BotUpdate {
           }
           return;
         }
-        const bot = members.find((member) => member.username !== botName);
-        if (bot && !isPrivate(ctx.chat.type)) {
-          await ctx.reply('Ботам здесь не рады');
-          await ctx.banChatMember(bot.id, 2236063525);
-          return;
-        }
       }
     }
   }
@@ -106,8 +105,49 @@ export class BotUpdate {
   }
 
   @Public()
+  @On('group_chat_created')
+  async groupCreated(
+    @Message('chat') chat: any,
+    @Message('group_chat_created') flag: boolean,
+    @Message('from') user: any,
+    @Ctx() ctx: Context,
+  ) {
+    if (flag) {
+      const oldChat = await this.chatsService.findById(ctx.chat.id);
+      if (!oldChat) {
+        await this.chatsService.create(chat as CreateChatDto);
+      }
+    }
+  }
+
+  @Public()
   @On('message')
   async messageHandler(@Message('text') msg: string, @Ctx() ctx: Context) {
+    if (ctx.update.update_id) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      const from_chat = ctx.update?.message.migrate_from_chat_id;
+      if (from_chat) {
+        const chat = await this.chatsService.findAndUpdateId(
+          from_chat,
+          ctx.chat.id,
+        );
+        if (chat) {
+          await ctx.reply('Данные чата успешно обновлены');
+          return;
+        }
+      }
+    }
+    if (!msg) {
+      return;
+    }
+    if (!isPrivate(ctx.chat.type)) {
+      const chat = await this.chatsService.findById(ctx.chat.id);
+      if (!chat) {
+        await this.chatsService.create(ctx.chat as CreateChatDto);
+      }
+    }
+
     if (isPrivate(ctx.chat.type)) {
       const { from } = ctx.message;
       if (msg === 'Получить токен') {
@@ -126,23 +166,23 @@ export class BotUpdate {
     return;
   }
 
-  @Public()
-  @On('channel_post')
-  async channelPostHandler(@Ctx() ctx: Context) {
-    const chat = await this.chatsService.findById(ctx.chat.id);
-    if (!chat) {
-      await this.chatsService.create(ctx.chat as CreateChatDto);
-    }
-    return;
-  }
-
-  @Public()
-  @On('edited_channel_post')
-  async editChannelPostHandler(@Ctx() ctx: Context) {
-    const chat = await this.chatsService.findById(ctx.chat.id);
-    if (!chat) {
-      await this.chatsService.create(ctx.chat as CreateChatDto);
-    }
-    return;
-  }
+  // @Public()
+  // @On('channel_post')
+  // async channelPostHandler(@Ctx() ctx: Context) {
+  //   const chat = await this.chatsService.findById(ctx.chat.id);
+  //   if (!chat) {
+  //     await this.chatsService.create(ctx.chat as CreateChatDto);
+  //   }
+  //   return;
+  // }
+  //
+  // @Public()
+  // @On('edited_channel_post')
+  // async editChannelPostHandler(@Ctx() ctx: Context) {
+  //   const chat = await this.chatsService.findById(ctx.chat.id);
+  //   if (!chat) {
+  //     await this.chatsService.create(ctx.chat as CreateChatDto);
+  //   }
+  //   return;
+  // }
 }

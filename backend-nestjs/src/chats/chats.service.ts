@@ -29,6 +29,11 @@ export class ChatsService {
   async findById(id: number) {
     return this.chatModel.findOne({ id });
   }
+  async findAndUpdateId(id: number, newId: number) {
+    const chat = await this.findById(id);
+    await chat.updateOne({ id: newId });
+    return await this.findById(newId);
+  }
 
   async findAllByIds(ids: number[]) {
     return this.chatModel.find().where('id').in(ids);

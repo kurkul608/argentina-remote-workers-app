@@ -25,4 +25,10 @@ export class AuthService {
       access_token: this.jwtService.sign(payload),
     };
   }
+
+  async getUserInfo(token: string) {
+    const { sub } = await this.jwtService.decode(token);
+    const user = await this.userService.findById(sub);
+    return user;
+  }
 }
