@@ -19,24 +19,62 @@ export const getChatSettingsAsync = createAsyncThunk(
 
 const initialState: IChatSettings = {
 	config: {
-		allowChatAdminCallCommands: false,
 		userRights: {
+			adminList: [],
+			changeBotSettingsAllowedList: [],
 			allowChatAdminCallCommands: false,
-			admin: {
-				adminList: [],
-				allowChatAdminCallCommands: false,
-			},
-			members: {
-				changeBotSettingsAllowedList: [],
-				useBotCommandsList: [],
-				notAffectByRulesList: [],
-			},
+			notAffectByRulesList: [],
+			useBotCommandsList: [],
 		},
 		greetings: {
 			message: [],
-			misc: "",
-			leftMembers: "",
-			systemMessages: "",
+			misc: false,
+			leftMembers: false,
+			systemMessages: false,
+		},
+		moderation: {
+			rulesMessage: [],
+			newcomers: {
+				chatTimeout: {
+					countTime: 0,
+					time: "minute",
+				},
+				timeToChangeUsername: {
+					countTime: 0,
+					time: "minute",
+				},
+			},
+			security: {
+				faceControlUsers: false,
+				faceControlMaxNumbersWarning: 2,
+				faceControlUsernameMinLength: 0,
+				faceControlUsernameSubstringList: [],
+				faceControlBanMessage: "",
+				faceControlBanTime: {
+					countTime: 0,
+					time: "minute",
+				},
+				faceControlPreventRTL: false,
+				faceControlPreventHieroglyphs: false,
+				faceControlUserLoginControl: false,
+				faceControlRTLPercent: 0,
+				faceControlHieroglyphsPercent: 0,
+				faceControlUsernameMaxLength: 20,
+				faceControlBreakingUsername: false,
+				faceControlBanType: "no",
+				faceControlCheckTimeout: {
+					countTime: 0,
+					time: "minute",
+				},
+				faceControlSubscriptionChannels: [],
+			},
+			report: {
+				reportIsEnable: false,
+				additionalUserNotificationList: false,
+				deleteReportMessage: false,
+				reportReportOnAdmins: false,
+				notifyAdmins: false,
+			},
 		},
 	},
 };
@@ -52,13 +90,43 @@ export const chatSettingsSlice = createSlice({
 			state,
 			action: PayloadAction<{ field: string; value: boolean }>
 		) => {
-			const fieldParts = action.payload.field.split(".");
-			let nestedObj: WritableDraft<any> = state.config;
-			for (let i = 0; i < fieldParts.length - 1; i++) {
-				nestedObj = nestedObj[fieldParts[i]];
+			let obj: WritableDraft<any> = state.config;
+			const fieldPath = action.payload.field.split(".");
+			for (let i = 0; i < fieldPath.length - 1; i++) {
+				obj = obj[fieldPath[i]];
 			}
-			nestedObj[fieldParts[fieldParts.length - 1]] = action.payload.value;
+			obj[fieldPath[fieldPath.length - 1]] = action.payload.value;
 		},
+		// addAdmin: (state, action: PayloadAction<string>) => {
+		// 	state.config.userRights.adminList.push(action.payload);
+		// },
+		// removeAdmin: (state, action: PayloadAction<string>) => {
+		// 	state.config.userRights.adminList.filter(
+		// 		(username) => username !== action.payload
+		// 	);
+		// },
+		// addBotAdmin: (state, action: PayloadAction<string>) => {
+		// 	if (state.config.userRights.changeBotSettingsAllowedList)
+		// 		state.config.userRights.changeBotSettingsAllowedList.push(
+		// 			action.payload
+		// 		);
+		// },
+		// removeBotAdmin: (state, action: PayloadAction<string>) => {
+		// 	if (state.config.userRights.changeBotSettingsAllowedList)
+		// 		state.config.userRights.changeBotSettingsAllowedList.filter(
+		// 			(username) => username !== action.payload
+		// 		);
+		// },
+		// addCommandListUser: (state, action: PayloadAction<string>) => {
+		// 	if (state.config.userRights.notAffectByRulesList)
+		// 		state.config.userRights.notAffectByRulesList.push(action.payload);
+		// },
+		// removeCommandListUser: (state, action: PayloadAction<string>) => {
+		// 	if (state.config.userRights.notAffectByRulesList)
+		// 		state.config.userRights.notAffectByRulesList.filter(
+		// 			(username) => username !== action.payload
+		// 		);
+		// },
 	},
 	extraReducers: (builder) => {
 		builder.addCase(
@@ -71,5 +139,4 @@ export const chatSettingsSlice = createSlice({
 });
 
 export const { setDefault, updateToggleFiled } = chatSettingsSlice.actions;
-
 export default chatSettingsSlice.reducer;
