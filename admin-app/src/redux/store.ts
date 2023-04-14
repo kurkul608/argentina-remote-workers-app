@@ -1,14 +1,18 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import chatReducer from "../shared/chat/redux/chat-page/chat-list.slice";
 import authReducer from "../shared/auth/redux/auth.slice";
 import chatInfoReducer from "../shared/chat/redux/chat-info-page/chat.slice";
+import chatSettingsUserRights from "shared/chat/redux/chat-settings/user-rights.slice";
 import chatSettingsReducer from "../shared/chat/redux/chat-settings/chat-settings.slice";
 export const store = configureStore({
 	reducer: {
 		chats: chatReducer,
 		auth: authReducer,
 		chat: chatInfoReducer,
-		chatSettings: chatSettingsReducer,
+		chatSettings: combineReducers({
+			chatSettingsUserRights,
+			chatSettingsReducer,
+		}),
 	},
 });
 

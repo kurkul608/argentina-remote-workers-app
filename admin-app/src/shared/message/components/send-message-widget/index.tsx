@@ -1,6 +1,17 @@
 import React from "react";
 import { Widget } from "shared/widget";
-import { SendMessageWrapper } from "./styled";
+import {
+	MessageSettings,
+	MessageSettingsWrapper,
+	MessageWrapper,
+	SendMessageWrapper,
+	Settings,
+	SettingDescription,
+	SettingTitle,
+	SettingWrapper,
+	WidgetHeader,
+	WidgetWrapper,
+} from "./styled";
 import { useFormik } from "formik";
 import { Input } from "shared/components/form-input";
 import { Button } from "shared/components/form-button";
@@ -65,33 +76,104 @@ export const SendMessageWidget = ({ chatIds }: SendMessageWidgetProps) => {
 		enableReinitialize: true,
 	});
 	return (
-		<Widget name={"Send message widget"}>
-			<SendMessageWrapper onSubmit={handleSubmit}>
-				{!chatIds ? (
-					<DropdownList
-						handleChange={handleChange}
-						list={list.map(chatToOption)}
-						nameList={"selectedChats"}
-						selectedValues={values.selectedChats}
-						placeHolder={"Select chat"}
-						errors={errors.selectedChats}
-					/>
-				) : null}
-				<TextEditor
-					onChange={handleChange("message")}
-					id={"message"}
-					value={values.message}
-					// errors={errors.message}
-				/>
-				<Input
-					type={"checkbox"}
-					onChange={handleChange}
-					id={"pin"}
-					name={"pin"}
-					checked={values.pin}
-				/>
-				<Button isDisabled={isSubmitting} label={"Отправить"} type={"submit"} />
-			</SendMessageWrapper>
+		<Widget>
+			<WidgetWrapper>
+				<MessageWrapper>
+					<WidgetHeader>New message</WidgetHeader>
+					<SendMessageWrapper onSubmit={handleSubmit}>
+						{!chatIds ? (
+							<DropdownList
+								handleChange={handleChange}
+								list={list.map(chatToOption)}
+								nameList={"selectedChats"}
+								selectedValues={values.selectedChats}
+								placeHolder={"Select chat"}
+								errors={errors.selectedChats}
+							/>
+						) : null}
+						<TextEditor
+							onChange={handleChange("message")}
+							id={"message"}
+							value={values.message}
+							// errors={errors.message}
+						/>
+						<Button
+							isDisabled={isSubmitting}
+							label={"Отправить"}
+							type={"submit"}
+						/>
+					</SendMessageWrapper>
+				</MessageWrapper>
+				<MessageSettingsWrapper>
+					<WidgetHeader>Settings</WidgetHeader>
+					<MessageSettings>
+						<Settings>
+							<SettingWrapper>
+								<SettingTitle>Pin message?</SettingTitle>
+								<Input
+									type={"checkbox"}
+									onChange={handleChange}
+									id={"pin"}
+									name={"pin"}
+									checked={values.pin}
+								/>
+							</SettingWrapper>
+							<SettingDescription>
+								*Если включить данное поле, то отправленное сообщение
+								автоматически закрепится в шапке
+							</SettingDescription>
+						</Settings>
+						<Settings>
+							<SettingWrapper>
+								<SettingTitle>Pin message?</SettingTitle>
+								<Input
+									type={"checkbox"}
+									onChange={handleChange}
+									id={"pin"}
+									name={"pin"}
+									checked={values.pin}
+								/>
+							</SettingWrapper>
+							<SettingDescription>
+								*Если включить данное поле, то отправленное сообщение
+								автоматически закрепится в шапке
+							</SettingDescription>
+						</Settings>
+						<Settings>
+							<SettingWrapper>
+								<SettingTitle>Pin message?</SettingTitle>
+								<Input
+									type={"checkbox"}
+									onChange={handleChange}
+									id={"pin"}
+									name={"pin"}
+									checked={values.pin}
+								/>
+							</SettingWrapper>
+							<SettingDescription>
+								*Если включить данное поле, то отправленное сообщение
+								автоматически закрепится в шапке
+							</SettingDescription>
+						</Settings>
+						<Settings>
+							<SettingWrapper>
+								<SettingTitle>Pin message?</SettingTitle>
+								<Input
+									type={"checkbox"}
+									onChange={handleChange}
+									id={"pin"}
+									name={"pin"}
+									checked={values.pin}
+								/>
+							</SettingWrapper>
+							<SettingDescription>
+								*Если включить данное поле, то отправленное сообщение
+								автоматически закрепится в шапке
+							</SettingDescription>
+						</Settings>
+					</MessageSettings>
+				</MessageSettingsWrapper>
+			</WidgetWrapper>
 		</Widget>
 	);
 };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Widget } from "shared/widget";
 import { ChipsTable } from "shared/components/table-widget/components/chips-table";
 import { TextTable } from "shared/components/table-widget/components/text-table";
@@ -34,23 +34,23 @@ export const TableWidget = ({
 	description,
 	content,
 }: ITableWidgetProps) => {
-	// const [style, setStyle] = useState(TableStyles.table);
-	// const handleOnClick = (style: TableStyles) => {
-	// 	setStyle(style);
-	// };
-	// const keys = Object.entries(TableStyles);
+	const [style, setStyle] = useState(TableStyles.table);
+	const handleOnClick = (style: TableStyles) => {
+		setStyle(style);
+	};
+	const keys = Object.entries(TableStyles);
 	return (
 		<StyledTable>
 			<Widget name={title}>
 				<Description>{description}</Description>
-				{/*{keys.map(([key, value]) => (*/}
-				{/*	<button*/}
-				{/*		style={{ width: 20, height: 50 }}*/}
-				{/*		key={`button-style-${key}`}*/}
-				{/*		type="button"*/}
-				{/*		onClick={() => handleOnClick(TableStyles[value])}*/}
-				{/*	/>*/}
-				{/*))}*/}
+				{keys.map(([key, value]) => (
+					<button
+						style={{ width: 20, height: 50 }}
+						key={`button-style-${key}`}
+						type="button"
+						onClick={() => handleOnClick(TableStyles[value])}
+					/>
+				))}
 				<Table style={style} content={content} />
 			</Widget>
 		</StyledTable>

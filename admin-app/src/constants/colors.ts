@@ -21,6 +21,10 @@ export enum ColorsDark {
 	inputUncheckedColor = "#BDBDBD",
 	breadcrumbsBorderColorActive = "#ff0000ff",
 	pageTitle = "#ffffff",
+	messageWidgetBorderColor = "#3C414B",
+	limitCircleBaseColor = "#5684fd",
+	limitCircleSecondaryColor = "#F98215",
+	limitCircleErrorColor = "#F53656",
 }
 export enum ColorsLight {
 	backGround = "#f1f3f6",
@@ -43,6 +47,10 @@ export enum ColorsLight {
 	inputUncheckedColor = "#BDBDBD",
 	breadcrumbsBorderColorActive = "#ff0000ff",
 	pageTitle = "#000000",
+	messageWidgetBorderColor = "#3C414B",
+	limitCircleBaseColor = "#5684fd",
+	limitCircleSecondaryColor = "#F98215",
+	limitCircleErrorColor = "#F53656",
 }
 
 export const color = (theme: Theme) => {

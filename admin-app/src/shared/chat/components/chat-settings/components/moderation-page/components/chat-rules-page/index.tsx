@@ -5,7 +5,7 @@ import React from "react";
 
 export const ChatRulesPage = () => {
 	const { userRights } = useAppSelector((state) => ({
-		userRights: state.chatSettings.config.userRights.admin,
+		userRights: state.chatSettings.chatSettingsReducer.config.userRights,
 	}));
 	return (
 		<ContentWrapper>

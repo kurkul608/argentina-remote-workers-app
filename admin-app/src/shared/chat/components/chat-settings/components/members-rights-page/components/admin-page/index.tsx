@@ -7,13 +7,13 @@ import { updateToggleFiled } from "shared/chat/redux/chat-settings/chat-settings
 
 export const RightsAdmin = () => {
 	const { userRights } = useAppSelector((state) => ({
-		userRights: state.chatSettings.config.userRights.admin,
+		userRights: state.chatSettings.chatSettingsUserRights,
 	}));
 	const dispatch = useAppDispatch();
 	const callBack = (value: boolean) => {
 		dispatch(
 			updateToggleFiled({
-				field: "userRights.admin.allowChatAdminCallCommands",
+				field: "userRights.allowChatAdminCallCommands",
 				value,
 			})
 		);

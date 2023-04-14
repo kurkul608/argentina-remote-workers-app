@@ -1,14 +1,60 @@
-import { UserRights } from "shared/chat/types/chat-user-rights";
-
 export interface ChatSettings {
-	allowChatAdminCallCommands: boolean;
-	userRights: UserRights;
-	greetings: Greetings;
-}
+	userRights: {
+		adminList: string[];
+		changeBotSettingsAllowedList?: string[];
+		useBotCommandsList?: string[];
+		notAffectByRulesList?: string[];
+		allowChatAdminCallCommands: boolean;
+	};
+	greetings: {
+		message: string[];
+		systemMessages: boolean;
+		leftMembers: boolean;
+		misc: boolean;
+	};
+	moderation?: {
+		rulesMessage: [];
+		report: {
+			reportIsEnable: boolean;
+			deleteReportMessage: boolean;
+			notifyAdmins: boolean;
+			reportReportOnAdmins: boolean;
+			additionalUserNotificationList: boolean;
+		};
+		newcomers: {
+			chatTimeout: {
+				countTime: number;
+				time: "minute" | "hour" | "day";
+			};
+			timeToChangeUsername: {
+				countTime: number;
+				time: "minute" | "hour" | "day";
+			};
+		};
+		security?: {
+			faceControlUsers: boolean;
+			faceControlCheckTimeout: {
+				countTime: number;
+				time: "minute" | "hour" | "day";
+			};
+			faceControlUserLoginControl: boolean;
+			faceControlUsernameMinLength?: number;
+			faceControlUsernameMaxLength?: number;
+			faceControlUsernameSubstringList: [];
+			faceControlBreakingUsername: boolean;
+			faceControlPreventRTL: boolean;
+			faceControlRTLPercent?: number;
+			faceControlPreventHieroglyphs: boolean;
+			faceControlHieroglyphsPercent?: number;
 
-export interface Greetings {
-	message: [];
-	systemMessages: "";
-	leftMembers: "";
-	misc: "";
+			faceControlMaxNumbersWarning: number;
+			faceControlBanType: "no" | "banForever" | "timeout";
+			faceControlBanMessage?: string;
+			faceControlBanTime?: {
+				countTime: number;
+				time: string;
+			};
+			faceControlSubscriptionChannels: [];
+		};
+	};
 }

@@ -18,6 +18,7 @@ export const ChatSettings = () => {
 		auth: state.auth,
 	}));
 	const token = getAuthToken(auth)!;
+
 	useEffect(() => {
 		if (chatId) {
 			dispatch(getChatAsync({ id: +chatId, token }));
