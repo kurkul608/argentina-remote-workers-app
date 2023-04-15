@@ -7,6 +7,15 @@ export const instance = axios.create({
 		"Content-Type": "application/json",
 	},
 });
+instance.interceptors.response.use(
+	function (response) {
+		return response;
+	},
+	function (error) {
+		error.response.status === 401 && localStorage.removeItem("auth");
+		error.response.status === 401 && location.reload();
+	}
+);
 export const get = async <T, D = any>(
 	path: string,
 	authToken: string,

@@ -17,17 +17,23 @@ import {
 } from "./styled";
 import { getAllChats } from "shared/chat/redux/chat-page/chat-list.slice";
 import { IChatInterface } from "interfaces/chat.interface";
-import { routeBuilder } from "shared/router/services/route-builder";
+import { routeBuilderWithReplace } from "shared/router/services/route-builder";
 import { Routes } from "shared/router";
-import { routeReplacer } from "shared/router/services/route-replacer";
 import { getAuthToken } from "helpers/storage-parser";
 import { InfiniteScroll } from "shared/components/infinite-scroll";
 import { useTranslation } from "react-i18next";
 import { Limits } from "constants/limits";
 import { CircularProgress } from "@mui/material";
+import { searchParamsGrabber } from "shared/router/services/search-params-grabber";
+import { useLocation } from "react-router-dom";
+import { searchParamsFinder } from "shared/router/services/search-params-finder";
+import { Icon, IconName } from "shared/components/icon";
 
 export const ChatListWidget = () => {
 	const dispatch = useAppDispatch();
+	const locate = useLocation();
+	const searchParams = searchParamsGrabber(locate.search);
+	const isHidden = !!searchParamsFinder(searchParams, "isHidden");
 	const { t } = useTranslation("translation", {
 		keyPrefix: "chatsPage",
 	});
@@ -47,6 +53,7 @@ export const ChatListWidget = () => {
 					params: {
 						limit: Limits.chatsPerPage,
 						page: page,
+						isHidden: isHidden,
 					},
 				})
 			);
@@ -56,24 +63,22 @@ export const ChatListWidget = () => {
 	const handleOnClick = useCallback(
 		(chat: IChatInterface) =>
 			navigate(
-				routeReplacer(
-					routeBuilder([Routes.admin, Routes.chat]),
+				routeBuilderWithReplace(
+					[Routes.admin, Routes.chatList, Routes.chat],
 					"chatId",
 					chat.id
-				),
-				{ replace: true }
+				)
 			),
 		[navigate]
 	);
 	const handleOnClickSettings = useCallback(
 		(chat: IChatInterface) =>
 			navigate(
-				routeReplacer(
-					routeBuilder([Routes.admin, Routes.chatSettings]),
+				routeBuilderWithReplace(
+					[Routes.admin, Routes.chatList, Routes.chat, Routes.chatSettings],
 					"chatId",
 					chat.id
-				),
-				{ replace: true }
+				)
 			),
 		[navigate]
 	);
@@ -109,7 +114,7 @@ export const ChatListWidget = () => {
 											handleOnClickSettings(chat);
 										}}
 									>
-										Settings
+										<Icon name={IconName.settings} />
 									</SvgWrapper>
 								</ChatWrapper>
 							</Widget>

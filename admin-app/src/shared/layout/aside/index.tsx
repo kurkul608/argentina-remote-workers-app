@@ -1,18 +1,22 @@
 import React from "react";
-import { StyledAside, StyledNavBar } from "./styled";
+import { AsideAccordion, StyledAside, StyledNavBar } from "./styled";
 import { NavLink, useLocation } from "react-router-dom";
 import HouseIcon from "@mui/icons-material/House";
 import BugReportIcon from "@mui/icons-material/BugReport";
 import { useTranslation } from "react-i18next";
-import { routeBuilder } from "../../router/services/route-builder";
+import {
+	routeBuilder,
+	routeBuilderWithReplace,
+} from "../../router/services/route-builder";
 import { Routes } from "../../router";
-import { ChatLeftBar } from "shared/chat/components/chat-left-bar";
+import { ChatAside } from "shared/chat/components/chat-page/chat-aside";
 import { useParams } from "react-router";
-import { routeReplacer } from "shared/router/services/route-replacer";
 import { useAppSelector } from "redux/hooks";
 import { searchParamsBuilder } from "shared/router/services/search-params-builder";
 import { searchParamsGrabber } from "shared/router/services/search-params-grabber";
 import { searchParamsFinder } from "shared/router/services/search-params-finder";
+import { Accordion } from "shared/components/accordion";
+import { routeExactMatch } from "shared/router/services/route-exact";
 
 export const Aside = () => {
 	const { t } = useTranslation("translation", { keyPrefix: "aside" });
@@ -67,36 +71,85 @@ export const Aside = () => {
 					</NavLink>
 				</li>
 			</StyledNavBar>
-			<ChatLeftBar isHidden={isHidden}>
+			<ChatAside isHidden={isHidden}>
 				<StyledNavBar>
 					<NavLink
 						end
-						to={routeReplacer(
-							routeBuilder([Routes.admin, Routes.chat]),
+						to={routeBuilderWithReplace(
+							[Routes.admin, Routes.chatList, Routes.chat],
 							"chatId",
 							chatInfo.id
 						)}
 						className={({ isActive }) =>
 							isActive ? "active-nav-link" : undefined
 						}
+						onClick={(e) => e.stopPropagation()}
 					>
 						<p>{t("chatCategories.info")}</p>
 					</NavLink>
-					<NavLink
-						end
-						to={routeReplacer(
-							routeBuilder([Routes.admin, Routes.chatSettings]),
-							"chatId",
-							chatInfo.id
-						)}
-						className={({ isActive }) =>
-							isActive ? "active-nav-link" : undefined
-						}
-					>
-						<p>{t("chatCategories.settings")}</p>
-					</NavLink>
+					<AsideAccordion>
+						<Accordion
+							name={"SETTINGS"}
+							isOpen={routeExactMatch(locate.pathname, Routes.chatSettings, 1)}
+						>
+							<NavLink
+								to={routeBuilderWithReplace(
+									[
+										Routes.admin,
+										Routes.chatList,
+										Routes.chat,
+										Routes.chatSettings,
+										Routes.chatSettingsMembersRights,
+									],
+									"chatId",
+									chatInfo.id
+								)}
+								className={({ isActive }) =>
+									isActive ? "active-nav-link" : undefined
+								}
+							>
+								<p>User Rights</p>
+							</NavLink>
+							<NavLink
+								to={routeBuilderWithReplace(
+									[
+										Routes.admin,
+										Routes.chatList,
+										Routes.chat,
+										Routes.chatSettings,
+										Routes.chatSettingsGreeting,
+									],
+									"chatId",
+									chatInfo.id
+								)}
+								className={({ isActive }) =>
+									isActive ? "active-nav-link" : undefined
+								}
+							>
+								<p>Greeting</p>
+							</NavLink>
+							<NavLink
+								to={routeBuilderWithReplace(
+									[
+										Routes.admin,
+										Routes.chatList,
+										Routes.chat,
+										Routes.chatSettings,
+										Routes.chatSettingsModeration,
+									],
+									"chatId",
+									chatInfo.id
+								)}
+								className={({ isActive }) =>
+									isActive ? "active-nav-link" : undefined
+								}
+							>
+								<p>Moderation</p>
+							</NavLink>
+						</Accordion>
+					</AsideAccordion>
 				</StyledNavBar>
-			</ChatLeftBar>
+			</ChatAside>
 		</StyledAside>
 	);
 };

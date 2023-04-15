@@ -4,6 +4,7 @@ import { color } from "constants/colors";
 export const BreadcrumbsWrapper = styled.div`
 	display: flex;
 	gap: 10px;
+	font-size: 1.4rem;
 `;
 
 export const Breadcrumb = styled.div`

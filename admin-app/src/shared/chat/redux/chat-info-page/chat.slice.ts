@@ -1,4 +1,4 @@
-import { ISelectedChat } from "../../types";
+import { ISelectedChat } from "shared/chat/types/chat-types";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { chatChangeVisible, getChat } from "../../services/data";
 import { IChatInterface } from "interfaces/chat.interface";
