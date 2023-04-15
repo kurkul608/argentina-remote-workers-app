@@ -85,4 +85,21 @@ export class MessageService {
     }
     return message;
   }
+
+  async getManyMessages(ids: string[]) {
+    const objectIds = ids.map((id) => new Types.ObjectId(id));
+    const messages = await this.messageModel
+      .find({ _id: { $in: objectIds } })
+      .exec();
+
+    return messages;
+    // const messages = await this.messageModel.find({});
+  }
+
+  async sendManyMessages(ids: string[], chatId: number, pinMessage: boolean) {
+    const messages = await this.getManyMessages(ids);
+    for (const message of messages) {
+      await this.botService.sendMessage(chatId, message, pinMessage);
+    }
+  }
 }

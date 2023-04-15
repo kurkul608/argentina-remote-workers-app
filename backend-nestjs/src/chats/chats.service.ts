@@ -1,7 +1,7 @@
 import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Chat, ChatDocument } from './chats.schema';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { CreateChatDto } from './create-chat.dto';
 import { BotService } from '../bot/bot.service';
 import { PaymentType } from '../payment/dto/create-payment.dto';
@@ -92,5 +92,12 @@ export class ChatsService {
         payments: payments,
       };
     }
+  }
+
+  async getChatsByIds(ids: string[]) {
+    const objectIds = ids.map((id) => new Types.ObjectId(id));
+    const chats = await this.chatModel.find({ _id: { $in: objectIds } }).exec();
+
+    return chats;
   }
 }
