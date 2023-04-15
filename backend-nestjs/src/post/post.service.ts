@@ -12,6 +12,9 @@ import { Post, PostDocument } from './post.schema';
 import { CreatePostDto } from './dto/create-post.dto';
 import { ChangePostDto } from './dto/change-post.dto';
 import { GetPostsQueryDto } from './dto/query/get-posts-query.dto';
+import { omit } from 'lodash';
+import { MessageService } from '../message/message.service';
+import { ChatsService } from '../chats/chats.service';
 
 @Injectable()
 export class PostService {
@@ -20,17 +23,32 @@ export class PostService {
     private readonly postModel: Model<PostDocument>,
     @Inject(forwardRef(() => AuthService))
     private readonly authService: AuthService,
+    @Inject(forwardRef(() => MessageService))
+    private readonly messageService: MessageService,
+    @Inject(forwardRef(() => ChatsService))
+    private readonly chatsService: ChatsService,
   ) {}
 
   async createPost(dto: CreatePostDto, token: string) {
     const { _id } = await this.authService.getUserInfo(token);
 
     const post = await this.postModel.create({
-      ...dto,
+      ...omit(dto, 'post_now'),
       owner: _id,
       chats: dto.chats.map((id) => new Types.ObjectId(id)),
       messages: dto.messages.map((id) => new Types.ObjectId(id)),
     });
+    if (dto.post_now) {
+      const chats = await this.chatsService.getChatsByIds(dto.chats);
+      for (const chat of chats) {
+        await this.messageService.sendManyMessages(
+          dto.messages,
+          chat.id,
+          dto.pin_message,
+        );
+      }
+      // await this.
+    }
     return this.postModel.findById(post.id);
   }
 

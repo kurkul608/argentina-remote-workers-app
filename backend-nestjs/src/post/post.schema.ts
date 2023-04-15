@@ -26,6 +26,10 @@ export class Post {
   tg_deleted: boolean;
 
   @ApiProperty()
+  @Prop({ type: Boolean, required: true, default: false })
+  pin_message: boolean;
+
+  @ApiProperty()
   @Prop({ required: true, type: [Types.ObjectId], ref: Chat.name })
   chats: [Types.ObjectId];
 

@@ -1,8 +1,18 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsArray, IsDate, IsOptional, IsString } from 'class-validator';
+import {
+  IsArray,
+  IsBoolean,
+  IsDate,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 import { Types } from 'mongoose';
 import { Transform } from 'class-transformer';
-import { toDate, toNumber } from '../../commoon/helpers/query.helper';
+import {
+  toBoolean,
+  toDate,
+  toNumber,
+} from '../../commoon/helpers/query.helper';
 
 export class ChangePostDto {
   @ApiProperty({
@@ -31,6 +41,16 @@ export class ChangePostDto {
   @IsOptional()
   @IsArray()
   messages?: [Types.ObjectId];
+
+  @ApiProperty({
+    example: true,
+    description: 'Pin post, or not',
+    required: true,
+  })
+  @Transform(({ value }) => toBoolean(value))
+  @IsBoolean()
+  @IsOptional()
+  pin_message?: boolean;
 
   @ApiProperty({
     example: '2023-04-12T00:17:49.801Z',

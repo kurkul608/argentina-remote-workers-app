@@ -1,23 +1,39 @@
 import { Injectable } from '@nestjs/common';
 import { InjectBot } from 'nestjs-telegraf';
-import { Context, Telegraf } from 'telegraf';
+import { Context, Telegraf, Markup } from 'telegraf';
+import { MessageDocument } from '../message/message.schema';
 
 @Injectable()
 export class BotService {
   constructor(@InjectBot() private readonly bot: Telegraf<Context>) {}
 
-  async sendMessage(chatId: number, message: string, pinMessage: boolean) {
-    await this.bot.telegram
-      .sendMessage(chatId, message, {
-        parse_mode: 'HTML',
-        protect_content: true,
-        entities: [{ type: 'code', offset: 0, length: 1 }],
-      })
-      .then((m) => {
-        if (pinMessage) {
-          return this.bot.telegram.pinChatMessage(chatId, m.message_id);
-        }
-      });
+  async sendMessage(
+    chatId: number,
+    message: MessageDocument,
+    pinMessage: boolean,
+  ) {
+    // const t = Markup.inlineKeyboard([Markup.button.text('text')]);
+    // const t = Markup.inlineKeyboard([Markup.button.callback()]);
+    const messageText = message.quill_delta?.reduce(
+      (acc, str) => `${acc}\r${str}`,
+      '',
+    );
+    await this.bot.telegram.sendMessage(chatId, messageText).then((mes) => {
+      if (pinMessage) {
+        return this.bot.telegram.pinChatMessage(chatId, mes.message_id);
+      }
+    });
+    // await this.bot.telegram
+    //   .sendMessage(chatId, message, {
+    //     parse_mode: 'HTML',
+    //     protect_content: true,
+    //     entities: [{ type: 'code', offset: 0, length: 1 }],
+    //   })
+    //   .then((m) => {
+    //     if (pinMessage) {
+    //       return this.bot.telegram.pinChatMessage(chatId, m.message_id);
+    //     }
+    //   });
     return;
   }
   async getChatInfoById(chatId: number) {

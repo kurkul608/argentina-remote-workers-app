@@ -5,7 +5,7 @@ export type ChatDocument = Chat & Document;
 
 @Schema()
 export class Chat {
-  @Prop({ required: true })
+  @Prop({ type: Number, required: true })
   id: number;
 
   @Prop({ required: true })

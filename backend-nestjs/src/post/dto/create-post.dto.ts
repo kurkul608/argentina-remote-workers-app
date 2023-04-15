@@ -1,8 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsArray, IsDate, IsOptional, IsString } from 'class-validator';
+import {
+  IsArray,
+  IsBoolean,
+  IsDate,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 import { Types } from 'mongoose';
 import { Transform } from 'class-transformer';
-import { toDate } from '../../commoon/helpers/query.helper';
+import { toBoolean, toDate } from '../../commoon/helpers/query.helper';
 
 export class CreatePostDto {
   @ApiProperty({
@@ -11,7 +17,7 @@ export class CreatePostDto {
     required: true,
   })
   @IsString()
-  title: boolean;
+  title: string;
 
   @ApiProperty({
     example: ['53f....'],
@@ -19,7 +25,7 @@ export class CreatePostDto {
     required: true,
   })
   @IsArray()
-  chats: [Types.ObjectId];
+  chats: [string];
 
   @ApiProperty({
     example: ['53f....'],
@@ -27,7 +33,25 @@ export class CreatePostDto {
     required: true,
   })
   @IsArray()
-  messages: [Types.ObjectId];
+  messages: [string];
+
+  @ApiProperty({
+    example: true,
+    description: 'Make post now, or not',
+    required: true,
+  })
+  @Transform(({ value }) => toBoolean(value))
+  @IsBoolean()
+  post_now: boolean;
+
+  @ApiProperty({
+    example: true,
+    description: 'Pin post, or not',
+    required: true,
+  })
+  @Transform(({ value }) => toBoolean(value))
+  @IsBoolean()
+  pin_message: boolean;
 
   @ApiProperty({
     example: '2023-04-12T00:17:49.801Z',
