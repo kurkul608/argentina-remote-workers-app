@@ -1,43 +1,44 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
+import tt from 'typegram';
+import { ApiProperty } from '@nestjs/swagger';
 
 export type ChatDocument = Chat & Document;
 
+interface ITgChatInfo {
+  chat_info: tt.ChatFromGetChat;
+  chat_members_count: number;
+  photos: {
+    small?: string;
+    big?: string;
+  };
+}
+
+@Schema()
+export class TgChatInfo extends Document {
+  @ApiProperty()
+  @Prop({ type: Object, required: true })
+  chat_info: tt.ChatFromGetChat;
+
+  @ApiProperty()
+  @Prop({ type: Number, required: true })
+  chat_members_count: number;
+
+  @ApiProperty()
+  @Prop({ type: { small: String, big: String }, required: true })
+  photos: any;
+}
+
+export const TgChatInfoSchema = SchemaFactory.createForClass(TgChatInfo);
 @Schema()
 export class Chat {
-  @Prop({ type: Number, required: true })
-  id: number;
+  @ApiProperty()
+  @Prop({ type: TgChatInfoSchema, ref: TgChatInfo.name })
+  tg_chat_info: ITgChatInfo;
 
-  @Prop({ required: true })
-  title: string;
-
-  @Prop({ required: true })
-  type: string;
-
-  @Prop({ required: false })
-  invite_link: string;
-
-  @Prop({
-    required: false,
-    type: {
-      can_send_messages: Boolean,
-      can_send_media_messages: Boolean,
-      can_send_polls: Boolean,
-      can_send_other_messages: Boolean,
-      can_add_web_page_previews: Boolean,
-      can_change_info: Boolean,
-      can_invite_users: Boolean,
-      can_pin_messages: Boolean,
-      can_manage_topics: Boolean,
-    },
-  })
-  permissions: string;
-
-  @Prop({ required: false })
-  join_to_send_messages: boolean;
-
-  @Prop({ required: true })
-  isHidden: boolean;
+  @ApiProperty()
+  @Prop({ required: true, type: Boolean })
+  is_hidden: boolean;
 }
 
 export const ChatSchema = SchemaFactory.createForClass(Chat);

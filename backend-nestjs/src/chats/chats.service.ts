@@ -15,19 +15,43 @@ export class ChatsService {
     private readonly botService: BotService,
     @Inject(forwardRef(() => PaymentService))
     private readonly paymentService: PaymentService,
-  ) {}
+  ) {
+    // this.updateAllChats();
+    // this.findById(-943710240).then((data) => {
+    //   console.log(data);
+    // });
+  }
 
+  // async updateAllChats() {
+  //   const chats = await this.chatModel.find();
+  //   for (const chat of chats) {
+  //     console.log(chat._id);
+  //     const tgInfo = await this.botService.getChatTGInfo(chat.id);
+  //     await chat.updateOne({
+  //       tg_chat_info: {
+  //         chat_info: tgInfo.chatInfo,
+  //         photos: tgInfo.photos,
+  //         chat_members_count: tgInfo.chatMembersCount,
+  //       },
+  //     });
+  //   }
+  // }
   async create(createChatDto: CreateChatDto) {
-    const chatInfo = await this.botService.getChatInfoById(createChatDto.id);
+    // const chatInfo = await this.botService.getChatInfoById(createChatDto.id);
+    const tgInfo = await this.botService.getChatTGInfo(createChatDto.id);
     return this.chatModel.create({
       ...createChatDto,
-      isHidden: !!createChatDto.isHidden,
-      ...chatInfo,
+      is_hidden: !!createChatDto.isHidden,
+      tg_chat_info: {
+        chat_info: tgInfo.chatInfo,
+        photos: tgInfo.photos,
+        chat_members_count: tgInfo.chatMembersCount,
+      },
     });
   }
 
   async findById(id: number) {
-    return this.chatModel.findOne({ id });
+    return this.chatModel.findOne({ 'tg_chat_info.chat_info.id': id });
   }
   async findAndUpdateId(id: number, newId: number) {
     const chat = await this.findById(id);
@@ -55,26 +79,27 @@ export class ChatsService {
   async getAll(limit: number, offset: number, isHidden: boolean) {
     const filters = {};
     if (typeof isHidden === 'boolean') {
-      filters['isHidden'] = isHidden;
+      filters['is_hidden'] = isHidden;
     }
     const chatsFromDB = await this.chatModel
       .find({ ...filters })
       .limit(limit)
       .skip(offset);
     const totalCount = await this.chatModel.find({ ...filters }).count();
-    const data = [];
-    for (const chat of chatsFromDB) {
-      const chatTGInfo = await this.botService.getChatTGInfo(chat.id);
-      const fullChatInfo = {
-        chat,
-        ...chatTGInfo,
-      };
-      data.push(fullChatInfo);
-    }
+    // const data = [];
+    // for (const chat of chatsFromDB) {
+    //   const chatTGInfo = await this.botService.getChatTGInfo(chat.id);
+    //   console.log(chat.id);
+    //   const fullChatInfo = {
+    //     chat,
+    //     ...chatTGInfo,
+    //   };
+    //   data.push(fullChatInfo);
+    // }
 
     return {
       total: totalCount,
-      data,
+      data: chatsFromDB,
     };
   }
 

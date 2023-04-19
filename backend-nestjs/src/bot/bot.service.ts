@@ -74,6 +74,7 @@ export class BotService {
   async getChatTGInfo(chatId: number) {
     const chatInfo = await this.getChatInfoById(chatId);
     const chatMembersCount = await this.getChatMembersById(chatId);
+    // const chatInfo = await this.bot.telegram.getChat(chatId);
     const photos = chatInfo.photo;
     const photosLinks = {
       small: photos?.small_file_id
