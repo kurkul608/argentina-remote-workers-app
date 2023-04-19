@@ -61,14 +61,12 @@ export class CreateMessageDto {
     example: [
       {
         type: ButtonTypeEnum.link,
-        links: [{ text: 'link text', url: 'https://google.com' }],
-        hidden_text_buttons: [
-          {
-            button_text: 'button text',
-            member_text: 'Text for members',
-            not_member_text: 'text for not members',
-          },
-        ],
+        link: { text: 'link text', url: 'https://google.com' },
+        hidden_text_button: {
+          button_text: 'button text',
+          member_text: 'Text for members',
+          not_member_text: 'text for not members',
+        },
       },
     ],
     description: 'Message text',
