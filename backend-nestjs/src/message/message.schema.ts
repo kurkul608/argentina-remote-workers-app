@@ -19,8 +19,8 @@ export interface IHiddenTextButton {
 }
 export interface IKeyboard {
   type: ButtonTypeEnum;
-  links?: ILink[];
-  hidden_text_buttons?: IHiddenTextButton[];
+  link?: ILink;
+  hidden_text_button?: IHiddenTextButton;
 }
 @Schema()
 export class HiddenTextButton extends Document {
@@ -63,16 +63,16 @@ export class Keyboard extends Document {
   type: ButtonTypeEnum;
 
   @ApiProperty()
-  @Prop({ required: false, type: [LinkSchema], ref: Link.name })
-  links?: [ILink];
+  @Prop({ required: false, type: LinkSchema, ref: Link.name })
+  link?: ILink;
 
   @ApiProperty()
   @Prop({
     required: false,
-    type: [HiddenTextButtonSchema],
+    type: HiddenTextButtonSchema,
     ref: HiddenTextButton.name,
   })
-  hidden_text_buttons?: [ILink];
+  hidden_text_button?: IHiddenTextButton;
 }
 
 export const KeyboardSchema = SchemaFactory.createForClass(Keyboard);
@@ -105,8 +105,8 @@ export class Message {
   quill_delta?: string[];
 
   @ApiProperty()
-  @Prop({ required: false, type: [KeyboardSchema], ref: Keyboard.name })
-  keyboard: [IKeyboard];
+  @Prop({ required: false, type: [[KeyboardSchema]], ref: Keyboard.name })
+  keyboard: Array<IKeyboard[]>;
 
   @ApiProperty()
   @Prop({ required: true, type: Types.ObjectId, ref: User.name })

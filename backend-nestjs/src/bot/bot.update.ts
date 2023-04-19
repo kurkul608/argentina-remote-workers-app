@@ -1,5 +1,22 @@
-import { Ctx, InjectBot, Message, On, Start, Update } from 'nestjs-telegraf';
-import { Context, Markup, Telegraf } from 'telegraf';
+import {
+  Ctx,
+  InjectBot,
+  Message,
+  On,
+  Start,
+  Update,
+  InlineQuery,
+  TelegrafContextType,
+  Action,
+} from 'nestjs-telegraf';
+import {
+  Context,
+  Markup,
+  Telegraf,
+  NarrowedContext,
+  // TelegrafContext,
+} from 'telegraf';
+// import { editedMessage, channelPost } from "telegraf/filters";
 import { ChatsService } from '../chats/chats.service';
 import { isPrivate } from './bot.utils';
 import { CreateChatDto } from '../chats/create-chat.dto';
@@ -7,6 +24,7 @@ import { forwardRef, Inject } from '@nestjs/common';
 import { UserService } from '../users/user.service';
 import { Public } from '../auth/public-route.decorator';
 import { AuthService } from '../auth/auth.service';
+import tt from 'typegram';
 
 @Update()
 export class BotUpdate {
@@ -121,23 +139,34 @@ export class BotUpdate {
   }
 
   @Public()
-  @On('message')
-  async messageHandler(@Message('text') msg: string, @Ctx() ctx: Context) {
-    if (ctx.update.update_id) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      const from_chat = ctx.update?.message.migrate_from_chat_id;
-      if (from_chat) {
-        const chat = await this.chatsService.findAndUpdateId(
-          from_chat,
-          ctx.chat.id,
-        );
-        if (chat) {
-          await ctx.reply('Данные чата успешно обновлены');
-          return;
-        }
-      }
+  @On('migrate_from_chat_id')
+  async migrateTest(
+    @Ctx()
+    ctx: NarrowedContext<
+      Context,
+      {
+        update_id: number;
+        message: tt.Message.MigrateFromChatIdMessage;
+      } & tt.Update
+    >,
+  ) {
+    const fromChatId = ctx.update.message.migrate_from_chat_id;
+    const senderChat = ctx.update.message.sender_chat;
+    const newId = senderChat.id;
+    const chat = await this.chatsService.findAndUpdateId(fromChatId, newId);
+    if (chat) {
+      await this.bot.telegram.sendMessage(newId, 'Chat data has been updated');
+      return;
     }
+  }
+
+  @Public()
+  @On('message')
+  async messageHandler(
+    @Message('text') msg: string,
+    @Ctx()
+    ctx: Context,
+  ) {
     if (!msg) {
       return;
     }
@@ -163,6 +192,19 @@ export class BotUpdate {
         );
       }
     }
+    return;
+  }
+
+  @Public()
+  @Action('data')
+  async callBack(
+    @Ctx()
+    ctx: NarrowedContext<Context, tt.Update.CallbackQueryUpdate>,
+    // @UpdateType() updateType: TelegrafUpdateType,
+  ) {
+    // console.log(ctx.update.callback_query.data);
+    // console.log(ctx.update.callback_query.from);
+    // console.log(ctx.update.callback_query.message);
     return;
   }
 
