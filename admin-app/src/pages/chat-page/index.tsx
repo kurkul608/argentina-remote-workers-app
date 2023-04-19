@@ -5,13 +5,19 @@ import { WidgetWrapper } from "shared/widget/components/widget-wrapper";
 import { Breadcrumbs } from "shared/components/breadcrumbs";
 import { PageTitle } from "shared/components/title";
 import { useAppSelector } from "redux/hooks";
+import { IRootState } from "redux/store";
 
+const selector = (state: IRootState) => ({
+	chat: state.chat.chat,
+});
 export const ChatPage = () => {
-	const { data } = useAppSelector((state) => state.chat);
+	const { chat } = useAppSelector(selector);
 	return (
 		<>
 			<PageTitle>
-				<h3>{data.chatInfo.title}</h3>
+				{/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+				{/*@ts-ignore*/}
+				<h3>{chat?.tgChatInfo.chatInfo.title}</h3>
 				<Breadcrumbs link={location.pathname} />
 			</PageTitle>
 			<ChatTopBar />

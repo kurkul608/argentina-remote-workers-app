@@ -7,26 +7,28 @@ export const instance = axios.create({
 		"Content-Type": "application/json",
 	},
 });
-export const get = async <T, D = any>(
-	path: string,
-	authToken: string,
-	query?: D
-) => {
-	try {
-		const chatTableData = await instance.get<T>(path, {
-			headers: {
-				Authorization: `Bearer ${authToken}`,
-			},
-			params: query,
-		});
-		return chatTableData.data;
-	} catch (error) {
-		if (axios.isAxiosError(error)) {
-			return error.message;
-		} else {
-			return "An unexpected error occurred";
-		}
-	}
+export const get = <T, D = any>(path: string, authToken: string, query?: D) => {
+	return instance.get<T>(path, {
+		headers: {
+			Authorization: `Bearer ${authToken}`,
+		},
+		params: query,
+	});
+	// try {
+	// 	const chatTableData = await instance.get<T>(path, {
+	// 		headers: {
+	// 			Authorization: `Bearer ${authToken}`,
+	// 		},
+	// 		params: query,
+	// 	});
+	// 	return chatTableData.data;
+	// } catch (error) {
+	// 	if (axios.isAxiosError(error)) {
+	// 		return error.message;
+	// 	} else {
+	// 		return "An unexpected error occurred";
+	// 	}
+	// }
 };
 interface IParams<D, P> {
 	path: string;

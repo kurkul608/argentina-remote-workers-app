@@ -29,18 +29,25 @@ import { useParams } from "react-router";
 import { useAppDispatch, useAppSelector } from "redux/hooks";
 import { getChatAsync } from "shared/chat/redux/chat-info-page/chat.slice";
 import { getAuthToken } from "helpers/storage-parser";
+import { IRootState } from "redux/store";
 
+const selector = (state: IRootState) => ({
+	chat: state.chat.chat,
+	auth: state.auth,
+});
 export const ChatWidget = () => {
 	const { chatId } = useParams();
-	const { data, auth } = useAppSelector((state) => ({
-		data: state.chat.data,
-		auth: state.auth,
-	}));
+
+	const { chat, auth } = useAppSelector(selector);
+
 	const dispatch = useAppDispatch();
+
 	const token = getAuthToken(auth)!;
+
 	useEffect(() => {
 		if (chatId) dispatch(getChatAsync({ id: +chatId, token }));
 	}, [token]);
+
 	return (
 		<>
 			<Widget>
@@ -48,8 +55,12 @@ export const ChatWidget = () => {
 					<ChatHeader>
 						<BackButton>Назад</BackButton>
 						<ChatName>
-							<ChatTitle>{data.chatInfo.title}</ChatTitle>
-							<ChatUnderTitle>{data.chatMembersCount}</ChatUnderTitle>
+							{/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+							{/*@ts-ignore*/}
+							<ChatTitle>{chat?.tgChatInfo.chatInfo.title}</ChatTitle>
+							<ChatUnderTitle>
+								{chat?.tgChatInfo.chatMembersCount}
+							</ChatUnderTitle>
 						</ChatName>
 						<ChatPhoto />
 					</ChatHeader>

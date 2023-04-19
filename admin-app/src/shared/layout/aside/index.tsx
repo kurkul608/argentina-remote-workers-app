@@ -13,10 +13,12 @@ import { useAppSelector } from "redux/hooks";
 import { searchParamsBuilder } from "shared/router/services/search-params-builder";
 import { searchParamsGrabber } from "shared/router/services/search-params-grabber";
 import { searchParamsFinder } from "shared/router/services/search-params-finder";
+import { IRootState } from "redux/store";
 
+const selector = (state: IRootState) => ({ chat: state.chat.chat });
 export const Aside = () => {
 	const { t } = useTranslation("translation", { keyPrefix: "aside" });
-	const { chatInfo } = useAppSelector((state) => state.chat.data);
+	const { chat } = useAppSelector(selector);
 	const locate = useLocation();
 	const params = useParams();
 	const isHidden = !params.chatId;
@@ -71,11 +73,15 @@ export const Aside = () => {
 				<StyledNavBar>
 					<NavLink
 						end
-						to={routeReplacer(
-							routeBuilder([Routes.admin, Routes.chat]),
-							"chatId",
-							chatInfo.id
-						)}
+						to={
+							chat
+								? routeReplacer(
+										routeBuilder([Routes.admin, Routes.chat]),
+										"chatId",
+										chat.tgChatInfo.chatInfo.id
+								  )
+								: Routes.admin
+						}
 						className={({ isActive }) =>
 							isActive ? "active-nav-link" : undefined
 						}
@@ -84,11 +90,15 @@ export const Aside = () => {
 					</NavLink>
 					<NavLink
 						end
-						to={routeReplacer(
-							routeBuilder([Routes.admin, Routes.chatSettings]),
-							"chatId",
-							chatInfo.id
-						)}
+						to={
+							chat
+								? routeReplacer(
+										routeBuilder([Routes.admin, Routes.chatSettings]),
+										"chatId",
+										chat.tgChatInfo.chatInfo.id
+								  )
+								: Routes.admin
+						}
 						className={({ isActive }) =>
 							isActive ? "active-nav-link" : undefined
 						}

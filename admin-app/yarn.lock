@@ -6276,6 +6276,11 @@ typed-array-length@^1.0.4:
     for-each "^0.3.3"
     is-typed-array "^1.1.9"
 
+typegram@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/typegram/-/typegram-5.0.0.tgz#1b3f1b36a4dba0b189d5ad0dc659c343648e4be2"
+  integrity sha512-6Z4klKmEsDKfN8dLEf8Buh6vZk1RMGUgOJscVSRXbM+RiiRgjeabc2NucR4e+RoQ1m3mwMjbi+Td+TbrQTWT+g==
+
 typescript@*:
   version "4.9.4"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.9.4.tgz#a2a3d2756c079abda241d75f149df9d561091e78"
