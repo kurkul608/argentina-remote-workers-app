@@ -68,6 +68,8 @@ export class BotUpdate {
   @Public()
   @On('new_chat_members')
   async newChatMember(
+    @Message('chat')
+    ch,
     @Message('new_chat_members')
     members: Array<{
       id: number;
@@ -77,6 +79,7 @@ export class BotUpdate {
     }>,
     @Ctx() ctx: Context,
   ) {
+    console.log(ch);
     const botName = process.env.TELEGRAM_API_NAME;
     if (isPrivate(ctx.chat.type)) {
       await ctx.reply(
@@ -90,6 +93,7 @@ export class BotUpdate {
         if (isItsMe) {
           await ctx.reply('Здарова удаленщики');
           const chat = await this.chatsService.findById(ctx.chat.id);
+          console.log(chat);
           if (!chat) {
             await this.chatsService.create(ctx.chat as CreateChatDto);
           }
