@@ -16,7 +16,6 @@ import {
 	TextWrapper,
 } from "./styled";
 import { getAllChats } from "shared/chat/redux/chat-page/chat-list.slice";
-import { IChatInterface } from "interfaces/chat.interface";
 import { routeBuilderWithReplace } from "shared/router/services/route-builder";
 import { Routes } from "shared/router";
 import { getAuthToken } from "helpers/storage-parser";
@@ -28,6 +27,7 @@ import { searchParamsGrabber } from "shared/router/services/search-params-grabbe
 import { useLocation } from "react-router-dom";
 import { searchParamsFinder } from "shared/router/services/search-params-finder";
 import { Icon, IconName } from "shared/components/icon";
+import { IChat } from "shared/chat/types/chat.interface";
 
 export const ChatListWidget = () => {
 	const dispatch = useAppDispatch();
@@ -61,23 +61,23 @@ export const ChatListWidget = () => {
 	};
 	const navigate = useNavigate();
 	const handleOnClick = useCallback(
-		(chat: IChatInterface) =>
+		(chat: IChat) =>
 			navigate(
 				routeBuilderWithReplace(
 					[Routes.admin, Routes.chatList, Routes.chat],
 					"chatId",
-					chat.id
+					chat.tgChatInfo.chatInfo.id
 				)
 			),
 		[navigate]
 	);
 	const handleOnClickSettings = useCallback(
-		(chat: IChatInterface) =>
+		(chat: IChat) =>
 			navigate(
 				routeBuilderWithReplace(
 					[Routes.admin, Routes.chatList, Routes.chat, Routes.chatSettings],
 					"chatId",
-					chat.id
+					chat.tgChatInfo.chatInfo.id
 				)
 			),
 		[navigate]
@@ -91,19 +91,22 @@ export const ChatListWidget = () => {
 				callback={onScroll}
 			>
 				<ChatsWrapper>
-					{list.map(({ chat, photos, chatMembersCount }) => (
-						<ChatListWrapper key={`widget-chat-list--${chat.id}`}>
+					{list.map((chat) => (
+						<ChatListWrapper
+							key={`widget-chat-list--${chat.tgChatInfo.chatInfo.id}`}
+						>
 							<Widget onClick={() => handleOnClick(chat)}>
 								<ChatWrapper>
 									<TextWrapper>
 										<ChatPhotoWrapper>
-											<ChatPhoto chatPhoto={photos.small}>
-												{!photos.small && chat.title[0].toUpperCase()}
+											<ChatPhoto chatPhoto={chat.tgChatInfo.photos.small}>
+												{!chat.tgChatInfo.photos.small &&
+													chat.tgChatInfo.chatInfo.title[0].toUpperCase()}
 											</ChatPhoto>
 										</ChatPhotoWrapper>
 										<ChatTitleWrapper>
-											<ChatTitle>{chat.title}</ChatTitle>
-											<Subscribers>{`${chatMembersCount} ${t(
+											<ChatTitle>{chat.tgChatInfo.chatInfo.title}</ChatTitle>
+											<Subscribers>{`${chat.tgChatInfo.chatMembersCount} ${t(
 												"count"
 											)}`}</Subscribers>
 										</ChatTitleWrapper>

@@ -6,33 +6,36 @@ import { useParams } from "react-router";
 import { useAppDispatch, useAppSelector } from "redux/hooks";
 import { getChatAsync } from "../../redux/chat-info-page/chat.slice";
 import { getAuthToken } from "helpers/storage-parser";
+import { IRootState } from "redux/store";
 
+const selector = (state: IRootState) => ({
+	chatInfo: state.chat.chat?.tgChatInfo.chatInfo,
+	chatMembersCount: state.chat.chat?.tgChatInfo.chatMembersCount,
+	auth: state.auth,
+});
 export const ChatInfoWidget = () => {
 	const { t } = useTranslation("translation", {
 		keyPrefix: "chatInfoWidget",
 	});
 	const { chatId } = useParams();
-	const { data, auth } = useAppSelector((state) => ({
-		data: state.chat.data,
-		auth: state.auth,
-	}));
+	const { chatInfo, chatMembersCount, auth } = useAppSelector(selector);
 	const dispatch = useAppDispatch();
 	const token = getAuthToken(auth)!;
 	useEffect(() => {
 		if (chatId) dispatch(getChatAsync({ id: +chatId, token }));
 	}, []);
-	const { id, title } = data.chatInfo;
-	const count = data.chatMembersCount;
+
+	const count = chatMembersCount;
 	return (
 		<Widget name={t("infoWidgetTitle") as string}>
 			<SettingsUL>
 				<SettingLine>
 					<LineTitle>{t("id")}</LineTitle>
-					<LineDescription>{id}</LineDescription>
+					<LineDescription>{chatInfo?.id}</LineDescription>
 				</SettingLine>
 				<SettingLine>
 					<LineTitle>{t("chatTitle")}</LineTitle>
-					<LineDescription>{title}</LineDescription>
+					<LineDescription>{chatInfo?.title}</LineDescription>
 				</SettingLine>
 				<SettingLine>
 					<LineTitle>{t("count")}</LineTitle>

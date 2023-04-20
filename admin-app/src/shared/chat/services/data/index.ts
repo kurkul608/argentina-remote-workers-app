@@ -1,8 +1,7 @@
 import { get, post } from "services/api";
 import { ITableDataInterface } from "interfaces/dto/table-data.interface";
-import { IChat, IChatInterface } from "interfaces/chat.interface";
-import { ISelectedChat } from "shared/chat/types/chat-types";
 import { ChatSettings } from "shared/chat/types/chat-settings";
+import { IChatDto } from "shared/chat/types/chat-dto.interface";
 
 export interface AllChatsQuery {
 	limit: number;
@@ -15,10 +14,10 @@ export interface ChatChangeVisibleQuery {
 }
 
 export const getChatsList = (token: string, query: AllChatsQuery) =>
-	get<ITableDataInterface<IChat>>("chats", token, query);
+	get<ITableDataInterface<IChatDto>>("chats", token, query);
 
 export const getChat = (id: number, token: string) =>
-	get<ISelectedChat>(`chats/${id}`, token);
+	get<IChatDto>(`chats/${id}`, token);
 
 export const getSettings = (id: number, token: string) =>
 	new Promise((resolve) =>
@@ -60,7 +59,7 @@ export const chatChangeVisible = (
 	query: ChatChangeVisibleQuery,
 	token: string
 ) =>
-	post<IChatInterface>({
+	post<IChatDto>({
 		authToken: token,
 		query: query,
 		path: `chats/${id}/change-visible`,

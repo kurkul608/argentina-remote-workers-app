@@ -29,13 +29,17 @@ import { useParams } from "react-router";
 import { useAppDispatch, useAppSelector } from "redux/hooks";
 import { getChatAsync } from "shared/chat/redux/chat-info-page/chat.slice";
 import { getAuthToken } from "helpers/storage-parser";
+import { IRootState } from "redux/store";
+
+const selector = (state: IRootState) => ({
+	chatInfo: state.chat.chat?.tgChatInfo.chatInfo,
+	chatMembersCount: state.chat.chat?.tgChatInfo.chatMembersCount,
+	auth: state.auth,
+});
 
 export const ChatWidget = () => {
 	const { chatId } = useParams();
-	const { data, auth } = useAppSelector((state) => ({
-		data: state.chat.data,
-		auth: state.auth,
-	}));
+	const { chatInfo, chatMembersCount, auth } = useAppSelector(selector);
 	const dispatch = useAppDispatch();
 	const token = getAuthToken(auth)!;
 	useEffect(() => {
@@ -48,8 +52,8 @@ export const ChatWidget = () => {
 					<ChatHeader>
 						<BackButton>Назад</BackButton>
 						<ChatName>
-							<ChatTitle>{data.chatInfo.title}</ChatTitle>
-							<ChatUnderTitle>{data.chatMembersCount}</ChatUnderTitle>
+							<ChatTitle>{chatInfo?.title}</ChatTitle>
+							<ChatUnderTitle>{chatMembersCount}</ChatUnderTitle>
 						</ChatName>
 						<ChatPhoto />
 					</ChatHeader>

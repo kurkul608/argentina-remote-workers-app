@@ -5,13 +5,18 @@ import { Breadcrumbs } from "shared/components/breadcrumbs";
 import { PageTitle } from "shared/components/title";
 import { useAppSelector } from "redux/hooks";
 import { ChatInfoWidget } from "shared/chat/components/chat-info-page";
+import { IRootState } from "redux/store";
+
+const selector = (state: IRootState) => ({
+	chatInfo: state.chat.chat?.tgChatInfo.chatInfo,
+});
 
 export const ChatPage = () => {
-	const { data } = useAppSelector((state) => state.chat);
+	const { chatInfo } = useAppSelector(selector);
 	return (
 		<>
 			<PageTitle>
-				<h3>{data.chatInfo.title}</h3>
+				<h3>{chatInfo?.title}</h3>
 				<Breadcrumbs link={location.pathname} />
 			</PageTitle>
 			<ChatTopBar />

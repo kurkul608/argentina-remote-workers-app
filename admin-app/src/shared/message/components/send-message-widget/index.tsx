@@ -19,18 +19,20 @@ import { DropdownList, IDropdownOption } from "shared/components/dropdown-list";
 import { useAppSelector } from "redux/hooks";
 import { sendMessage } from "../../services/data";
 import * as Yup from "yup";
-import { IChat } from "interfaces/chat.interface";
 import { TextEditor } from "shared/components/text-editor";
 import { getAuthToken } from "helpers/storage-parser";
+import { IChat } from "shared/chat/types/chat.interface";
 
 interface SendMessageWidgetProps {
 	chatIds?: number[];
 }
 
-const chatToOption = ({ chat }: IChat): IDropdownOption => ({
-	label: chat.title,
-	key: `dropdown-chat-option-${chat.id}`,
-	value: chat.id.toString(),
+const chatToOption = ({
+	tgChatInfo: { chatInfo },
+}: IChat): IDropdownOption => ({
+	label: chatInfo.title,
+	key: `dropdown-chat-option-${chatInfo.id}`,
+	value: chatInfo.id.toString(),
 });
 
 export const SendMessageWidget = ({ chatIds }: SendMessageWidgetProps) => {
