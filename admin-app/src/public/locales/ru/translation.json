@@ -1,0 +1,28 @@
+{
+	"aside": {
+		"mainPage": "Главная страница",
+		"chatList": "Список чатов",
+		"hiddenChatList": "Скрытые чаты",
+		"test": "Тест",
+		"chatCategories" :{
+			"settings": "Настройки",
+			"info": "Информация"
+		}
+	},
+	"header": {
+		"logout": "Выход"
+	},
+	"chatPage": {
+		"chatList": "Список чатов"
+	},
+	"chatsPage": {
+		"chats": "Чаты",
+		"count": "Подписчиков"
+	},
+	"chatInfoWidget": {
+		"infoWidgetTitle": "Детельная информация о чате",
+		"id": "ID чата",
+		"chatTitle": "Название чата",
+		"count": "Количество участников"
+	}
+}

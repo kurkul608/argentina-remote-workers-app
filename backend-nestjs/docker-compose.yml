@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  node:
+    image: zalupa-back
+    build: .
+    ports:
+      - "5050:5050"
+    env_file:
+      - .env.docker
+
+  redis:
+    image: redis:latest
+    container_name: client
+    restart: unless-stopped
+    ports:
+      - 6379:6379
+
+
+  mongodb_container:
+    image: mongo:latest
+    ports:
+      - 27017:27017
+    env_file:
+      - .env
+    volumes:
+      - mongodb_data_container:/data/db
+volumes:
+  mongodb_data_container:

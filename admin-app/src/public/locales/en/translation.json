@@ -1,0 +1,29 @@
+{
+	"aside": {
+		"mainPage": "Main page",
+		"chatList": "Chat List",
+		"hiddenChatList": "Hidden Chats",
+		"test": "Test",
+		"chatCategories": {
+			"settings": "Settings",
+			"info": "Info"
+		}
+	},
+	"header": {
+		"logout": "Log out"
+	},
+	"chatPage": {
+		"chat": "Chat",
+		"chatList": "Chat list"
+	},
+	"chatsPage": {
+		"chats": "Chats",
+		"count": "Subscribers"
+	},
+	"chatInfoWidget": {
+		"infoWidgetTitle": "Detailed information about the chat",
+		"id": "Chat ID",
+		"chatTitle": "Chat title",
+		"count": "Subscribers count"
+	}
+}

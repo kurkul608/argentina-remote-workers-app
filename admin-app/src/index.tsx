@@ -1,9 +1,16 @@
 import React from "react";
-import { createRoot } from "react-dom/client";
-import { App } from "./App";
-import { BrowserRouter } from "react-router-dom";
+import { App } from "App";
+import { Provider } from "react-redux";
+import { store } from "redux/store";
+import "./shared/i18n";
+import * as ReactDOM from "react-dom/client";
 
-const rootNode = document.getElementById("root");
-if (rootNode) {
-  createRoot(rootNode).render(<BrowserRouter><App /></BrowserRouter>);
-}
+const rootNode = ReactDOM.createRoot(
+	document.getElementById("root") as HTMLElement
+);
+
+rootNode.render(
+	<Provider store={store}>
+		<App />
+	</Provider>
+);
