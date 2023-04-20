@@ -1,8 +1,9 @@
-import { Controller, Get, Param, Post, Query } from '@nestjs/common';
+import { Controller, Get, Param, Post, Query, UsePipes } from '@nestjs/common';
 import { ChatsService } from './chats.service';
 import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateChatDto } from './create-chat.dto';
 import { PaymentType } from '../payment/dto/create-payment.dto';
+import { MongoIdPipe } from '../pipes/mongo-id.pipe';
 
 @Controller('chats')
 @ApiTags('chats')
@@ -37,12 +38,13 @@ export class ChatsController {
     required: false,
     enum: PaymentType,
   })
+  @UsePipes(MongoIdPipe)
   @Get(':id')
   getChatInfo(
-    @Param('id') id: number,
+    @Param('id') id: string,
     @Query('paymentType') paymentType: PaymentType,
   ) {
-    return this.chatsService.getChatInfo(id, paymentType);
+    return this.chatsService.getChatInfo(+id, paymentType);
   }
 
   @ApiOperation({ summary: 'Change chat visible' })
@@ -52,9 +54,10 @@ export class ChatsController {
     name: 'isHidden',
     required: false,
   })
+  @UsePipes(MongoIdPipe)
   @Post(':id/change-visible')
   changeChatVisible(
-    @Param('id') id: number,
+    @Param('id') id: string,
     @Query('isHidden') isHidden: boolean,
   ) {
     return this.chatsService.changeVisible(id, isHidden);

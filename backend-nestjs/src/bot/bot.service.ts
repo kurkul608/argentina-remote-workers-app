@@ -1,11 +1,14 @@
 import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { InjectBot } from 'nestjs-telegraf';
-import { Context, Telegraf } from 'telegraf';
+import { Context, Markup, Telegraf } from 'telegraf';
 import { MessageDocument } from '../message/message.schema';
 import { ChatsService } from '../chats/chats.service';
 import { SetRestrictPermissionsDto } from '../setting/dto/set-restrict-permissions.dto';
 import { SetAdminPermissionsDto } from '../setting/dto/set-admin-permissions.dto';
+import { ButtonTypeEnum } from '../message/constants/button-type.enum';
+import tt from 'typegram';
 
+// type Hideable<B> = B & { hide?: boolean };
 @Injectable()
 export class BotService {
   constructor(
@@ -19,28 +22,42 @@ export class BotService {
     message: MessageDocument,
     pinMessage: boolean,
   ) {
-    // const t = Markup.inlineKeyboard([Markup.button.text('text')]);
-    // const t = Markup.inlineKeyboard([Markup.button.callback()]);
+    const buttonLinks: tt.InlineKeyboardButton[][] = [
+      ...message.keyboard,
+    ].reduce(
+      (accRow: tt.InlineKeyboardButton[][], buttonRow) => [
+        ...accRow,
+        buttonRow.reduce(
+          (accCell: tt.InlineKeyboardButton[], buttonCell) => [
+            ...accCell,
+            buttonCell.type === ButtonTypeEnum.link
+              ? Markup.button.url(buttonCell.link.text, buttonCell.link.url)
+              : Markup.button.callback(
+                  buttonCell.hidden_text_button.button_text,
+                  'data',
+                ),
+          ],
+          [],
+        ),
+      ],
+      [],
+    );
+
     const messageText = message.quill_delta?.reduce(
-      (acc, str) => `${acc}\r${str}`,
+      (acc, str) => `${acc}\n${str}`,
       '',
     );
-    await this.bot.telegram.sendMessage(chatId, messageText).then((mes) => {
-      if (pinMessage) {
-        return this.bot.telegram.pinChatMessage(chatId, mes.message_id);
-      }
-    });
-    // await this.bot.telegram
-    //   .sendMessage(chatId, message, {
-    //     parse_mode: 'HTML',
-    //     protect_content: true,
-    //     entities: [{ type: 'code', offset: 0, length: 1 }],
-    //   })
-    //   .then((m) => {
-    //     if (pinMessage) {
-    //       return this.bot.telegram.pinChatMessage(chatId, m.message_id);
-    //     }
-    //   });
+
+    await this.bot.telegram
+      .sendMessage(chatId, messageText, {
+        disable_notification: message.notifications,
+        ...Markup.inlineKeyboard(buttonLinks),
+      })
+      .then((mes) => {
+        if (pinMessage) {
+          return this.bot.telegram.pinChatMessage(chatId, mes.message_id);
+        }
+      });
     return;
   }
   async getChatInfoById(chatId: number) {
@@ -64,6 +81,7 @@ export class BotService {
   async getChatTGInfo(chatId: number) {
     const chatInfo = await this.getChatInfoById(chatId);
     const chatMembersCount = await this.getChatMembersById(chatId);
+    // const chatInfo = await this.bot.telegram.getChat(chatId);
     const photos = chatInfo.photo;
     const photosLinks = {
       small: photos?.small_file_id
