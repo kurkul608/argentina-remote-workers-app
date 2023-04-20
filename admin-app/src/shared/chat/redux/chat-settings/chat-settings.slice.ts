@@ -8,7 +8,7 @@ export interface IChatSettings {
 }
 export interface GetChatAsyncParams {
 	token: string;
-	id: number;
+	id: string;
 }
 export const getChatSettingsAsync = createAsyncThunk(
 	"chats/getSettings",

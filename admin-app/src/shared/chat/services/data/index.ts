@@ -16,10 +16,10 @@ export interface ChatChangeVisibleQuery {
 export const getChatsList = (token: string, query: AllChatsQuery) =>
 	get<ITableDataInterface<IChatDto>>("chats", token, query);
 
-export const getChat = (id: number, token: string) =>
+export const getChat = (id: string, token: string) =>
 	get<IChatDto>(`chats/${id}`, token);
 
-export const getSettings = (id: number, token: string) =>
+export const getSettings = (id: string, token: string) =>
 	new Promise((resolve) =>
 		setTimeout(
 			() =>
@@ -55,7 +55,7 @@ export const getSettings = (id: number, token: string) =>
 	);
 
 export const chatChangeVisible = (
-	id: number,
+	id: string,
 	query: ChatChangeVisibleQuery,
 	token: string
 ) =>

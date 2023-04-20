@@ -21,8 +21,8 @@ export const ChatSettings = () => {
 
 	useEffect(() => {
 		if (chatId) {
-			dispatch(getChatAsync({ id: +chatId, token }));
-			dispatch(getChatSettingsAsync({ id: +chatId, token }));
+			dispatch(getChatAsync({ id: chatId, token }));
+			dispatch(getChatSettingsAsync({ id: chatId, token }));
 		}
 	}, []);
 	return (

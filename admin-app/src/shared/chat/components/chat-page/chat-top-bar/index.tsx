@@ -11,7 +11,8 @@ import { changeVisibleAsync } from "shared/chat/redux/chat-info-page/chat.slice"
 import { IRootState } from "redux/store";
 
 const selector = (state: IRootState) => ({
-	chat: state.chat.chat?.tgChatInfo.chatInfo,
+	chatId: state.chat.chat?._id,
+	chatInfo: state.chat.chat?.tgChatInfo.chatInfo,
 	photos: state.chat.chat?.tgChatInfo.photos,
 	token: getAuthToken(state.auth)!,
 	isHidden: state.chat.chat?.isHidden,
@@ -19,16 +20,17 @@ const selector = (state: IRootState) => ({
 
 export const ChatTopBar = () => {
 	const dispatch = useAppDispatch();
-	const { photos, chat, token, isHidden } = useAppSelector(selector);
+	const { photos, chatInfo, chatId, token, isHidden } =
+		useAppSelector(selector);
 	const handleClick = () => {
-		dispatch(changeVisibleAsync({ id: chat!.id, isHidden: !!isHidden, token }));
+		dispatch(changeVisibleAsync({ id: chatId!, isHidden: !!isHidden, token }));
 	};
 	return (
 		<>
 			<Widget>
 				<TopBarWrapper>
 					<TopBarChatPhoto chatPhoto={photos?.small}>
-						{!photos?.small && chat?.title}
+						{!photos?.small && chatInfo?.title}
 					</TopBarChatPhoto>
 					<Button isDisabled={false} onClick={handleClick}>
 						{isHidden ? "hidden" : "nothidden"}
