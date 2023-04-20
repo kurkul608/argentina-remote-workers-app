@@ -12,15 +12,15 @@ export const initialState: IAuth = {
 	isExpired: false,
 };
 
-interface IErrorAuthMessage {
-	message: string;
-	statusCode: number;
-}
+// interface IErrorAuthMessage {
+// 	message: string;
+// 	statusCode: number;
+// }
 
 export const checkAuthAsync = createAsyncThunk(
 	"auth/check",
 	async (token: string) => {
-		return (await checkAuth(token)) as IErrorAuthMessage | boolean;
+		return checkAuth(token);
 	}
 );
 
@@ -37,7 +37,8 @@ const AuthSlice = createSlice({
 	},
 	extraReducers: (builder) => {
 		builder.addCase(checkAuthAsync.fulfilled, (state, action) => {
-			if (typeof action.payload === "boolean") {
+			const response = action.payload.data;
+			if (typeof response === "boolean") {
 				state.isExpired = false;
 			} else {
 				state.isExpired = true;

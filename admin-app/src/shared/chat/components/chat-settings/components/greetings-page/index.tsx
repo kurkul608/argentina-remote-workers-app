@@ -6,10 +6,15 @@ import { TabMenuWrapper } from "shared/chat/components/chat-settings/styled";
 import { useNavigate } from "react-router";
 import { useAppSelector } from "redux/hooks";
 import { routeBuilderWithReplace } from "shared/router/services/route-builder";
+import { IRootState } from "redux/store";
+
+const selector = (state: IRootState) => ({
+	chatInfo: state.chat.chat?.tgChatInfo.chatInfo,
+});
 
 export const GreetingsPage = () => {
 	const navigate = useNavigate();
-	const { chatInfo } = useAppSelector((state) => state.chat.data);
+	const { chatInfo } = useAppSelector(selector);
 
 	const match = useMatch(
 		routeBuilderWithReplace(
@@ -21,7 +26,7 @@ export const GreetingsPage = () => {
 				Routes.chatSettingsGreeting,
 			],
 			"chatId",
-			chatInfo.id
+			chatInfo?.id || 0
 		)
 	);
 	const TabConfig: ITabMenu[] = [

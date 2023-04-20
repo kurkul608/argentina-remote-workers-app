@@ -21,21 +21,12 @@ export const get = async <T, D = any>(
 	authToken: string,
 	query?: D
 ) => {
-	try {
-		const chatTableData = await instance.get<T>(path, {
-			headers: {
-				Authorization: `Bearer ${authToken}`,
-			},
-			params: query,
-		});
-		return chatTableData.data;
-	} catch (error) {
-		if (axios.isAxiosError(error)) {
-			return error.message;
-		} else {
-			return "An unexpected error occurred";
-		}
-	}
+	return instance.get<T>(path, {
+		headers: {
+			Authorization: `Bearer ${authToken}`,
+		},
+		params: query,
+	});
 };
 interface IParams<D, P> {
 	path: string;
@@ -49,19 +40,10 @@ export const post = async <T>({
 	body,
 	path,
 }: IParams<any, any>) => {
-	try {
-		const chatTableData = await instance.post<T>(path, body, {
-			headers: {
-				Authorization: `Bearer ${authToken}`,
-			},
-			params: query,
-		});
-		return chatTableData.data;
-	} catch (error) {
-		if (axios.isAxiosError(error)) {
-			return error.message;
-		} else {
-			return "An unexpected error occurred";
-		}
-	}
+	return instance.post<T>(path, body, {
+		headers: {
+			Authorization: `Bearer ${authToken}`,
+		},
+		params: query,
+	});
 };

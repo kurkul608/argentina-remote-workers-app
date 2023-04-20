@@ -17,10 +17,15 @@ import { searchParamsGrabber } from "shared/router/services/search-params-grabbe
 import { searchParamsFinder } from "shared/router/services/search-params-finder";
 import { Accordion } from "shared/components/accordion";
 import { routeExactMatch } from "shared/router/services/route-exact";
+import { IRootState } from "redux/store";
+
+const selector = (state: IRootState) => ({
+	chatInfo: state.chat.chat?.tgChatInfo.chatInfo,
+});
 
 export const Aside = () => {
 	const { t } = useTranslation("translation", { keyPrefix: "aside" });
-	const { chatInfo } = useAppSelector((state) => state.chat.data);
+	const { chatInfo } = useAppSelector(selector);
 	const locate = useLocation();
 	const params = useParams();
 	const isHidden = !params.chatId;
@@ -75,11 +80,15 @@ export const Aside = () => {
 				<StyledNavBar>
 					<NavLink
 						end
-						to={routeBuilderWithReplace(
-							[Routes.admin, Routes.chatList, Routes.chat],
-							"chatId",
-							chatInfo.id
-						)}
+						to={
+							chatInfo
+								? routeBuilderWithReplace(
+										[Routes.admin, Routes.chatList, Routes.chat],
+										"chatId",
+										chatInfo.id
+								  )
+								: Routes.admin
+						}
 						className={({ isActive }) =>
 							isActive ? "active-nav-link" : undefined
 						}
@@ -93,17 +102,21 @@ export const Aside = () => {
 							isOpen={routeExactMatch(locate.pathname, Routes.chatSettings, 1)}
 						>
 							<NavLink
-								to={routeBuilderWithReplace(
-									[
-										Routes.admin,
-										Routes.chatList,
-										Routes.chat,
-										Routes.chatSettings,
-										Routes.chatSettingsMembersRights,
-									],
-									"chatId",
-									chatInfo.id
-								)}
+								to={
+									chatInfo
+										? routeBuilderWithReplace(
+												[
+													Routes.admin,
+													Routes.chatList,
+													Routes.chat,
+													Routes.chatSettings,
+													Routes.chatSettingsMembersRights,
+												],
+												"chatId",
+												chatInfo.id
+										  )
+										: Routes.admin
+								}
 								className={({ isActive }) =>
 									isActive ? "active-nav-link" : undefined
 								}
@@ -111,17 +124,21 @@ export const Aside = () => {
 								<p>User Rights</p>
 							</NavLink>
 							<NavLink
-								to={routeBuilderWithReplace(
-									[
-										Routes.admin,
-										Routes.chatList,
-										Routes.chat,
-										Routes.chatSettings,
-										Routes.chatSettingsGreeting,
-									],
-									"chatId",
-									chatInfo.id
-								)}
+								to={
+									chatInfo
+										? routeBuilderWithReplace(
+												[
+													Routes.admin,
+													Routes.chatList,
+													Routes.chat,
+													Routes.chatSettings,
+													Routes.chatSettingsGreeting,
+												],
+												"chatId",
+												chatInfo.id
+										  )
+										: Routes.admin
+								}
 								className={({ isActive }) =>
 									isActive ? "active-nav-link" : undefined
 								}
@@ -129,17 +146,21 @@ export const Aside = () => {
 								<p>Greeting</p>
 							</NavLink>
 							<NavLink
-								to={routeBuilderWithReplace(
-									[
-										Routes.admin,
-										Routes.chatList,
-										Routes.chat,
-										Routes.chatSettings,
-										Routes.chatSettingsModeration,
-									],
-									"chatId",
-									chatInfo.id
-								)}
+								to={
+									chatInfo
+										? routeBuilderWithReplace(
+												[
+													Routes.admin,
+													Routes.chatList,
+													Routes.chat,
+													Routes.chatSettings,
+													Routes.chatSettingsModeration,
+												],
+												"chatId",
+												chatInfo.id
+										  )
+										: Routes.admin
+								}
 								className={({ isActive }) =>
 									isActive ? "active-nav-link" : undefined
 								}

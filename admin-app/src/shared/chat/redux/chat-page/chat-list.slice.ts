@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
-import { IChat } from "interfaces/chat.interface";
 import { getChatsList } from "../../services/data";
-import { ITableDataInterface } from "interfaces/dto/table-data.interface";
 import { Limits } from "constants/limits";
+import { fromChatDtoService } from "shared/chat/services/from-chat-dto.service";
+import { IChat } from "shared/chat/types/chat.interface";
 
 interface IChatsState {
 	list: IChat[];
@@ -36,11 +36,11 @@ export const getAllChats = createAsyncThunk(
 	"chats/getAllChats",
 	async ({ token, params }: IGetAllChats) => {
 		const { page, limit, isHidden } = params;
-		return (await getChatsList(token, {
+		return getChatsList(token, {
 			limit: limit,
 			offset: page * limit,
 			isHidden: isHidden,
-		})) as ITableDataInterface<IChat>;
+		});
 	}
 );
 
@@ -58,8 +58,9 @@ export const chatsSlice = createSlice({
 	extraReducers: (builder) => {
 		builder
 			.addCase(getAllChats.fulfilled, (state, action) => {
-				state.list = state.list.concat((action.payload?.data as IChat[]) || []);
-				state.total = action.payload.total;
+				const response = action.payload.data;
+				state.list = state.list.concat(response.data.map(fromChatDtoService));
+				state.total = response.total;
 				state.hasMore = state.page * Limits.chatsPerPage < state.total;
 				state.isLoading = false;
 			})

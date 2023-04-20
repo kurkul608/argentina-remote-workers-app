@@ -1,44 +1,15 @@
-import { ISelectedChat } from "shared/chat/types/chat-types";
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { chatChangeVisible, getChat } from "../../services/data";
-import { IChatInterface } from "interfaces/chat.interface";
+import { IChat } from "shared/chat/types/chat.interface";
+import { fromChatDtoService } from "shared/chat/services/from-chat-dto.service";
 
 interface IChatState {
-	data: ISelectedChat;
+	chat?: IChat;
 	isLoading: boolean;
 	error: string;
 }
 
 const initialState: IChatState = {
-	data: {
-		chat: { id: 1, type: "test", title: "test", isHidden: false },
-		photos: {},
-		chatInfo: {
-			id: 1,
-			join_to_send_messages: true,
-			type: "group",
-			title: "test",
-			permissions: {
-				can_send_messages: true,
-				can_send_media_messages: true,
-				can_send_audios: true,
-				can_send_documents: true,
-				can_send_photos: true,
-				can_send_videos: true,
-				can_send_video_notes: true,
-				can_send_voice_notes: true,
-				can_send_polls: true,
-				can_send_other_messages: true,
-				can_add_web_page_previews: true,
-				can_change_info: true,
-				can_invite_users: true,
-				can_pin_messages: true,
-				can_manage_topics: true,
-			},
-		},
-		chatMembersCount: 0,
-		payments: [],
-	},
 	isLoading: false,
 	error: "",
 };
@@ -53,17 +24,13 @@ interface IChangeVisibleParams extends IChatParams {
 export const getChatAsync = createAsyncThunk(
 	"chat/getChat",
 	async ({ id, token }: IChatParams) => {
-		return (await getChat(id, token)) as ISelectedChat;
+		return getChat(id, token);
 	}
 );
 export const changeVisibleAsync = createAsyncThunk(
 	"chat/changeVisible",
 	async ({ id, token, isHidden }: IChangeVisibleParams) => {
-		return (await chatChangeVisible(
-			id,
-			{ isHidden: !isHidden },
-			token
-		)) as IChatInterface;
+		return chatChangeVisible(id, { isHidden: !isHidden }, token);
 	}
 );
 
@@ -72,17 +39,15 @@ export const chatSlice = createSlice({
 	initialState: initialState,
 	reducers: {
 		clearChat: (state) => {
-			state.data = initialState.data;
+			state.chat = initialState.chat;
 		},
 	},
 	extraReducers: (builder) => {
-		builder.addCase(
-			getChatAsync.fulfilled,
-			(state, action: PayloadAction<ISelectedChat>) => {
-				state.data = action.payload;
-				state.isLoading = false;
-			}
-		);
+		builder.addCase(getChatAsync.fulfilled, (state, action) => {
+			const response = action.payload.data;
+			state.chat = fromChatDtoService(response);
+			state.isLoading = false;
+		});
 		builder.addCase(getChatAsync.pending, (state) => {
 			state.isLoading = true;
 		});
@@ -90,8 +55,14 @@ export const chatSlice = createSlice({
 			state.isLoading = false;
 			state.error = action.payload as string;
 		});
+		builder.addCase(changeVisibleAsync.rejected, (state) => {
+			state.isLoading = false;
+		});
+		builder.addCase(changeVisibleAsync.pending, (state) => {
+			state.isLoading = true;
+		});
 		builder.addCase(changeVisibleAsync.fulfilled, (state) => {
-			state.data.chat.isHidden = !state.data.chat.isHidden;
+			state.chat!.isHidden = !state.chat!.isHidden;
 		});
 	},
 });
