@@ -63,15 +63,15 @@ export class ChatsService {
     return this.chatModel.find().where('id').in(ids);
   }
 
-  async changeVisible(chatId: number, isHidden: boolean) {
+  async changeVisible(chatId: string, isHidden: boolean) {
     const chat = await this.getChat(chatId);
     if (chat) {
       await chat.updateOne({ isHidden });
     }
     return chat;
   }
-  async getChat(chatId: number) {
-    const chat = await this.chatModel.findOne({ id: chatId });
+  async getChat(chatId: string) {
+    const chat = await this.chatModel.findById(chatId);
     if (chat) {
       return chat;
     }
@@ -103,20 +103,14 @@ export class ChatsService {
     };
   }
 
-  async getChatInfo(chatId: number, paymentType?: PaymentType) {
+  async getChatInfo(chatId: string, paymentType?: PaymentType) {
     const chat = await this.getChat(chatId);
-    const payments = paymentType
-      ? await this.paymentService.getPaymentsByTypeAndChat(chatId, paymentType)
-      : [];
-    const chatTGInfo = await this.botService.getChatTGInfo(chatId);
+    const chatTGInfo = await this.botService.getChatTGInfo(
+      chat.tg_chat_info.chat_info.id,
+    );
+    await chat.updateOne({ ...chatTGInfo });
 
-    if (chat) {
-      return {
-        chat,
-        ...chatTGInfo,
-        payments: payments,
-      };
-    }
+    return chat;
   }
 
   async getChatsByIds(ids: string[]) {
