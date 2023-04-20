@@ -1,4 +1,10 @@
-import { forwardRef, Inject, Injectable } from '@nestjs/common';
+import {
+  forwardRef,
+  HttpException,
+  HttpStatus,
+  Inject,
+  Injectable,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Chat, ChatDocument } from './chats.schema';
 import { Model, Types } from 'mongoose';
@@ -75,6 +81,17 @@ export class ChatsService {
     if (chat) {
       return chat;
     }
+  }
+  async getChatById(chatId: string) {
+    const chat = await this.chatModel.findById(chatId);
+
+    if (!chat) {
+      throw new HttpException(
+        'Document (Chat) not found',
+        HttpStatus.NOT_FOUND,
+      );
+    }
+    return chat;
   }
   async getAll(limit: number, offset: number, isHidden: boolean) {
     const filters = {};
