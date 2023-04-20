@@ -1,4 +1,10 @@
-import { forwardRef, Inject, Injectable } from '@nestjs/common';
+import {
+  forwardRef,
+  HttpException,
+  HttpStatus,
+  Inject,
+  Injectable,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Chat, ChatDocument } from './chats.schema';
 import { Model, Types } from 'mongoose';
@@ -40,17 +46,28 @@ export class ChatsService {
   }
 
   async changeVisible(chatId: number, isHidden: boolean) {
-    const chat = await this.getChat(chatId);
+    const chat = await this.getChatByTGID(chatId);
     if (chat) {
       await chat.updateOne({ isHidden });
     }
     return chat;
   }
-  async getChat(chatId: number) {
-    const chat = await this.chatModel.findOne({ id: chatId });
+  async getChatByTGID(tgId: number) {
+    const chat = await this.chatModel.findOne({ id: tgId });
     if (chat) {
       return chat;
     }
+  }
+  async getChatById(chatId: string) {
+    const chat = await this.chatModel.findById(chatId);
+
+    if (!chat) {
+      throw new HttpException(
+        'Document (Chat) not found',
+        HttpStatus.NOT_FOUND,
+      );
+    }
+    return chat;
   }
   async getAll(limit: number, offset: number, isHidden: boolean) {
     const filters = {};
@@ -79,7 +96,7 @@ export class ChatsService {
   }
 
   async getChatInfo(chatId: number, paymentType?: PaymentType) {
-    const chat = await this.getChat(chatId);
+    const chat = await this.getChatByTGID(chatId);
     const payments = paymentType
       ? await this.paymentService.getPaymentsByTypeAndChat(chatId, paymentType)
       : [];

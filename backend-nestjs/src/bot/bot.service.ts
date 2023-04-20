@@ -1,11 +1,18 @@
-import { Injectable } from '@nestjs/common';
+import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { InjectBot } from 'nestjs-telegraf';
-import { Context, Telegraf, Markup } from 'telegraf';
+import { Context, Telegraf } from 'telegraf';
 import { MessageDocument } from '../message/message.schema';
+import { ChatsService } from '../chats/chats.service';
+import { SetRestrictPermissionsDto } from '../setting/dto/set-restrict-permissions.dto';
+import { SetAdminPermissionsDto } from '../setting/dto/set-admin-permissions.dto';
 
 @Injectable()
 export class BotService {
-  constructor(@InjectBot() private readonly bot: Telegraf<Context>) {}
+  constructor(
+    @InjectBot() private readonly bot: Telegraf<Context>,
+    @Inject(forwardRef(() => ChatsService))
+    private readonly chatService: ChatsService,
+  ) {}
 
   async sendMessage(
     chatId: number,
@@ -71,5 +78,25 @@ export class BotService {
       chatMembersCount,
       photos: photosLinks,
     };
+  }
+  async getChatTGAdmins(chatId: string) {
+    const chatInfo = await this.chatService.getChatById(chatId);
+    return await this.bot.telegram.getChatAdministrators(chatInfo.id);
+  }
+  async promoteUserToAdmin(
+    chatId: string,
+    id: number,
+    params: SetAdminPermissionsDto,
+  ) {
+    const chatInfo = await this.chatService.getChatById(chatId);
+    return await this.bot.telegram.promoteChatMember(chatInfo.id, id, params);
+  }
+  async restrictAdminToUser(
+    chatId: string,
+    id: number,
+    params: SetRestrictPermissionsDto,
+  ) {
+    const chatInfo = await this.chatService.getChatById(chatId);
+    return await this.bot.telegram.restrictChatMember(chatInfo.id, id, params);
   }
 }
