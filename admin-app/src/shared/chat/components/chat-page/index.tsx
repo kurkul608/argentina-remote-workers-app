@@ -66,7 +66,7 @@ export const ChatListWidget = () => {
 				routeBuilderWithReplace(
 					[Routes.admin, Routes.chatList, Routes.chat],
 					"chatId",
-					chat.tgChatInfo.chatInfo.id
+					chat._id
 				)
 			),
 		[navigate]
@@ -77,7 +77,7 @@ export const ChatListWidget = () => {
 				routeBuilderWithReplace(
 					[Routes.admin, Routes.chatList, Routes.chat, Routes.chatSettings],
 					"chatId",
-					chat.tgChatInfo.chatInfo.id
+					chat._id
 				)
 			),
 		[navigate]

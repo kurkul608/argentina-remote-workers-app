@@ -14,7 +14,7 @@ const initialState: IChatState = {
 	error: "",
 };
 interface IChatParams {
-	id: number;
+	id: string;
 	token: string;
 }
 
@@ -49,6 +49,7 @@ export const chatSlice = createSlice({
 			state.isLoading = false;
 		});
 		builder.addCase(getChatAsync.pending, (state) => {
+			state.chat = undefined;
 			state.isLoading = true;
 		});
 		builder.addCase(getChatAsync.rejected, (state, action) => {

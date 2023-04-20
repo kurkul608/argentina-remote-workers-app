@@ -18,11 +18,15 @@ export const ChatInfoWidget = () => {
 		keyPrefix: "chatInfoWidget",
 	});
 	const { chatId } = useParams();
+
 	const { chatInfo, chatMembersCount, auth } = useAppSelector(selector);
+
 	const dispatch = useAppDispatch();
+
 	const token = getAuthToken(auth)!;
+
 	useEffect(() => {
-		if (chatId) dispatch(getChatAsync({ id: +chatId, token }));
+		if (chatId) dispatch(getChatAsync({ id: chatId, token }));
 	}, []);
 
 	const count = chatMembersCount;

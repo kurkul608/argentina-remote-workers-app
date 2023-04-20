@@ -43,7 +43,7 @@ export const ChatWidget = () => {
 	const dispatch = useAppDispatch();
 	const token = getAuthToken(auth)!;
 	useEffect(() => {
-		if (chatId) dispatch(getChatAsync({ id: +chatId, token }));
+		if (chatId) dispatch(getChatAsync({ id: chatId, token }));
 	}, [token]);
 	return (
 		<>
